@@ -61,8 +61,11 @@ const fs = require('fs');
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
-      await page.goto(film.link, { waitUntil: 'networkidle', timeout: 25000 });
-      await page.waitForTimeout(1000);
+      await page.goto(film.link, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      // Attend explicitement que les infos du film s'affichent (jusqu'à 8s)
+      await page.waitForFunction(() => document.body.innerText.includes('Réalisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
+      await page.waitForTimeout(800);
+
       const details = await page.evaluate(() => {
         const text = document.body.innerText || '';
         const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
@@ -73,14 +76,12 @@ const fs = require('fs');
         const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
         const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
 
-        // Extraction de la durée (ex: 1h 31min ou 1h31) et du genre
         let duration = '';
         let genre = '';
         const durIdx = lines.findIndex(l => l.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i));
         if (durIdx !== -1) {
           const match = lines[durIdx].match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
-          duration = match ? match.trim() : '';
-          // Cherche le genre sur la même ligne (après •) ou sur les lignes voisines
+          duration = match ? match[0].trim() : '';
           if (lines[durIdx].includes('•')) {
             const parts = lines[durIdx].split('•').map(p => p.trim()).filter(p => p && !p.includes(duration));
             if (parts.length > 0) genre = parts.join(', ');
@@ -90,13 +91,14 @@ const fs = require('fs');
           }
         }
         
-        const candidates = Array.from(document.querySelectorAll('p, div, span, [class*="synopsis"], [class*="description"]'))
+        // Prend tous les blocs de texte longs et garde le premier (qui est le synopsis)
+        const candidates = Array.from(document.querySelectorAll('p, div, span'))
           .filter(el => el.children.length === 0 || el.tagName === 'P')
           .map(el => el.innerText?.trim() || '')
-          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026'));
+          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026') && !t.includes('Horaires'));
         candidates.sort((a, b) => b.length - a.length);
 
-        return { duration, genre, director, cast, synopsis: candidates || '' };
+        return { duration, genre, director, cast, synopsis: candidates[0] || '' };
       });
       film.duration = details.duration;
       film.genre = details.genre;
