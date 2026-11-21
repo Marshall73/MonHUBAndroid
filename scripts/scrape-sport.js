@@ -107,7 +107,7 @@ const fs = require('fs');
         schedule?.getAttribute('data-schedule-section') === 'past' ||
         lines.some(line => /^terminé(?:e)?$/i.test(line));
       const isLive = scheduleType
-        ? scheduleType === 'live' || scheduleType === 'streaming'
+        ? ['live', 'streaming', 'show'].includes(scheduleType) || finished
         : /\b(Direct|En cours|Streaming)\b/i.test(text) || finished;
       const isExcluded = /\b(Rediffusion|Magazine|Sans diffusion TV|Aucune diffusion TV)\b/i.test(text);
       const compLine = lines.find(l => l.includes('·')) || text;
