@@ -16,6 +16,14 @@
     "channel": "beIN SPORTS MAX 10"
   },
   {
+    "sport": "Tennis",
+    "time": "13:30",
+    "status": "Direct",
+    "title": "France – Australie",
+    "competition": "Billie Jean King Cup",
+    "channel": "beIN SPORTS 3"
+  },
+  {
     "sport": "Foot",
     "time": "13:45",
     "status": "Direct",
