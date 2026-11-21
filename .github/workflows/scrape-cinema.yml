@@ -22,8 +22,7 @@ jobs:
 
       - name: Installer Playwright Chromium
         run: |
-          npm init -y
-          npm install playwright
+          npm install --no-save playwright
           npx playwright install chromium --with-deps
 
       - name: Aspirer les horaires de cinéma
