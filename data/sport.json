@@ -1,19 +1,35 @@
 [
   {
     "sport": "Foot",
-    "time": "20:15",
-    "status": "Direct",
-    "title": "Lille – Lyon",
-    "competition": "Foot",
-    "channel": "Lille – Lyon 🔥"
-  },
-  {
-    "sport": "Foot",
     "time": "17:05",
     "status": "En cours",
     "title": "Nice – PSG",
     "competition": "Foot",
-    "channel": "Nice – PSG 🔥"
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:00",
+    "status": "Direct",
+    "title": "Reims – Saint-Etienne",
+    "competition": "Ligue 2",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:00",
+    "status": "Direct",
+    "title": "Etape de Vérone",
+    "competition": "Global Champions Tour",
+    "channel": "Eurosport 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:15",
+    "status": "Direct",
+    "title": "Lille – Lyon",
+    "competition": "Foot",
+    "channel": "Ligue 1+ 3"
   },
   {
     "sport": "Rugby",
@@ -21,54 +37,6 @@
     "status": "Direct",
     "title": "France – Argentine",
     "competition": "Rugby",
-    "channel": "France – Argentine ⭐"
-  },
-  {
-    "sport": "Foot",
-    "time": "18:00",
-    "status": "Direct",
-    "title": "Burgos – Malaga",
-    "competition": "Liga Endesa",
-    "channel": "Burgos – Malaga"
-  },
-  {
-    "sport": "Foot",
-    "time": "18:00",
-    "status": "Direct",
-    "title": "Parme – AS Roma",
-    "competition": "Serie A",
-    "channel": "Parme – AS Roma"
-  },
-  {
-    "sport": "Foot",
-    "time": "18:00",
-    "status": "Direct",
-    "title": "Kansas Jayhawks – Brigham Young University",
-    "competition": "NCAA",
-    "channel": "Kansas Jayhawks – Brigham Young University"
-  },
-  {
-    "sport": "Foot",
-    "time": "18:24",
-    "status": "Direct",
-    "title": "Schalke 04 – Stuttgart",
-    "competition": "Bundesliga",
-    "channel": "Schalke 04 – Stuttgart ✨"
-  },
-  {
-    "sport": "Foot",
-    "time": "18:25",
-    "status": "Direct",
-    "title": "Newcastle – Arsenal",
-    "competition": "Premier League",
-    "channel": "Newcastle – Arsenal ✨"
-  },
-  {
-    "sport": "Foot",
-    "time": "18:30",
-    "status": "Direct",
-    "title": "FC Séville – Betis Séville",
-    "competition": "La Liga",
-    "channel": "FC Séville – Betis Séville"
+    "channel": "TF1"
   }
 ]
