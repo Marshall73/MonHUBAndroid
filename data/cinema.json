@@ -4,82 +4,73 @@
     "title": "Camembert",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/de/01/de019123ff2a620ecfc2c45bc743ab01.jpg",
     "times": [
-      "14:00",
-      "16:15",
       "20:05",
       "22:00"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/316136-camembert/",
+    "director": "Matthieu Rumani, Nicolas Slomka",
+    "cast": "Kristin Scott Thomas, Alex Lutz, Pascale Arbillot",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
     "title": "Hunger Games : Lever de soleil sur la moisson",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/f1/24/f124e39fa139536fceb9005cab53fc04.jpg",
     "times": [
-      "14:00",
-      "16:00",
-      "19:00",
       "20:45"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000004528-hunger-games-lever-de-soleil-sur-la-moisson/",
+    "director": "Francis Lawrence",
+    "cast": "Joseph Zada, Whitney Peak, Mckenna Grace",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
     "title": "Jupiter",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/2f/ab/2fabb861ff01b7c43b24c0cdafb0931a.jpg",
     "times": [
-      "14:00",
-      "17:00",
-      "19:00",
       "22:00"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000022995-jupiter/",
+    "director": "Alexandre Smia",
+    "cast": "Denis Ménochet, André Dussollier, Reda Kateb",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
     "title": "Comment braquer une banque",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/12/bb/12bb4f199e78e6b5d5d1bcbcbe702acb.jpg",
     "times": [
-      "18:25",
       "21:50"
-    ]
-  },
-  {
-    "cinema": "Les Toiles du Lac - Aix-les-Bains",
-    "title": "George Michael: The Faith Tour",
-    "poster": "https://all.web.img.acsta.net/r_2500_x/img/12/fe/12fe0f3e44f1496bc60393eaf07d35f8.jpg",
-    "times": [
-      "19:45"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000020289-comment-braquer-une-banque/",
+    "director": "David Leitch",
+    "cast": "Nicholas Hoult, Pete Davidson, Zoë Kravitz",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
     "title": "Il faut brûler Maman",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/b7/22/b722617d1263956a4b556c739a49afc3.jpg",
     "times": [
-      "14:00",
-      "15:50",
-      "18:10",
       "20:05"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000039483-il-faut-bruler-maman/",
+    "director": "Albert Dupontel",
+    "cast": "Louise Coldefy, Julia Piaton, Artus",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
     "title": "Scrooge",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/ee/1d/ee1d9a9f275b9d7332cf8dff0c5dfd27.jpg",
     "times": [
-      "14:00",
-      "16:10",
-      "17:50",
       "21:45"
-    ]
-  },
-  {
-    "cinema": "Les Toiles du Lac - Aix-les-Bains",
-    "title": "L'Affaire Marie-Claire",
-    "poster": "https://all.web.img.acsta.net/r_2500_x/img/4a/3c/4a3cf95bb345d5d71bdc7acf3430323b.jpg",
-    "times": [
-      "15:50",
-      "18:05",
-      "19:50"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000034007-scrooge/",
+    "director": "Ti West",
+    "cast": "Johnny Depp, Rupert Grint, Daisy Ridley",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
@@ -87,49 +78,34 @@
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/e0/fa/e0fa1b691ed74bcdc54a9761aa33dbb4.jpg",
     "times": [
       "22:00"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000031925-un-bon-patron/",
+    "director": "Philippe de Chauveron",
+    "cast": "Didier Bourdon, Catherine Frot, Jean-François Cayrey",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
     "title": "Moulin",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/0f/7f/0f7fb216155bf7bcf7bb69d9e2f65310.jpg",
     "times": [
-      "14:00",
-      "15:40",
       "20:45"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000020311-moulin/",
+    "director": "László Nemes",
+    "cast": "Gilles Lellouche, Lars Eidinger, Louise Bourgoin",
+    "synopsis": ""
   },
   {
     "cinema": "Les Toiles du Lac - Aix-les-Bains",
     "title": "Karma",
     "poster": "https://all.web.img.acsta.net/r_2500_x/img/94/0a/940afff3ed3b09677bf94e2bc7c3009b.jpg",
     "times": [
-      "17:30",
       "20:15"
-    ]
-  },
-  {
-    "cinema": "Les Toiles du Lac - Aix-les-Bains",
-    "title": "L'île des souvenirs",
-    "poster": "https://all.web.img.acsta.net/r_2500_x/img/56/7e/567e74d867a1c88b20897c5d7f92d4dd.jpg",
-    "times": [
-      "14:00"
-    ]
-  },
-  {
-    "cinema": "Les Toiles du Lac - Aix-les-Bains",
-    "title": "Les Misérables",
-    "poster": "https://all.web.img.acsta.net/r_2500_x/img/5a/41/5a4186d62d534f2da65c2e9e8e822a34.jpg",
-    "times": [
-      "16:30"
-    ]
-  },
-  {
-    "cinema": "Les Toiles du Lac - Aix-les-Bains",
-    "title": "Ducobu et le fantôme de Saint-Potache",
-    "poster": "https://all.web.img.acsta.net/r_2500_x/img/54/16/54167f9b523fff67b07b2e80f5f9dd71.jpg",
-    "times": [
-      "14:00"
-    ]
+    ],
+    "link": "https://lestoilesdulac.com/films/1000018384-karma/",
+    "director": "Guillaume Canet",
+    "cast": "Marion Cotillard, Denis Ménochet, Leonardo Sbaraglia",
+    "synopsis": ""
   }
 ]
