@@ -64,8 +64,22 @@ const fs = require('fs');
       const text = block.innerText || '';
       const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
 
+      const scheduleItem = block.closest('li.schedule-item, article');
       const schedule = block.closest('[data-schedule-type]');
       const scheduleType = schedule?.getAttribute('data-schedule-type');
+
+      const timing = scheduleItem?.querySelector('[data-starts-at][data-ends-at]') ??
+        block.querySelector('[data-starts-at][data-ends-at]') ??
+        schedule?.querySelector('[data-starts-at][data-ends-at]');
+
+      const startAt = timing?.getAttribute('data-starts-at') || '';
+      const endAt = timing?.getAttribute('data-ends-at') || '';
+
+      if (!startAt || !endAt ||
+          !Number.isFinite(Date.parse(startAt)) ||
+          !Number.isFinite(Date.parse(endAt)) ||
+          Date.parse(endAt) <= Date.parse(startAt)) continue;
+
       const finished = schedule?.getAttribute('data-is-past') === '1' ||
         schedule?.getAttribute('data-schedule-section') === 'past' ||
         lines.some(line => /^terminé(?:e)?$/i.test(line));
@@ -79,9 +93,9 @@ const fs = require('fs');
       const sport = normalizeSport(compLine);
       if (!sport) continue;
 
-      const timeMatch = text.match(/\b(\d{1,2})h(\d{2})\b/);
+      const timeMatch = startAt.match(/T(\d{2}):(\d{2})/);
       if (!timeMatch) continue;
-      const time = `${timeMatch.at(1).padStart(2, '0')}:${timeMatch.at(2)}`;
+      const time = `${timeMatch[1]}:${timeMatch[2]}`;
 
       const rawH3 = block.querySelector('h3')?.innerText || '';
       const title = rawH3.replace(/[🔥✨⭐]/g, '').trim();
@@ -108,8 +122,9 @@ const fs = require('fs');
         sport,
         time,
         status: finished ? 'Terminé' : /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
-        date: (block.querySelector('[data-starts-at]') ?? schedule?.querySelector('[data-starts-at]'))
-          ?.getAttribute('data-starts-at')?.slice(0, 10) || today,
+        date: startAt.slice(0, 10),
+        startAt,
+        endAt,
         title,
         competition,
         channel

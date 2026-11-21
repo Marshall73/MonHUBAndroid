@@ -11,6 +11,7 @@ import {
 import {
   fetchTvSchedule,
   filterPrograms,
+  getProgramStatus,
   programKey,
   type ProgramView,
   type TvProgram,
@@ -123,14 +124,18 @@ function ProgramCard({
   item,
   index,
   reduceMotion,
+  now,
 }: {
   item: TvProgram;
   index: number;
   reduceMotion: boolean;
+  now: Date;
 }) {
   const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
   const competition = item.competition || item.sport;
-  const finished = item.status === 'Terminé';
+  const status = getProgramStatus(item, now);
+  const finished = status === 'Terminé';
+  const upcoming = status === 'À venir';
   const normalizedTitle = searchable(item.title).replace(/[^\p{L}\p{N}]/gu, '');
   const normalizedChannel = searchable(item.channel).replace(/[^\p{L}\p{N}]/gu, '');
   const hasChannel = normalizedChannel !== '' && normalizedChannel !== 'chainetv' &&
@@ -153,10 +158,10 @@ function ProgramCard({
         <Text className="text-base font-bold leading-6 text-zinc-50">{item.title}</Text>
         <View className="flex-row flex-wrap items-center gap-x-2 gap-y-1">
           <Text className="text-sm text-zinc-400">{competition}</Text>
-          <View className={`flex-row items-center gap-1.5 rounded-full px-2 py-1 ${finished ? 'bg-zinc-800' : 'bg-emerald-500/15'}`}>
-            <View className={`h-1.5 w-1.5 rounded-full ${finished ? 'bg-zinc-400' : 'bg-emerald-400'}`} />
-            <Text className={`text-xs font-semibold ${finished ? 'text-zinc-300' : 'text-emerald-200'}`}>
-              {item.status}
+          <View className={`flex-row items-center gap-1.5 rounded-full px-2 py-1 ${finished ? 'bg-zinc-800' : upcoming ? 'bg-blue-500/15' : 'bg-emerald-500/15'}`}>
+            <View className={`h-1.5 w-1.5 rounded-full ${finished ? 'bg-zinc-400' : upcoming ? 'bg-blue-400' : 'bg-emerald-400'}`} />
+            <Text className={`text-xs font-semibold ${finished ? 'text-zinc-300' : upcoming ? 'text-blue-200' : 'text-emerald-200'}`}>
+              {status}
             </Text>
           </View>
         </View>
@@ -270,7 +275,7 @@ export function TvFranceList({
       data={filteredPrograms}
       keyExtractor={programKey}
       renderItem={({ item, index }) => (
-        <ProgramCard item={item} index={index} reduceMotion={reduceMotion} />
+        <ProgramCard item={item} index={index} reduceMotion={reduceMotion} now={now} />
       )}
       refreshControl={
         <RefreshControl
