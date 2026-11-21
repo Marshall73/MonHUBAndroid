@@ -1,4 +1,4 @@
-﻿const { chromium } = require('playwright');
+const { chromium } = require('playwright');
 const fs = require('fs');
 
 (async () => {
@@ -18,14 +18,15 @@ const fs = require('fs');
     await page.waitForTimeout(1500);
   } catch (e) {}
 
+  // 1. Récupère tous les films et TOUS les horaires (y compris les séances passées/grisées via textContent)
   const films = await page.evaluate(() => {
     const timeRegex = /\b(?:\d|2[0-3]):[0-5]\d\b/g;
     const allElements = Array.from(document.querySelectorAll('div, article, section, li'));
     const movieCards = allElements.filter(el => {
       const hasImg = el.querySelector('img');
-      const text = el.innerText || '';
+      const text = el.textContent || '';
       const times = text.match(timeRegex);
-      return hasImg && times && times.length >= 1 && text.length < 1500 && text.length > 15;
+      return hasImg && times && times.length >= 1 && text.length < 2500 && text.length > 15;
     });
     const leafCards = movieCards.filter(card => !movieCards.some(other => other !== card && card.contains(other)));
 
@@ -33,8 +34,10 @@ const fs = require('fs');
     const seen = new Set();
 
     for (const card of leafCards) {
-      const lines = card.innerText.split('\n').map(l => l.trim()).filter(Boolean);
-      const times = Array.from(new Set((card.innerText.match(timeRegex) || [])));
+      const lines = (card.innerText || '').split('\n').map(l => l.trim()).filter(Boolean);
+      // textContent capture même les horaires masqués ou grisés dans le HTML
+      const rawTimes = (card.textContent || '').match(timeRegex) || [];
+      const times = Array.from(new Set(rawTimes)).sort();
       const title = lines.find(l => !l.match(/^\d{1,2}:\d{2}$/) && l.length > 2 && !['VF', 'VOST', 'VOSTFR', '2D', '3D', 'Achat rapide'].includes(l));
       const poster = card.querySelector('img')?.src || '';
       const link = card.querySelector('a[href*="/film"], a[href*="/movie"], a')?.href || '';
@@ -58,22 +61,22 @@ const fs = require('fs');
     return results;
   });
 
+  // 2. Visite chaque fiche film pour extraire durée, genre, réalisation, casting et synopsis
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
       await page.goto(film.link, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      // Attend explicitement que les infos du film s'affichent (jusqu'Ã  8s)
-      await page.waitForFunction(() => document.body.innerText.includes('RÃ©alisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
+      await page.waitForFunction(() => document.body.innerText.includes('Réalisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
       await page.waitForTimeout(800);
 
       const details = await page.evaluate(() => {
         const text = document.body.innerText || '';
         const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
         
-        const dirLine = lines.find(l => l.match(/^(RÃ©alisation|De)\s*:/i));
+        const dirLine = lines.find(l => l.match(/^(Réalisation|De)\s*:/i));
         const castLine = lines.find(l => l.match(/^(Casting|Avec)\s*:/i));
         
-        const director = dirLine ? dirLine.replace(/^(RÃ©alisation|De)\s*:\s*/i, '').trim() : '';
+        const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
         const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
 
         let duration = '';
@@ -81,24 +84,26 @@ const fs = require('fs');
         const durIdx = lines.findIndex(l => l.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i));
         if (durIdx !== -1) {
           const match = lines[durIdx].match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
-          duration = match ? match[0].trim() : '';
-          if (lines[durIdx].includes('â€¢')) {
-            const parts = lines[durIdx].split('â€¢').map(p => p.trim()).filter(p => p && !p.includes(duration));
-            if (parts.length > 0) genre = parts.join(', ');
-          }
-          const nextLine = nextLine === "•" ? lines[durIdx + 2] : nextLine; if (!genre && nextLine && nextLine.length < 45 && !nextLine.includes(':')) {
-            genre = nextLine.replace(/^â€¢\s*/, '').trim();
+          duration = match ? match.trim() : '';
+          
+          // Cherche le genre autour de la durée (en ignorant les '•' isolés)
+          const surrounding = [lines[durIdx], lines[durIdx + 1], lines[durIdx + 2]].filter(Boolean);
+          for (const line of surrounding) {
+            const cleaned = line.replace(duration, '').replace(/•/g, '').trim();
+            if (cleaned.length > 2 && cleaned.length < 40 && !cleaned.includes(':') && !cleaned.match(/\d/)) {
+              genre = cleaned;
+              break;
+            }
           }
         }
         
-        // Prend tous les blocs de texte longs et garde le premier (qui est le synopsis)
         const candidates = Array.from(document.querySelectorAll('p, div, span'))
           .filter(el => el.children.length === 0 || el.tagName === 'P')
           .map(el => el.innerText?.trim() || '')
-          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions lÃ©gales') && !t.includes('Â© 2026') && !t.includes('Horaires'));
+          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026') && !t.includes('Horaires'));
         candidates.sort((a, b) => b.length - a.length);
 
-        return { duration, genre, director, cast, synopsis: candidates[0] || '' };
+        return { duration, genre, director, cast, synopsis: candidates || '' };
       });
       film.duration = details.duration;
       film.genre = details.genre;
