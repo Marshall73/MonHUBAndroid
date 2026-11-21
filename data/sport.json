@@ -1,1 +1,2599 @@
-[]
+[
+  {
+    "sport": "Foot",
+    "time": "00:00",
+    "title": "Les matchs de Ligue 1",
+    "competition": "Sport",
+    "channel": "CANAL+ Ligue 1 Uber Eats"
+  },
+  {
+    "sport": "Foot",
+    "time": "00:00",
+    "title": "L'équipe de Steph",
+    "competition": "Football",
+    "channel": "ElleGirl"
+  },
+  {
+    "sport": "Foot",
+    "time": "00:00",
+    "title": "Histoires de Premier League 2026 / 2027 - Emission du 27 oct. 2026",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "00:05",
+    "title": "Ligue 1 Show - Episode 10",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "00:35",
+    "title": "LaLiga Show - Episode 12",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "00:40",
+    "title": "Essai - S01E01 - Essai de la Volkswagen Taigo : un SUV de plus, pertinent ?",
+    "competition": "Magazine",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "00:43",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "00:53",
+    "title": "Football : Premier League - Football",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "00:55",
+    "title": "Manchester United / Aston Villa",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "00:56",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "01:00",
+    "title": "La Premier League sur Canal+ - Mag. Football",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "01:00",
+    "title": "FC Barcelone / Getafe - Football. Liga 8e journée.",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "01:13",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "01:13",
+    "title": "La révélation Antoine Mille par Benjamin Nivet",
+    "competition": "Documentaire sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "01:15",
+    "title": "Programmation nuit",
+    "competition": "Programme indéterminé",
+    "channel": "Gulli"
+  },
+  {
+    "sport": "Foot",
+    "time": "01:26",
+    "title": "Football : Ligue 1 McDonald's | Angers / Auxerre",
+    "competition": "Football",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "01:28",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "01:30",
+    "title": "Moto GP : Grand Prix du Portugal | Grand Prix du Portugal",
+    "competition": "Moto GP",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "MMA",
+    "time": "01:30",
+    "title": "Programmation de nuit",
+    "competition": "Emission spéciale",
+    "channel": "RMC Talk Sport"
+  },
+  {
+    "sport": "Foot",
+    "time": "01:35",
+    "title": "Afrofoot",
+    "competition": "Football",
+    "channel": "Télésud"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "01:43",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "01:58",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "02:00",
+    "title": "Football : Süper Lig | Galatasaray / Amedspor",
+    "competition": "Football",
+    "channel": "beIN SPORTS 2"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "02:13",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "02:28",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "02:30",
+    "title": "Football's Greatest Stage - More Than A Player",
+    "competition": "Sport",
+    "channel": "TRACESportStars"
+  },
+  {
+    "sport": "Foot",
+    "time": "02:30",
+    "title": "Football : Qualifications de la CAN | Côte d'Ivoire / Gambie",
+    "competition": "Football",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "02:37",
+    "title": "Moto GP : Grand Prix du Portugal | Grand Prix du Portugal",
+    "competition": "Moto GP",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "02:43",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MMA",
+    "time": "02:44",
+    "title": "Megastadium : le tour d'Europe - Budapest vs Bucarest : les temples des titans",
+    "competition": "Documentaire scientifique",
+    "channel": "Science et Vie TV"
+  },
+  {
+    "sport": "MMA",
+    "time": "02:50",
+    "title": "A bord de - S01E94 - Volkswagen T-Roc Cab AP",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "02:58",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "L'équipe de Steph",
+    "competition": "Football",
+    "channel": "ElleGirl"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 10",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 2",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 3",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 4",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 5",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 6",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 7",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 8",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:00",
+    "title": "Ligue 1+ 9",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "MMA",
+    "time": "03:00",
+    "title": "MMA : UFC | Ciryl Gane / Josh Hokit",
+    "competition": "Sports de combat",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:10",
+    "title": "FC Barcelone / Real Madrid - Football. Liga 10e journée.",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "03:13",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:15",
+    "title": "Quand Franck Haise (se) formait",
+    "competition": "Documentaire sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "03:28",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MMA",
+    "time": "03:42",
+    "title": "Emotions alpines - Une journée aux commandes du tramway du Mont-Blanc",
+    "competition": "Documentaire",
+    "channel": "8 Mont Blanc"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "03:43",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MMA",
+    "time": "03:45",
+    "title": "Programmation nuit",
+    "competition": "Programme indéterminé",
+    "channel": "Gulli"
+  },
+  {
+    "sport": "Foot",
+    "time": "03:47",
+    "title": "Les retrouvailles - Bruno Genesio / Clément Grenier",
+    "competition": "Interview",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "03:50",
+    "title": "Bugs Bunny Constructeurs - Mamma Mia Pizzeria",
+    "competition": "Série d'animation",
+    "channel": "Cartoonito"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "03:58",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "04:00",
+    "title": "Football : Ligue 1 McDonald's | Brest / Lyon",
+    "competition": "Football",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "MMA",
+    "time": "04:07",
+    "title": "Salon de Munich - S02E21 - La Volkswagen ID Life",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "04:13",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MMA",
+    "time": "04:26",
+    "title": "Salon de Munich - S02E20 - La Volkswagen ID.5 GTX",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "04:28",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MMA",
+    "time": "04:39",
+    "title": "Salon - Le stand Volkswagen",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "04:43",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MMA",
+    "time": "04:51",
+    "title": "Le Magazine GRDF les nouvelles solutions au gaz - S01E01 - Vous venez d'acquérir une ancienne maison ? Comme Laeticia réduisez votre consommation énergétique",
+    "competition": "Magazine",
+    "channel": "MaisonEtTravaux.fr"
+  },
+  {
+    "sport": "MMA",
+    "time": "04:56",
+    "title": "Megastadium : le tour d'Europe - Budapest vs Bucarest : les temples des titans",
+    "competition": "Documentaire scientifique",
+    "channel": "Science et Vie TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "04:58",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "05:00",
+    "title": "Football : Ligue 1 McDonald's | Troyes / Marseille",
+    "competition": "Football",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "05:13",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "05:28",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "05:30",
+    "title": "Les Green à Big City - La guerre des trottoirs / L'arnaque façon Mulligan",
+    "competition": "Séries d'animation",
+    "channel": "Disney Channel"
+  },
+  {
+    "sport": "MMA",
+    "time": "05:34",
+    "title": "Geneva Motor Show - S01E01 - I.D Buggy Volkswagen",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "05:43",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "JO",
+    "time": "05:45",
+    "title": "C'Saint-Jo - Mag. Actualités",
+    "competition": "Actualites",
+    "channel": "ANTENNE REUNION"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "05:58",
+    "title": "Image du jour : Moto GP - Grand Prix du Portugal",
+    "competition": "Sport",
+    "channel": "InfosportPlus"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Les matchs de Ligue 1",
+    "competition": "Sport",
+    "channel": "CANAL+ Ligue 1 Uber Eats"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "La Premier League sur Canal+ - Mag. Football",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ronaldo : El Presidente - Episode 1 : Le commencement",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 10",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 2",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 3",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 4",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 5",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 6",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 7",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 8",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Ligue 1+ 9",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "JO",
+    "time": "06:00",
+    "title": "La chaîne officielle de l'Olympique Lyonnais",
+    "competition": "Magazine sportif",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:00",
+    "title": "Football : Qualifications de la CAN | Côte d'Ivoire / Gambie",
+    "competition": "Football",
+    "channel": "beIN SPORTS 2"
+  },
+  {
+    "sport": "MMA",
+    "time": "06:10",
+    "title": "Wheeler Dealers France (Volkswagen 181) S9 (15/16)",
+    "competition": "Documentaire",
+    "channel": "ABX"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:30",
+    "title": "Football : Arkema Première Ligue | OL Lyonnes / US Saint Malo",
+    "competition": "Football",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "MMA",
+    "time": "06:38",
+    "title": "Le Match - Megane e-Tech et la Volkswagen ID.3",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:50",
+    "title": "Eleven Retro - Eden Hazard",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "06:53",
+    "title": "Joueurs de légende - Yoann Gourcuff",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "07:00",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "07:00",
+    "title": "Jiu-jitsu brésilien : UFC BJJ - Jitsu",
+    "competition": "Arts martiaux",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "07:00",
+    "title": "Jiu-jitsu brésilien : UFC BJJ - Jitsu",
+    "competition": "Arts martiaux",
+    "channel": "RMC Sport Access"
+  },
+  {
+    "sport": "Rugby",
+    "time": "07:00",
+    "title": "Série rugby",
+    "competition": "Sport",
+    "channel": "TVSUDNimes.fr"
+  },
+  {
+    "sport": "Foot",
+    "time": "07:15",
+    "title": "Hambourg / Borussia Mönchengladbach",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "Foot",
+    "time": "07:20",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "07:21",
+    "title": "Masha et Michka - Saison 8 - Commande à volonté",
+    "competition": "Jeunesse",
+    "channel": "Piwi+"
+  },
+  {
+    "sport": "Foot",
+    "time": "07:23",
+    "title": "Football : Premier League",
+    "competition": "Football",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "07:23",
+    "title": "Football : Premier League - Football",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "JO",
+    "time": "07:30",
+    "title": "Les Sisters - Saison 3 - Ma sister olympique",
+    "competition": "JO",
+    "channel": "TéléToon+"
+  },
+  {
+    "sport": "Foot",
+    "time": "07:38",
+    "title": "Football : Arkema Première Ligue | Toulouse / Marseille",
+    "competition": "Football",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "07:40",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "08:00",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "08:00",
+    "title": "Football's Greatest Stage",
+    "competition": "Sport",
+    "channel": "TRACESportStars"
+  },
+  {
+    "sport": "Foot",
+    "time": "08:20",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Tennis",
+    "time": "08:25",
+    "title": "Dans ma fédé - Avec les Bleus lors des Championnats du monde de tennis sourds et malentendants 2026",
+    "competition": "Magazine sportif",
+    "channel": "Sport en France"
+  },
+  {
+    "sport": "JO",
+    "time": "08:30",
+    "title": "La chaîne officielle de l'Olympique Lyonnais",
+    "competition": "Magazine sportif",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "JO",
+    "time": "08:30",
+    "title": "Les Sisters - Saison 3 - Ma sister olympique",
+    "competition": "JO",
+    "channel": "Télétoon +1"
+  },
+  {
+    "sport": "Foot",
+    "time": "08:30",
+    "title": "Afrofoot",
+    "competition": "Football",
+    "channel": "Télésud"
+  },
+  {
+    "sport": "Foot",
+    "time": "08:40",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "JO",
+    "time": "08:50",
+    "title": "Mojo TipTop - La carte au trésor",
+    "competition": "Série d'animation",
+    "channel": "France 5"
+  },
+  {
+    "sport": "JO",
+    "time": "08:59",
+    "title": "Mojo TipTop - Les agents secrets",
+    "competition": "Série d'animation",
+    "channel": "France 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Les matchs de Ligue 1",
+    "competition": "Sport",
+    "channel": "CANAL+ Ligue 1 Uber Eats"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "La Premier League sur Canal+ - Mag. Football",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 10",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 2",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 3",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 4",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 5",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 6",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 7",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 8",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Ligue 1+ 9",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Football : Ligue 1 McDonald's | Brest / Lyon",
+    "competition": "Football",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:00",
+    "title": "Histoires de Premier League",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:04",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "09:16",
+    "title": "Underdog (La télécommande infernale) S1 (4/52)",
+    "competition": "Emission Enfants",
+    "channel": "La Trois"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:24",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:25",
+    "title": "Mayence / Bayern Munich",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "Foot",
+    "time": "09:49",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:00",
+    "title": "Judo : Ligue des champions par équipes - Champions League",
+    "competition": "Arts martiaux",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:00",
+    "title": "Judo : Ligue des champions par équipes - Champions League",
+    "competition": "Arts martiaux",
+    "channel": "RMC Sport Access"
+  },
+  {
+    "sport": "Rugby",
+    "time": "10:00",
+    "title": "Série rugby",
+    "competition": "Sport",
+    "channel": "TVSUDNimes.fr"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:00",
+    "title": "Football américain : NFL | Houston Texans / Indianapolis Colts",
+    "competition": "Football américain",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:12",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:27",
+    "title": "Fractionné Football - Mamadou Sangaré : Dans la ruche",
+    "competition": "Magazine sportif",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:27",
+    "title": "Fractionné Football - Emission du 21 nov. 2026",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:32",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "10:56",
+    "title": "Salon de Munich - S02E21 - La Volkswagen ID Life",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "Foot",
+    "time": "10:56",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "11:00",
+    "title": "Moto GP : Grand Prix du Portugal | Grand Prix du Portugal",
+    "competition": "Moto GP",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Foot",
+    "time": "11:00",
+    "title": "Football : Championnat de France U19 | AS Nancy / OL",
+    "competition": "Football",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "MMA",
+    "time": "11:05",
+    "title": "Salon de Munich - S02E20 - La Volkswagen ID.5 GTX",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MMA",
+    "time": "11:07",
+    "title": "Missions Commandos - Saison 1 - Opération Héraklion",
+    "competition": "Decouverte",
+    "channel": "Canal+ Docs"
+  },
+  {
+    "sport": "Foot",
+    "time": "11:11",
+    "title": "Premier League Review - 10e journée",
+    "competition": "Magazine sportif",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "11:11",
+    "title": "Premier League Review - 10e journée",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "11:15",
+    "title": "Stuttgart / Werder Brême",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "Foot",
+    "time": "11:19",
+    "title": "Ma super Ligue 1",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "11:26",
+    "title": "Geneva Motor Show - S01E01 - I.D Buggy Volkswagen",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "Foot",
+    "time": "11:39",
+    "title": "Ligue 1 Show - 11e journée",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "11:45",
+    "title": "Moto GP : Grand Prix du Portugal | Grand Prix du Portugal",
+    "competition": "Moto GP",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "MMA",
+    "time": "11:49",
+    "title": "Sommaire Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "11:50",
+    "title": "Premier League Review - 10e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "MMA",
+    "time": "11:59",
+    "title": "Missions Commandos - Saison 1 - Opération Frankton",
+    "competition": "Decouverte",
+    "channel": "Canal+ Docs"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Les matchs de Ligue 1",
+    "competition": "Sport",
+    "channel": "CANAL+ Ligue 1 Uber Eats"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "NFL Extra - Episode 9",
+    "competition": "Football américain",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "12:00",
+    "title": "Nitto ATP Finals | Double - 1re Demi-finale - Nitto ATP Finals | Double - Demi...",
+    "competition": "Sport",
+    "channel": "Eurosport 360 - 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 10",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 2",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 3",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 4",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 5",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 6",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 7",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 8",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Ligue 1+ 9",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:00",
+    "title": "Football : Bundesliga | Bayern Munich / Cologne",
+    "competition": "Football",
+    "channel": "beIN SPORTS 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:04",
+    "title": "Late Football Club",
+    "competition": "Magazine sportif",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:04",
+    "title": "Late Football Club - Emission du 20 nov. 2026",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:05",
+    "title": "Football : Ligue 1 McDonald's | Troyes / Le Havre",
+    "competition": "Football",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:30",
+    "title": "NFL Gameday - Episode 9",
+    "competition": "Football américain",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Rugby",
+    "time": "12:37",
+    "title": "Rugby magazine Nouvelle Aquitaine",
+    "competition": "Magazine sportif",
+    "channel": "France 3 - Aquitaine"
+  },
+  {
+    "sport": "Rugby",
+    "time": "12:37",
+    "title": "Rugby magazine Occitanie",
+    "competition": "Magazine sportif",
+    "channel": "France 3 - Languedoc"
+  },
+  {
+    "sport": "Rugby",
+    "time": "12:37",
+    "title": "Rugby magazine Occitanie",
+    "competition": "Magazine sportif",
+    "channel": "France 3 - Midi-Pyrénées"
+  },
+  {
+    "sport": "Rugby",
+    "time": "12:40",
+    "title": "Rugby magazine Nouvelle Aquitaine",
+    "competition": "Magazine sportif",
+    "channel": "France 3 Nouvelle Aquitaine"
+  },
+  {
+    "sport": "MMA",
+    "time": "12:42",
+    "title": "Le Match - Megane e-Tech et la Volkswagen ID.3",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MMA",
+    "time": "12:42",
+    "title": "Sommaire Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:55",
+    "title": "Houston Texans / Indianapolis Colts - Football américain. NFL 11e journée .",
+    "competition": "Football américain",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:55",
+    "title": "Football : Bundesliga 2 | Wolfsburg / Holstein Kiel",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:00",
+    "title": "Football : Championnat de France U17 | OL / Chambéry - Championnat de France des moins de 17 ans",
+    "competition": "Football",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:00",
+    "title": "Histoires de Premier League",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:00",
+    "title": "Football's Greatest Stage",
+    "competition": "Sport",
+    "channel": "TRACESportStars"
+  },
+  {
+    "sport": "Rugby",
+    "time": "13:00",
+    "title": "Série rugby",
+    "competition": "Sport",
+    "channel": "TVSUDNimes.fr"
+  },
+  {
+    "sport": "Tennis",
+    "time": "13:06",
+    "title": "Vintage Mecanic - Autobus Saviem Sc-10 ratp",
+    "competition": "Documentaire scientifique",
+    "channel": "RMC Mecanic"
+  },
+  {
+    "sport": "MMA",
+    "time": "13:09",
+    "title": "Sommaire Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:10",
+    "title": "Match of ze Day - Emission du 21 nov. 2026",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:24",
+    "title": "Manchester City / Fulham - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Live 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "title": "Football : Premier League | Manchester City / Fulham",
+    "competition": "Football",
+    "channel": "Canal+"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "title": "Football : Premier League | Manchester City / Fulham",
+    "competition": "Football",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "title": "Manchester City / Fulham - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "title": "Premier League",
+    "competition": "Football",
+    "channel": "Canal+ Series"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "title": "Manchester City / Fulham - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "title": "Manchester City / Fulham",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "title": "Football : EFL Championship | Millwall / QPR",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 10"
+  },
+  {
+    "sport": "Tennis",
+    "time": "13:30",
+    "title": "Tennis : Billie Jean King Cup | France / Australie",
+    "competition": "Tennis",
+    "channel": "beIN SPORTS 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:32",
+    "title": "Afrofoot",
+    "competition": "Football",
+    "channel": "Télésud"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:45",
+    "title": "Football : Ligue 2 BKT | Laval / Montpellier",
+    "competition": "Football",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:55",
+    "title": "Best of Ligue 1 - Top 30 buts Robert Pires",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:55",
+    "title": "Football : Süper Lig | Galatasaray / Samsunspor",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 9"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:03",
+    "title": "Ligue 1 Show - 11e journée",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "MMA",
+    "time": "14:29",
+    "title": "Normal Magazine - Emmanuel Grignon",
+    "competition": "Série",
+    "channel": "PlayboyTV.fr"
+  },
+  {
+    "sport": "Tennis",
+    "time": "14:30",
+    "title": "Tennis : Nitto ATP Finals à Turin - Simple – Demi-finale",
+    "competition": "Sports",
+    "channel": "Eurosport 1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "14:30",
+    "title": "Tennis : ATP Finals - Tennis",
+    "competition": "Sport",
+    "channel": "Eurosport 360 - 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:30",
+    "title": "Football : Ligue 3 | Multiplex - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | Le Puy / Paris 13 Atletico - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | Fleury / Rouen - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | Bastia / Villefranche - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | Cannes / Aubagne - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | Quevilly Rouen / Valenciennes - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | Versailles / Bourg-en-Bresse - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | La Roche VF / Concarneau - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "title": "Football : Ligue 3 | Le Puy / Paris 13 Atletico - Ligue 3",
+    "competition": "Football",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "Rugby",
+    "time": "14:40",
+    "title": "Rugby : Reichel Espoirs Élite | Agen / Union Bordeaux-Bègles",
+    "competition": "Rugby",
+    "channel": "TV7 Bordeaux"
+  },
+  {
+    "sport": "Rugby",
+    "time": "14:55",
+    "title": "Rugby : Reichel Espoirs Élite | Agen / Union Bordeaux-Bègles",
+    "competition": "Rugby",
+    "channel": "TV7 Bordeaux"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:00",
+    "title": "Les matchs de Ligue 1",
+    "competition": "Sport",
+    "channel": "CANAL+ Ligue 1 Uber Eats"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:00",
+    "title": "Ligue 1+ 2",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "JO",
+    "time": "15:00",
+    "title": "La chaîne officielle de l'Olympique Lyonnais",
+    "competition": "Magazine sportif",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "Rugby",
+    "time": "15:00",
+    "title": "Rugby : Championnat des nations | Angleterre / Nouvelle-Zélande",
+    "competition": "Rugby",
+    "channel": "TF1"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "title": "Football : Bundesliga | Borussia Mönchengladbach / Borussia Dortmund",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "title": "Football : Bundesliga | Union Berlin / Leipzig",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "title": "Football : Bundesliga | Bayer Leverkusen / Paderborn",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "title": "Football : Bundesliga | Eintracht Francfort / Hoffenheim",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "title": "Football : Bundesliga | Elversberg / Fribourg",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 8"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "15:26",
+    "title": "La grille Moto - Grand Prix du Portugal : Sprint des Moto GP",
+    "competition": "Magazine sportif",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "15:30",
+    "title": "Moto GP : Grand Prix du Portugal - Sprint des MotoGP",
+    "competition": "Sports",
+    "channel": "Tipik"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:30",
+    "title": "Football : Bundesliga | Multiplex",
+    "competition": "Football",
+    "channel": "beIN SPORTS 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:31",
+    "title": "Fractionné Football - Emission du 17 nov. 2026",
+    "competition": "Sport",
+    "channel": "Sport+"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:36",
+    "title": "Match of ze Day - Emission du 21 nov. 2026",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:45",
+    "title": "Football : National 2 | OL / Macon",
+    "competition": "Football",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "MMA",
+    "time": "15:49",
+    "title": "Vintage Mecanic - Combi Volkswagen T2a",
+    "competition": "Documentaire scientifique",
+    "channel": "RMC Mecanic"
+  },
+  {
+    "sport": "Rugby",
+    "time": "15:53",
+    "title": "Rugby : Reichel Espoirs Élite | Agen / Union Bordeaux-Bègles",
+    "competition": "Rugby",
+    "channel": "TV7 Bordeaux"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "title": "Chelsea / Leeds - Premier League - 11e journée",
+    "competition": "Foot",
+    "channel": "Canal+ Live 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "title": "Tottenham / Ipswich Town - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Live 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "title": "Aston Villa / Sunderland - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Live 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "title": "Bournemouth / Nottingham Forest - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Live 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "title": "Coventry City / Crystal Palace - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Live 6"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "15:55",
+    "title": "Moto GP : Grand Prix du Portugal | Grand Prix du Portugal",
+    "competition": "Moto GP",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "title": "Chelsea / Leeds United",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "15:55",
+    "title": "GP du Portugal - Sprint MotoGP",
+    "competition": "Sport",
+    "channel": "RTS 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:59",
+    "title": "Football : Premier League | Multiplex",
+    "competition": "Football",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:59",
+    "title": "Multiplex - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:59",
+    "title": "Multiplex - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:59",
+    "title": "Multi-live - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Sport+"
+  },
+  {
+    "sport": "MMA",
+    "time": "16:00",
+    "title": "Format UFC - Jalen Fonacier - Kleber Barbosa",
+    "competition": "Magazine sportif",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "16:00",
+    "title": "Format UFC - Jalen Fonacier - Kleber Barbosa",
+    "competition": "Magazine sportif",
+    "channel": "RMC Sport Access"
+  },
+  {
+    "sport": "Foot",
+    "time": "16:00",
+    "title": "Football : après-match Ligue 2 - match Ligue 2",
+    "competition": "Magazine sportif",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "16:00",
+    "title": "Tennis : Billie Jean King Cup | Pologne / Suède",
+    "competition": "Tennis",
+    "channel": "beIN SPORTS MAX 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "16:25",
+    "title": "eLigue 1 - 51 RCSA vs CF63",
+    "competition": "Magazine sportif",
+    "channel": "MGG TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "16:26",
+    "title": "Débrief Moto - Grand Prix du Portugal : Sprint des Moto GP",
+    "competition": "Magazine sportif",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Foot",
+    "time": "16:30",
+    "title": "Ligue 1 Show - Episode 10",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "16:45",
+    "title": "Football : Ligue 1 McDonald's | Nice / Paris-SG",
+    "competition": "Football",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "Tennis",
+    "time": "16:50",
+    "title": "Dans ma fédé - Beach tennis : Théo Lahondès et Jean Combreas champions de France 2026",
+    "competition": "Magazine sportif",
+    "channel": "Sport en France"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Nice / Paris-SG - Football. Ligue 1 McDonald's 11e  journée .",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 10",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 3",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 4",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 5",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 6",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 7",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 8",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Ligue 1+ 9",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "title": "Football : Süper Lig | Kocaelispor / Fenerbahçe",
+    "competition": "Football",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:05",
+    "title": "Football : Ligue 1 McDonald's | Nice / Paris-SG",
+    "competition": "Football",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Rugby",
+    "time": "17:15",
+    "title": "Rugby : Championnat des nations, le mag",
+    "competition": "Magazine sportif",
+    "channel": "TF1"
+  },
+  {
+    "sport": "MMA",
+    "time": "17:20",
+    "title": "Salon - S01E01 - Le stand Volkswagen",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:20",
+    "title": "eLigue 1 - 51 RCSA vs CF63",
+    "competition": "Magazine sportif",
+    "channel": "MGG TV"
+  },
+  {
+    "sport": "Rugby",
+    "time": "17:30",
+    "title": "Rugby : Championnat des nations | Irlande / Afrique du Sud",
+    "competition": "Rugby",
+    "channel": "TF1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "17:30",
+    "title": "Tennis : Billie Jean King Cup | France / Australie",
+    "competition": "Tennis",
+    "channel": "beIN SPORTS 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:40",
+    "title": "Football : Championnat de Régional 1 | Bordeaux / Boulazac",
+    "competition": "Football",
+    "channel": "TV7 Bordeaux"
+  },
+  {
+    "sport": "MMA",
+    "time": "17:54",
+    "title": "Sam le pompier - Saison 8 - Nicolas aux commandes",
+    "competition": "Jeunesse",
+    "channel": "Piwi+"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:55",
+    "title": "Football : Championnat de Régional 1 | Bordeaux / Boulazac",
+    "competition": "Football",
+    "channel": "TV7 Bordeaux"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Les matchs de Ligue 1",
+    "competition": "Sport",
+    "channel": "CANAL+ Ligue 1 Uber Eats"
+  },
+  {
+    "sport": "Tennis",
+    "time": "18:00",
+    "title": "Nitto ATP Finals | Double - 2e Demi-finale - Nitto ATP Finals | Double - Demi...",
+    "competition": "Sport",
+    "channel": "Eurosport 360 - 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 10",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 3",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 4",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 5",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 6",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 7",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 8",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Ligue 1+ 9",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Football : Arkema Première Ligue | OL Lyonnes / US Saint Malo",
+    "competition": "Football",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "title": "Football américain : NCAA | Kansas / BYU",
+    "competition": "Football américain",
+    "channel": "beIN SPORTS MAX 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:01",
+    "title": "Match of ze Day - Emission du 21 nov. 2026",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "MMA",
+    "time": "18:05",
+    "title": "Geneva Motor Show - S01E01 - I.D Buggy Volkswagen",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:10",
+    "title": "eLigue 1 - 51 RCSA vs CF63",
+    "competition": "Magazine sportif",
+    "channel": "MGG TV"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:24",
+    "title": "Football : Bundesliga | FC Schalke 04 / Stuttgart",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:25",
+    "title": "Football : Premier League | Newcastle United / Arsenal",
+    "competition": "Football",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:25",
+    "title": "Newcastle / Arsenal - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Live 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:25",
+    "title": "Newcastle / Arsenal - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:25",
+    "title": "Newcastle / Arsenal - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:25",
+    "title": "Newcastle United / Arsenal",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "Tennis",
+    "time": "18:45",
+    "title": "Tennis : Nitto ATP Finals à Turin - Simple – Demi-finale",
+    "competition": "Sports",
+    "channel": "Eurosport 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:45",
+    "title": "Football",
+    "competition": "Football",
+    "channel": "TV Tours"
+  },
+  {
+    "sport": "MMA",
+    "time": "18:50",
+    "title": "Histoire d'ICI - Les châteaux cathares",
+    "competition": "Magazine culturel",
+    "channel": "France 3 - Aquitaine"
+  },
+  {
+    "sport": "MMA",
+    "time": "18:50",
+    "title": "Bergwelten - Peter Ressmann, un hommage",
+    "competition": "Documentaire",
+    "channel": "TREK"
+  },
+  {
+    "sport": "Foot",
+    "time": "19:00",
+    "title": "Football : Championnat de Régional 1 | Bordeaux / Boulazac",
+    "competition": "Football",
+    "channel": "TV7 Bordeaux"
+  },
+  {
+    "sport": "Foot",
+    "time": "19:10",
+    "title": "90+1 - 11e journée. 1re partie",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "19:15",
+    "title": "Ligue 1+ 2",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "19:15",
+    "title": "Avant-match Ligue 2",
+    "competition": "Magazine sportif",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "19:25",
+    "title": "UEFA Nations League/Euro Qualifiers - Yohan Bakayoko",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "19:30",
+    "title": "New York Unité Spéciale - Crimes sur commande",
+    "competition": "Série",
+    "channel": "13ème rue"
+  },
+  {
+    "sport": "MMA",
+    "time": "19:35",
+    "title": "Les routes du goût - La ballade d'Emma - Alain Llorca - Saint Paul de Vence",
+    "competition": "Documentaire",
+    "channel": "TV5 Monde"
+  },
+  {
+    "sport": "Foot",
+    "time": "19:40",
+    "title": "Season of greatness - Lyon",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "19:40",
+    "title": "Football",
+    "competition": "Football",
+    "channel": "TV Tours"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:00",
+    "title": "Ligue 1 Show - Episode 10",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Rugby",
+    "time": "20:00",
+    "title": "Série rugby",
+    "competition": "Sport",
+    "channel": "TVSUDNimes.fr"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:00",
+    "title": "Football : Ligue 2 BKT | Reims / Saint-Etienne",
+    "competition": "Football",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "20:10",
+    "title": "Bluey - Ratpoulet",
+    "competition": "Série TV",
+    "channel": "Disney Junior"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:15",
+    "title": "Football : Ligue 1 McDonald's | Lille / Lyon",
+    "competition": "Football",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:15",
+    "title": "Football : Ligue 1 McDonald's | Strasbourg / Brest",
+    "competition": "Football",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:25",
+    "title": "Football : Ligue 1 McDonald's | Lens / Toulouse",
+    "competition": "Football",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:25",
+    "title": "Football : Ligue 1 McDonald's | Monaco / Auxerre",
+    "competition": "Football",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:25",
+    "title": "Football : Bundesliga 2 | St. Pauli / Bochum",
+    "competition": "Football",
+    "channel": "beIN SPORTS MAX 7"
+  },
+  {
+    "sport": "MMA",
+    "time": "20:30",
+    "title": "Sommaire Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:30",
+    "title": "Lille / Lyon - Football. Ligue 1 McDonald's 11e  journée .",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "20:30",
+    "title": "Tennis : Nitto ATP Finals à Turin - Simple – Demi-finale",
+    "competition": "Sports",
+    "channel": "Eurosport 1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "20:30",
+    "title": "Tennis : ATP Finals - Tennis",
+    "competition": "Sport",
+    "channel": "Eurosport 360 - 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "20:30",
+    "title": "MMA : UFC",
+    "competition": "Sports de combat",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "20:30",
+    "title": "MMA : KSW | Adrian Bartosinski / Tymoteusz Lopaczyk",
+    "competition": "Sports de combat",
+    "channel": "RMC Sport 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:31",
+    "title": "Chelsea / Leeds - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:38",
+    "title": "Football : Ligue 1 McDonald's | Multiplex",
+    "competition": "Football",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:45",
+    "title": "Ligue 1 McDonald's : Live Audio - 11e journée : LOSC - OL",
+    "competition": "Magazine sportif",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:45",
+    "title": "Histoires de Premier League",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "JO",
+    "time": "20:52",
+    "title": "Rocket Jo",
+    "competition": "Série",
+    "channel": "TV Pitchoun"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:55",
+    "title": "Football : Arkema Première Ligue | Paris-SG / Saint-Malo",
+    "competition": "Football",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "MMA",
+    "time": "20:55",
+    "title": "Le monde incroyable de Gumball - La télécommande",
+    "competition": "Série d'animation",
+    "channel": "Cartoon Network"
+  },
+  {
+    "sport": "MMA",
+    "time": "20:55",
+    "title": "La minute jardin - S01E01 - Zoom sur trois fleurs phares de l'été",
+    "competition": "Magazine",
+    "channel": "MaisonEtTravaux.fr"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:59",
+    "title": "Contrôle &amp; vous - S01E07 - Il faut avoir quoi obligatoirement dans ma voiture ?",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "title": "Les matchs de Ligue 1",
+    "competition": "Sport",
+    "channel": "CANAL+ Ligue 1 Uber Eats"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "title": "Ligue 1+ 10",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "title": "Ligue 1+ 2",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "title": "Ligue 1+ 7",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "title": "Ligue 1+ 8",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "title": "Ligue 1+ 9",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 9"
+  },
+  {
+    "sport": "MMA",
+    "time": "21:00",
+    "title": "Jiu-jitsu brésilien : UFC BJJ - Jitsu",
+    "competition": "Arts martiaux",
+    "channel": "RMC Sport Access"
+  },
+  {
+    "sport": "Rugby",
+    "time": "21:00",
+    "title": "Rugby : Championnat des nations | France / Argentine",
+    "competition": "Rugby",
+    "channel": "TF1"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:10",
+    "title": "Hambourg / Borussia Mönchengladbach",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "MMA",
+    "time": "21:17",
+    "title": "Vintage Mecanic - Volkswagen Golf 3 VR6",
+    "competition": "Documentaire scientifique",
+    "channel": "RMC Mecanic"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:30",
+    "title": "Football américain : NCAA | Tennessee / LSU",
+    "competition": "Football américain",
+    "channel": "beIN SPORTS 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:50",
+    "title": "Equitation : Global Champions League - Equitation",
+    "competition": "Sport",
+    "channel": "Eurosport 360 - 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:56",
+    "title": "Les acrobates du football - Doc. Sport",
+    "competition": "Sport",
+    "channel": "Sport+"
+  },
+  {
+    "sport": "MMA",
+    "time": "22:00",
+    "title": "MMA : KSW | Valeriu Mircea / Marcin Held",
+    "competition": "Sports de combat",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:00",
+    "title": "Football : après-match Ligue 2 - match Ligue 2",
+    "competition": "Magazine sportif",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "22:14",
+    "title": "Sommaire Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:15",
+    "title": "Bournemouth / Nottingham Forest - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:25",
+    "title": "Fractionné Football - Emission du 18 nov. 2026",
+    "competition": "Sport",
+    "channel": "Sport+"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:30",
+    "title": "Football's Greatest Stage",
+    "competition": "Sport",
+    "channel": "TRACESportStars"
+  },
+  {
+    "sport": "Rugby",
+    "time": "22:30",
+    "title": "Série rugby",
+    "competition": "Sport",
+    "channel": "TVSUDNimes.fr"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "22:32",
+    "title": "La grille Moto - Grand Prix du Portugal : Sprint des Moto GP",
+    "competition": "Magazine sportif",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:40",
+    "title": "90+1 - 11e journée. 2e partie",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:40",
+    "title": "Ligue 1+ 4",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:55",
+    "title": "LaLiga Show - Episode 12",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "22:55",
+    "title": "Mayence / Bayern Munich",
+    "competition": "Football",
+    "channel": "La chaine du Père Noël"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "22:57",
+    "title": "Moto GP : Grand Prix du Portugal | Grand Prix du Portugal",
+    "competition": "Moto GP",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Rugby",
+    "time": "23:00",
+    "title": "Rugby : Championnat des nations, le mag",
+    "competition": "Magazine sportif",
+    "channel": "TF1"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:00",
+    "title": "Football : Ligue 2 BKT | Laval / Montpellier",
+    "competition": "Football",
+    "channel": "beIN SPORTS 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:10",
+    "title": "Ligue 1+ 3",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:10",
+    "title": "Ligue 1+ 5",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:10",
+    "title": "Ligue 1+ 6",
+    "competition": "Magazine sportif",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:15",
+    "title": "Football : Copa Sudamericana | Atletico Mineiro / Boca Juniors",
+    "competition": "Football",
+    "channel": "La chaine l’Équipe"
+  },
+  {
+    "sport": "JO",
+    "time": "23:15",
+    "title": "La chaîne officielle de l'Olympique Lyonnais",
+    "competition": "Magazine sportif",
+    "channel": "OLPLAY"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:17",
+    "title": "Football : Premier League | Aston Villa / Sunderland",
+    "competition": "Football",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:17",
+    "title": "Aston Villa / Sunderland - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Evenements Sports 4K UHD"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:25",
+    "title": "Allez l'Union - Episode 1",
+    "competition": "Football",
+    "channel": "DAZN 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "23:28",
+    "title": "Salon de Munich - S02E21 - La Volkswagen ID Life",
+    "competition": "Magazine sportif",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "23:29",
+    "title": "Débrief Moto - Grand Prix du Portugal : Sprint des Moto GP",
+    "competition": "Magazine sportif",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "MMA",
+    "time": "23:30",
+    "title": "MMA : KSW | Adrian Bartosinski / Tymoteusz Lopaczyk",
+    "competition": "Sports de combat",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "23:52",
+    "title": "Essai - S01E44 - 95 ch et boîte méca : la VOLKSWAGEN POLO reste -t-elle une référence ?",
+    "competition": "Magazine",
+    "channel": "Auto Plus TV"
+  },
+  {
+    "sport": "MMA",
+    "time": "23:57",
+    "title": "Sommaire Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  },
+  {
+    "sport": "Foot",
+    "time": "23:59",
+    "title": "Tottenham / Ipswich Town - Premier League - 11e journée",
+    "competition": "Sport",
+    "channel": "Canal+ Premier League"
+  }
+]
