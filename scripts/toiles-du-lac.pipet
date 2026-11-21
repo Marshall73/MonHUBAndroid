@@ -1,4 +1,4 @@
-﻿playwright https://lestoilesdulac.com
+﻿playwright https://lestoilesdulac.com/horaires/
 (() => {
   const films = Array.from(document.querySelectorAll('article, .film-item, [class*="movie"], [class*="film"]'))
     .filter(el => el.querySelector('h2, h3, .title') && el.innerText.match(/\d{2}:\d{2}/));
