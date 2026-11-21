@@ -1,94 +1,100 @@
+const { chromium } = require('playwright');
 const fs = require('fs');
-const zlib = require('zlib');
 
 (async () => {
-  // URL officielle du guide XMLTV France quotidien (xmltvfr.fr)
-  const xmlUrl = 'https://' + 'xmltvfr.fr/xmltv/xmltv_fr.xml.gz';
-  let xmlText = '';
+  const urlSport = 'https://' + 'tv-sports.fr/';
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    locale: 'fr-FR'
+  });
+  const page = await context.newPage();
 
+  await page.goto(urlSport, { waitUntil: 'networkidle', timeout: 60000 });
+  await page.waitForTimeout(3000);
+
+  // Accepter les cookies si besoin
   try {
-    const res = await fetch(xmlUrl);
-    if (res.ok) {
-      const buf = Buffer.from(await res.arrayBuffer());
-      xmlText = zlib.gunzipSync(buf).toString('utf-8');
-    } else {
-      const resPlain = await fetch('https://' + 'xmltvfr.fr/xmltv/xmltv_fr.xml');
-      if (resPlain.ok) xmlText = await resPlain.text();
+    const btn = page.locator('button:has-text("Accepter"), button:has-text("Tout accepter"), button:has-text("Continuer")').first();
+    if (await btn.isVisible({ timeout: 2500 })) await btn.click();
+    await page.waitForTimeout(1000);
+  } catch (e) {}
+
+  // Défile pour charger toute la liste de la journée
+  await page.evaluate(async () => {
+    for (let i = 0; i < 6; i++) {
+      window.scrollBy(0, 1500);
+      await new Promise(r => setTimeout(r, 400));
     }
-  } catch (e) {
-    console.error('Erreur telechargement XMLTV:', e.message);
-  }
+  });
 
-  if (!xmlText) {
-    console.log('XMLTV indisponible');
-    return;
-  }
+  const events = await page.evaluate(() => {
+    const normalizeSport = (rawText) => {
+      const t = rawText.toLowerCase();
+      if (t.includes('mma') || t.includes('ufc') || t.includes('ksw') || t.includes('pfl') || t.includes('bellator') || t.includes('ares')) return 'MMA';
+      if (t.includes('moto gp') || t.includes('motogp') || t.includes('moto2') || t.includes('moto3') || t.includes('motocyclisme')) return 'MotoGP';
+      if (t.includes('tennis') || t.includes('atp') || t.includes('wta') || t.includes('billie jean') || t.includes('roland')) return 'Tennis';
+      if (t.includes('jeux olympiques') || t.includes('jo ') || t.includes('olympique')) return 'JO';
+      if (t.includes('rugby') || t.includes('top 14') || t.includes('championnat des nations')) return 'Rugby';
+      if (t.includes('foot') || t.includes('ligue 1') || t.includes('ligue 2') || t.includes('premier league') || t.includes('bundesliga') || t.includes('liga') || t.includes('serie a') || t.includes('champions')) return 'Foot';
+      return null;
+    };
 
-  // 1. Associe chaque ID de chaîne à son nom propre (ex: CanalPlus.fr -> Canal+)
-  const channels = {};
-  const chRegex = /<channel id="([^"]+)">[\s\S]*?<display-name[^>]*>([^<]+)<\/display-name>/g;
-  let m;
-  while ((m = chRegex.exec(xmlText)) !== null) {
-    channels[m[1]] = m[2].trim();
-  }
-
-  // 2. Extrait les programmes d'aujourd'hui
-  const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const progRegex = /<programme start="(\d{12})[^"]*" stop="(\d{12})[^"]*" channel="([^"]+)">([\s\S]*?)<\/programme>/g;
-
-  const detectSport = (text) => {
-    const t = text.toLowerCase();
-    if (t.includes('mma') || t.includes('ufc') || t.includes('pfl') || t.includes('ares') || t.includes('ksw') || t.includes('bellator')) return 'MMA';
-    if (t.includes('motogp') || t.includes('moto gp') || t.includes('moto2') || t.includes('moto3') || t.includes('grand prix moto')) return 'MotoGP';
-    if (t.includes('tennis') || t.includes('atp') || t.includes('wta') || t.includes('roland-garros') || t.includes('wimbledon') || t.includes('coupe davis')) return 'Tennis';
-    if (t.includes('jeux olympiques') || t.includes('jo ') || t.includes('olympique')) return 'JO';
-    if (t.includes('football') || t.includes('ligue 1') || t.includes('ligue 2') || t.includes('champions league') || t.includes('europa league') || t.includes('premier league') || t.includes('liga') || t.includes('serie a') || t.includes('bundesliga') || t.includes('coupe de france')) return 'Foot';
-    if (t.includes('rugby') || t.includes('top 14') || t.includes('six nations') || t.includes('champions cup')) return 'Rugby';
-    return null;
-  };
-
-  const results = [];
-  const seen = new Set();
-
-  while ((m = progRegex.exec(xmlText)) !== null) {
-    const startRaw = m[1]; // YYYYMMDDHHMM
-    if (!startRaw.startsWith(todayStr)) continue;
-
-    const chId = m[3];
-    const body = m[4];
-    const channelName = channels[chId] || chId;
-
-    const titleMatch = body.match(/<title[^>]*>([^<]+)<\/title>/);
-    const subTitleMatch = body.match(/<sub-title[^>]*>([^<]+)<\/sub-title>/);
-    const catMatch = body.match(/<category[^>]*>([^<]+)<\/category>/);
-
-    const title = titleMatch ? titleMatch[1].trim() : '';
-    const subTitle = subTitleMatch ? subTitleMatch[1].trim() : '';
-    const category = catMatch ? catMatch[1].trim() : '';
-
-    const fullText = `${title} ${subTitle} ${category} ${channelName}`;
-    const sport = detectSport(fullText);
-    if (!sport) continue;
-
-    const hour = startRaw.slice(8, 10);
-    const min = startRaw.slice(10, 12);
-    const time = `${hour}:${min}`;
-
-    const key = `${time}-${channelName}-${title}`;
-    if (!seen.has(key)) {
-      seen.add(key);
-      results.push({
-        sport,
-        time,
-        title: subTitle ? `${title} - ${subTitle}` : title,
-        competition: category || sport,
-        channel: channelName
+    // Chaque programme sur tv-sports.fr est dans un bloc contenant l'heure (ex: 20h15), un h3 (titre) et le badge Direct
+    const blocks = Array.from(document.querySelectorAll('li, article, div'))
+      .filter(el => {
+        const txt = el.innerText || '';
+        return /\b\d{1,2}h\d{2}\b/.test(txt) && el.querySelector('h3') && txt.length < 400;
       });
-    }
-  }
 
-  results.sort((a, b) => a.time.localeCompare(b.time));
+    const leafBlocks = blocks.filter(b => !blocks.some(o => o !== b && b.contains(o)));
+    const results = [];
+    const seen = new Set();
+
+    for (const block of leafBlocks) {
+      const text = block.innerText || '';
+      const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+
+      // Ne garde QUE le Direct (ou En cours / Streaming direct), ignore Rediffusion, Magazine et Sans diffusion TV
+      const isLive = /\b(Direct|En cours|Streaming)\b/i.test(text);
+      const isExcluded = /\b(Rediffusion|Magazine|Sans diffusion TV|Aucune diffusion TV)\b/i.test(text);
+      if (!isLive || isExcluded) continue;
+
+      const sport = normalizeSport(text);
+      if (!sport) continue;
+
+      const timeMatch = text.match(/\b(\d{1,2})h(\d{2})\b/);
+      if (!timeMatch) continue;
+      const time = `${timeMatch.at(1).padStart(2, '0')}:${timeMatch.at(2)}`;
+
+      const title = (block.querySelector('h3')?.innerText || '').replace(/[🔥✨⭐]/g, '').trim();
+      if (!title) continue;
+
+      // Compétition (ligne contenant · ex: "⚽ Foot · Ligue 1")
+      const compLine = lines.find(l => l.includes('·')) || sport;
+      const competition = compLine.split('·').at(-1)?.trim() || sport;
+
+      // La chaîne TV est généralement la dernière ligne du bloc (ex: "Ligue 1+", "beIN SPORTS 1", "TF1", "Canal+ Foot")
+      const channel = lines.at(-1) || 'Chaîne TV';
+
+      const key = `${time}-${title}-${channel}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        results.push({
+          sport,
+          time,
+          status: /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
+          title,
+          competition,
+          channel
+        });
+      }
+    }
+    return results;
+  });
+
+  await browser.close();
   fs.mkdirSync('data', { recursive: true });
-  fs.writeFileSync('data/sport.json', JSON.stringify(results, null, 2));
-  console.log('Programmes TV Sport FR extraits :', results.length);
+  fs.writeFileSync('data/sport.json', JSON.stringify(events, null, 2));
+  console.log('Matchs en Direct extraits depuis tv-sports.fr :', events.length);
 })();
