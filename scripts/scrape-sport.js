@@ -10,6 +10,12 @@ const fs = require('fs');
   });
   const page = await context.newPage();
 
+  page.on('console', msg => {
+    if (msg.type() === 'log' && msg.text().startsWith('[DEBUG COMP]')) {
+      console.log(msg.text());
+    }
+  });
+
   await page.goto(urlSport, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await page.waitForTimeout(2500);
 
@@ -104,9 +110,22 @@ const fs = require('fs');
         ? scheduleType === 'live' || scheduleType === 'streaming'
         : /\b(Direct|En cours|Streaming)\b/i.test(text) || finished;
       const isExcluded = /\b(Rediffusion|Magazine|Sans diffusion TV|Aucune diffusion TV)\b/i.test(text);
+      const compLine = lines.find(l => l.includes('·')) || text;
+
+      if (/serie\s*a|la\s*liga|laliga/i.test(text + ' ' + compLine)) {
+        console.log('[DEBUG COMP] ' + JSON.stringify({
+          text,
+          compLine,
+          scheduleType,
+          isLive,
+          isExcluded,
+          startAt,
+          endAt
+        }));
+      }
+
       if (!isLive || isExcluded) continue;
 
-      const compLine = lines.find(l => l.includes('·')) || text;
       const sport = normalizeSport(compLine);
       if (!sport) continue;
 
