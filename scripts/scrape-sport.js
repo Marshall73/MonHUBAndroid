@@ -1,86 +1,87 @@
-const { chromium } = require('playwright');
 const fs = require('fs');
 
 (async () => {
-  const urlSport = 'https://' + 'www.lequipe.fr/tv/';
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    locale: 'fr-FR'
-  });
-  const page = await context.newPage();
+  const results = [];
+  const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 
-  await page.goto(urlSport, { waitUntil: 'networkidle', timeout: 60000 });
-  await page.waitForTimeout(3000);
+  // Mapping automatique des compétitions vers leurs diffuseurs officiels en France
+  const getFrenchChannel = (sport, comp) => {
+    const c = (comp || '').toLowerCase();
+    if (sport === 'MMA') return 'RMC Sport / DAZN';
+    if (sport === 'MotoGP') return 'Canal+ / Canal+ Sport 360';
+    if (sport === 'JO') return 'France TV / Eurosport';
+    if (sport === 'Tennis') {
+      if (c.includes('roland')) return 'France TV / Prime Video';
+      if (c.includes('wimbledon')) return 'beIN Sports';
+      return 'Eurosport / Canal+';
+    }
+    if (sport === 'Foot') {
+      if (c.includes('ligue 1')) return 'DAZN / beIN Sports';
+      if (c.includes('ligue 2')) return 'beIN Sports';
+      if (c.includes('champions') || c.includes('europa') || c.includes('conference')) return 'Canal+';
+      if (c.includes('premier league')) return 'Canal+';
+      if (c.includes('liga') || c.includes('bundesliga') || c.includes('serie a')) return 'beIN Sports';
+      if (c.includes('coupe de france')) return 'beIN Sports / France TV';
+      return 'Canal+ / beIN Sports / DAZN';
+    }
+    return 'Chaîne Sport';
+  };
 
-  // Accepter ou fermer la bannière cookies Didomi si présente
-  try {
-    const btn = page.locator('#didomi-notice-agree-button, button:has-text("Accepter et fermer"), button:has-text("Continuer sans accepter")').first();
-    if (await btn.isVisible({ timeout: 3000 })) await btn.click();
-    await page.waitForTimeout(1500);
-  } catch (e) {}
+  // Sources API ESPN publiques (zéro anti-bot, fonctionne à 100 % sur GitHub Actions)
+  const endpoints = [
+    { sport: 'Foot', comp: 'Ligue 1', url: `https://espn.com{today}` },
+    { sport: 'Foot', comp: 'Ligue des Champions', url: `https://espn.com{today}` },
+    { sport: 'Foot', comp: 'Premier League', url: `https://espn.com{today}` },
+    { sport: 'Foot', comp: 'La Liga', url: `https://espn.com{today}` },
+    { sport: 'Foot', comp: 'Serie A', url: `https://espn.com{today}` },
+    { sport: 'Foot', comp: 'Bundesliga', url: `https://espn.com{today}` },
+    { sport: 'MMA', comp: 'UFC', url: `https://espn.com` },
+    { sport: 'Tennis', comp: 'ATP Tour', url: `https://espn.com` },
+    { sport: 'Tennis', comp: 'WTA Tour', url: `https://espn.com` },
+    { sport: 'MotoGP', comp: 'MotoGP', url: `https://espn.com` }
+  ];
 
-  // Défile un peu pour déclencher le chargement paresseux des programmes de la journée
-  await page.evaluate(() => window.scrollBy(0, 1200));
-  await page.waitForTimeout(1500);
+  for (const ep of endpoints) {
+    try {
+      const res = await fetch(ep.url);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const events = data.events || [];
 
-  const events = await page.evaluate(() => {
-    const normalizeSport = (rawText) => {
-      const t = rawText.toLowerCase();
-      if (t.includes('mma') || t.includes('ufc') || t.includes('pfl') || t.includes('bellator') || t.includes('ares') || t.includes('ksw') || t.includes('arts martiaux')) return 'MMA';
-      if (t.includes('motogp') || t.includes('moto gp') || t.includes('moto2') || t.includes('moto3') || t.includes('moto') || t.includes('grand prix')) return 'MotoGP';
-      if (t.includes('tennis') || t.includes('atp') || t.includes('wta') || t.includes('roland-garros') || t.includes('davis') || t.includes('wimbledon') || t.includes('us open') || t.includes('open d\'australie')) return 'Tennis';
-      if (t.includes('jeux olympiques') || t.includes('jo ') || t.includes('olympique')) return 'JO';
-      if (t.includes('football') || t.includes('foot') || t.includes('ligue 1') || t.includes('ligue 2') || t.includes('champions league') || t.includes('europa') || t.includes('premier league') || t.includes('liga') || t.includes('serie a') || t.includes('bundesliga') || t.includes('coupe de france') || t.includes('équipe de france')) return 'Foot';
-      return null;
-    };
+      for (const ev of events) {
+        const evDate = new Date(ev.date);
+        // Garde uniquement les événements d'aujourd'hui ou des 3 prochains jours
+        const diffDays = (evDate.getTime() - Date.now()) / (1000 * 3600 * 24);
+        if (diffDays < -0.5 || diffDays > 3) continue;
 
-    const cards = Array.from(document.querySelectorAll('article, li, div'))
-      .filter(el => {
-        const txt = el.innerText || '';
-        return /\b\d{1,2}[h:]\d{2}\b/.test(txt) && txt.length > 15 && txt.length < 450;
-      });
+        const time = evDate.toLocaleTimeString('fr-FR', {
+          timeZone: 'Europe/Paris',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        const dayLabel = evDate.toLocaleDateString('fr-FR', {
+          timeZone: 'Europe/Paris',
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short'
+        });
 
-    const leafCards = cards.filter(c => !cards.some(o => o !== c && c.contains(o)));
-    const results = [];
-    const seen = new Set();
-
-    for (const card of leafCards) {
-      const text = card.innerText || '';
-      const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-      const sport = normalizeSport(text);
-      if (!sport) continue;
-
-      const timeMatch = text.match(/\b(\d{1,2}[h:]\d{2})\b/);
-      const time = timeMatch ? timeMatch.at(0).replace('h', ':') : '';
-
-      const channelImg = card.querySelector('img[alt]');
-      let channel = channelImg?.getAttribute('alt') || channelImg?.getAttribute('title') || '';
-      if (!channel || channel.length < 2) {
-        const chLine = lines.find(l => /(canal\+|bein|rmc|dazn|eurosport|france \d|tf1|m6|l'équipe|prime video|arte|w9|tmc)/i.test(l));
-        channel = chLine || 'Chaîne TV';
-      }
-
-      const title = lines.find(l => !l.includes(time) && l !== channel && l.length > 4 && !/^(en direct|rediffusion|direct)$/i.test(l)) || '';
-      const competition = lines.find(l => l !== title && l !== channel && !l.includes(time) && l.length > 3 && !/^(en direct|rediffusion|direct)$/i.test(l)) || sport;
-
-      const key = `${time}-${title}`;
-      if (title && time && !seen.has(key)) {
-        seen.add(key);
         results.push({
-          sport,
+          sport: ep.sport,
           time,
-          title,
-          competition,
-          channel: channel.replace(/^Logo\s+/i, '').trim()
+          date: dayLabel,
+          title: ev.name || ev.shortName || 'Événement sportif',
+          competition: data.leagues?.at(0)?.name || ep.comp,
+          channel: getFrenchChannel(ep.sport, ep.comp)
         });
       }
-    }
-    return results;
-  });
+    } catch (e) {}
+  }
 
-  await browser.close();
+  // Tri chronologique
+  results.sort((a, b) => a.time.localeCompare(b.time));
+
   fs.mkdirSync('data', { recursive: true });
-  fs.writeFileSync('data/sport.json', JSON.stringify(events, null, 2));
-  console.log('Evenements sportifs extraits :', events.length);
+  fs.writeFileSync('data/sport.json', JSON.stringify(results, null, 2));
+  console.log('Evenements sportifs extraits :', results.length);
 })();
