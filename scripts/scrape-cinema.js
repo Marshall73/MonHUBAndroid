@@ -62,8 +62,9 @@ const fs = require('fs');
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
-      await page.goto(film.link, { waitUntil: 'networkidle', timeout: 30000 });
-      await page.waitForTimeout(1000);
+      await page.goto(film.link, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.waitForFunction(() => document.body.innerText.includes('Réalisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
+      await page.waitForTimeout(800);
 
       const details = await page.evaluate(() => {
         const text = document.body.innerText || '';
@@ -79,10 +80,11 @@ const fs = require('fs');
         let genre = '';
         const durIdx = lines.findIndex(l => l.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i));
         if (durIdx !== -1) {
-          const match = lines[durIdx].match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
-          duration = match ? match.trim() : '';
+          const durLine = lines.at(durIdx) || '';
+          const match = durLine.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
+          duration = match ? match.at(0).trim() : '';
           
-          const surrounding = [lines[durIdx], lines[durIdx + 1], lines[durIdx + 2]].filter(Boolean);
+          const surrounding = [lines.at(durIdx), lines.at(durIdx + 1), lines.at(durIdx + 2)].filter(Boolean);
           for (const line of surrounding) {
             const cleaned = line.replace(duration, '').replace(/•/g, '').trim();
             if (cleaned.length > 2 && cleaned.length < 40 && !cleaned.includes(':') && !cleaned.match(/\d/)) {
@@ -98,7 +100,7 @@ const fs = require('fs');
           .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026') && !t.includes('Horaires'));
         candidates.sort((a, b) => b.length - a.length);
 
-        return { duration, genre, director, cast, synopsis: candidates[0] || '' };
+        return { duration, genre, director, cast, synopsis: candidates.at(0) || '' };
       });
       film.duration = details.duration;
       film.genre = details.genre;
