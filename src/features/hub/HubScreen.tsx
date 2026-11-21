@@ -25,6 +25,12 @@ const hubModules = [
     description: 'Dépôts tendance',
     icon: 'logo-github',
   },
+  {
+    href: '/esport',
+    title: 'Esport',
+    description: 'Tournois Rocket League · Tiers S et A',
+    icon: 'game-controller-outline',
+  },
 ] satisfies {
   href: Href;
   title: string;
