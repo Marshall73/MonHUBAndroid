@@ -1,0 +1,39 @@
+name: Mise à jour Scores Sport
+
+on:
+  schedule:
+    - cron: '30 14 * * *' # 15h30
+    - cron: '30 17 * * *' # 18h30
+    - cron: '30 20 * * *' # 21h30
+    - cron: '30 22 * * *' # 23h30 (scores de fin de soirée)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-scores:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer Playwright Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install chromium --with-deps
+
+      - name: Aspirer les scores récents
+        run: node scripts/scrape-scores.js
+
+      - name: Sauvegarder scores.json dans le dépôt
+        run: |
+          git config user.name "Hub Scraper Bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/scores.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update recent sport scores" && git push)
