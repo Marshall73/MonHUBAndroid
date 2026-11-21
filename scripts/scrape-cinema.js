@@ -10,17 +10,17 @@ const fs = require('fs');
   const page = await context.newPage();
 
   await page.goto('https://lestoilesdulac.com/horaires/', { waitUntil: 'networkidle', timeout: 60000 });
-  await page.waitForTimeout(3000);
+  await page.waitForFunction(() => /\d{1,2}:\d{2}/.test(document.body.innerText), { timeout: 15000 }).catch(() => {});
+  await page.waitForTimeout(2000);
 
   try {
     const btn = page.locator('button:has-text("Accepter"), button:has-text("Tout accepter"), button:has-text("Continuer")').first();
     if (await btn.isVisible({ timeout: 2000 })) await btn.click();
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(1000);
   } catch (e) {}
 
-  // Retour à innerText qui fonctionnait parfaitement pour détecter les 14 films
   const films = await page.evaluate(() => {
-    const timeRegex = /\b(?:\d|2[0-3]):[0-5]\d\b/g;
+    const timeRegex = /\b\d{1,2}:[0-5]\d\b/g;
     const allElements = Array.from(document.querySelectorAll('div, article, section, li'));
     const movieCards = allElements.filter(el => {
       const hasImg = el.querySelector('img');
@@ -59,7 +59,6 @@ const fs = require('fs');
     return results;
   });
 
-  // Visite chaque fiche film pour extraire durée, genre, réalisation, casting et synopsis
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
