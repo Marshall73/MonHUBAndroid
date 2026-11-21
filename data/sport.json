@@ -1,74 +1,66 @@
 [
   {
     "sport": "Foot",
-    "time": "13:25",
+    "time": "20:45",
     "status": "Direct",
-    "title": "Manchester City – Fulham",
-    "competition": "Premier League",
-    "channel": "Canal+"
+    "title": "Naples – Torino",
+    "competition": "Serie A",
+    "channel": "DAZN"
   },
   {
     "sport": "Foot",
-    "time": "13:25",
+    "time": "20:55",
     "status": "Direct",
-    "title": "Millwall – Queens Park Rangers",
-    "competition": "Championship anglais",
-    "channel": "beIN SPORTS MAX 10"
+    "title": "PSG féminine – Saint-Malo féminine",
+    "competition": "Arkema Première Ligue",
+    "channel": "Canal+ Foot"
   },
   {
-    "sport": "Tennis",
-    "time": "13:30",
+    "sport": "Rugby",
+    "time": "21:00",
     "status": "Direct",
-    "title": "France – Australie",
-    "competition": "Billie Jean King Cup",
-    "channel": "beIN SPORTS 3"
-  },
-  {
-    "sport": "Foot",
-    "time": "13:45",
-    "status": "Direct",
-    "title": "Laval – Montpellier",
-    "competition": "Ligue 2",
-    "channel": "beIN SPORTS 1"
+    "title": "France – Argentine",
+    "competition": "Championnat des nations",
+    "channel": "TF1"
   },
   {
     "sport": "Foot",
-    "time": "13:55",
+    "time": "21:00",
     "status": "Direct",
-    "title": "Galatasaray – Samsunspor",
-    "competition": "Süper Lig de Turquie",
-    "channel": "beIN SPORTS MAX 9"
+    "title": "Groningen – Heerenveen",
+    "competition": "Eredivisie championnat des Pays-Bas",
+    "channel": "DAZN"
   },
   {
     "sport": "Foot",
-    "time": "14:00",
+    "time": "21:00",
     "status": "Direct",
-    "title": "Deportivo Alavès – Deportivo La Corogne",
+    "title": "Real Madrid – Celta Vigo",
     "competition": "La Liga",
     "channel": "DAZN"
   },
   {
     "sport": "Foot",
-    "time": "14:00",
+    "time": "21:00",
     "status": "Direct",
-    "title": "Deportivo Alavès – Deportivo La Corogne",
+    "title": "Real Madrid – Celta Vigo",
     "competition": "La Liga",
     "channel": "Disney+"
   },
   {
-    "sport": "Foot",
-    "time": "14:30",
+    "sport": "MMA",
+    "time": "22:00",
     "status": "Direct",
-    "title": "Multiplex",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+"
+    "title": "Valeriu Mircea – Marcin Held",
+    "competition": "KSW",
+    "channel": "RMC Sport 1"
   },
   {
-    "sport": "Tennis",
-    "time": "14:30",
+    "sport": "Foot",
+    "time": "23:15",
     "status": "Direct",
-    "title": "Carlos Alcaraz – Ben Shelton",
-    "competition": "ATP Finals",
-    "channel": "Eurosport 1"
+    "title": "Atletico-MG – Boca Juniors",
+    "competition": "Copa Sudamericana",
+    "channel": "L'Equipe"
   }
 ]
