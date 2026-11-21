@@ -196,6 +196,32 @@ const fs = require('fs');
   });
   await page.waitForTimeout(1500);
 
+  const leagueDebug = await page.evaluate(() => {
+    const items = [...document.querySelectorAll('li.schedule-item[data-is-match="1"]')];
+    const leagues = items.filter(item =>
+      [...item.querySelectorAll('.schedule-meta a[href]')].some(a =>
+        /^\/foot\/(serie-a|la-liga)\/?$/.test(a.getAttribute('href') || '')
+      )
+    );
+
+    return {
+      url: location.href,
+      title: document.title,
+      items: items.length,
+      leagues: leagues.length,
+      withFrenchChannel: leagues.filter(item =>
+        item.querySelector('.schedule-channel__item[data-channel-country="FR"]')
+      ).length,
+      examples: leagues.slice(0, 5).map(item => ({
+        title: item.querySelector('h3 a')?.textContent?.trim(),
+        competition: item.querySelector('.schedule-meta a[href*="serie-a"], .schedule-meta a[href*="la-liga"]')?.textContent?.trim(),
+        channels: [...item.querySelectorAll('.schedule-channel__item')].map(el => el.getAttribute('data-channel-country'))
+      }))
+    };
+  });
+
+  console.log('[DEBUG PAGE LIGUES]', JSON.stringify(leagueDebug));
+
   const leagueMatches = await page.evaluate(() => {
     const results = [];
 
