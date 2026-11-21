@@ -47,6 +47,8 @@ const fs = require('fs');
           poster,
           times,
           link,
+          duration: '',
+          genre: '',
           director: '',
           cast: '',
           synopsis: ''
@@ -70,16 +72,34 @@ const fs = require('fs');
         
         const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
         const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
+
+        // Extraction de la durée (ex: 1h 31min ou 1h31) et du genre
+        let duration = '';
+        let genre = '';
+        const durIdx = lines.findIndex(l => l.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i));
+        if (durIdx !== -1) {
+          const match = lines[durIdx].match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
+          duration = match ? match.trim() : '';
+          // Cherche le genre sur la même ligne (après •) ou sur les lignes voisines
+          if (lines[durIdx].includes('•')) {
+            const parts = lines[durIdx].split('•').map(p => p.trim()).filter(p => p && !p.includes(duration));
+            if (parts.length > 0) genre = parts.join(', ');
+          }
+          if (!genre && lines[durIdx + 1] && lines[durIdx + 1].length < 45 && !lines[durIdx + 1].includes(':')) {
+            genre = lines[durIdx + 1].replace(/^•\s*/, '').trim();
+          }
+        }
         
-        // Cherche le bloc de texte descriptif le plus long (div, p, span) sur la fiche film
         const candidates = Array.from(document.querySelectorAll('p, div, span, [class*="synopsis"], [class*="description"]'))
           .filter(el => el.children.length === 0 || el.tagName === 'P')
           .map(el => el.innerText?.trim() || '')
           .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026'));
         candidates.sort((a, b) => b.length - a.length);
 
-        return { director, cast, synopsis: candidates[0] || '' };
+        return { duration, genre, director, cast, synopsis: candidates || '' };
       });
+      film.duration = details.duration;
+      film.genre = details.genre;
       film.director = details.director;
       film.cast = details.cast;
       film.synopsis = details.synopsis;
