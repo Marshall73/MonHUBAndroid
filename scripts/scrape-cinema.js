@@ -59,47 +59,202 @@ const fs = require('fs');
     return results;
   });
 
+  
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
+
     try {
-      await page.goto(film.link, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      await page.waitForFunction(() => document.body.innerText.includes('Réalisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
-      await page.waitForTimeout(800);
+      await page.goto(film.link, {
+        waitUntil: 'domcontentloaded',
+        timeout: 30000
+      });
+
+      await page.waitForTimeout(1200);
 
       const details = await page.evaluate(() => {
         const text = document.body.innerText || '';
         const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-        
-        const dirLine = lines.find(l => l.match(/^(Réalisation|De)\s*:/i));
-        const castLine = lines.find(l => l.match(/^(Casting|Avec)\s*:/i));
-        
-        const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
-        const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
 
+        // Réalisation
+        const dirLine = lines.find(l => /^(Réalisation|De)\s*:/i.test(l));
+        const director = dirLine
+          ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim()
+          : '';
+
+        // Casting
+        const castLine = lines.find(l => /^(Casting|Avec)\s*:/i.test(l));
+        const cast = castLine
+          ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim()
+          : '';
+
+        // Durée
         let duration = '';
-        let genre = '';
-        const durSpan = Array.from(document.querySelectorAll('span')).find(s => s.children.length === 0 && /^\d+\s*h\s*\d*\s*(min)?$/i.test(s.innerText.trim()));
+
+        const durSpan = Array.from(document.querySelectorAll('span'))
+          .find(s =>
+            s.children.length === 0 &&
+            /^\d+\s*h\s*\d*\s*(min)?$/i.test(s.innerText.trim())
+          );
+
         if (durSpan) {
           duration = durSpan.innerText.trim();
-          const blockText = durSpan.parentElement?.parentElement?.innerText || ''; const genres = ['Comédie dramatique', 'Science fiction', 'Science-fiction', 'Comédie', 'Drame', 'Action', 'Thriller', 'Animation', 'Horreur', 'Épouvante', 'Aventure', 'Documentaire', 'Biopic', 'Policier', 'Romance', 'Fantastique', 'Historique', 'Musical', 'Famille', 'Guerre', 'Western']; genre = genres.filter(g => new RegExp('\\b' + g + '\\b', 'i').test(blockText)).join(', ');
         }
-        
-        const candidates = Array.from(document.querySelectorAll('p, div, span'))
+
+        // GENRES : méthode 1 - JSON-LD
+        let genre = '';
+
+        const normalizeGenres = value => {
+          if (!value) return '';
+
+          if (Array.isArray(value)) {
+            return value.map(v =>
+              typeof v === 'string' ? v : v.name || ''
+            ).filter(Boolean).join(', ');
+          }
+
+          if (typeof value === 'string') return value;
+
+          if (typeof value === 'object') {
+            return value.name || '';
+          }
+
+          return '';
+        };
+
+        const scripts = document.querySelectorAll(
+          'script[type="application/ld+json"]'
+        );
+
+        for (const script of scripts) {
+          try {
+            const data = JSON.parse(script.textContent);
+
+            const objects = Array.isArray(data)
+              ? data
+              : [data];
+
+            for (const obj of objects) {
+              const candidates = [
+                obj,
+                ...(obj['@graph'] || [])
+              ];
+
+              for (const item of candidates) {
+                const found = normalizeGenres(item.genre);
+
+                if (found) {
+                  genre = found;
+                  break;
+                }
+              }
+
+              if (genre) break;
+            }
+          } catch (e) {}
+          if (genre) break;
+        }
+
+        // GENRES : méthode 2 - métadonnées HTML
+        if (!genre) {
+          const metas = [
+            'meta[property="video:tag"]',
+            'meta[property="article:tag"]',
+            'meta[name="keywords"]'
+          ];
+
+          for (const selector of metas) {
+            const values = Array.from(
+              document.querySelectorAll(selector)
+            )
+              .map(el => el.content || '')
+              .filter(Boolean);
+
+            if (values.length) {
+              const value = values.join(', ');
+              if (/comédie|drame|action|aventure|thriller|animation|science-fiction|fantastique|horreur|documentaire/i.test(value)) {
+                genre = value;
+                break;
+              }
+            }
+          }
+        }
+
+        // GENRES : méthode 3 - champs explicitement nommés
+        if (!genre) {
+          const genreLine = lines.find(line =>
+            /^Genres?\s*:\s*\S+/i.test(line)
+          );
+
+          if (genreLine) {
+            genre = genreLine
+              .replace(/^Genres?\s*:\s*/i, '')
+              .trim();
+          }
+        }
+
+        // GENRES : méthode 4 - éléments HTML voisins du libellé
+        if (!genre) {
+          const labels = Array.from(
+            document.querySelectorAll('dt, strong, b, span, p, div, li')
+          );
+
+          for (const el of labels) {
+            const label = el.innerText?.trim() || '';
+
+            if (/^Genres?\s*:?\s*$/i.test(label)) {
+              const next = el.nextElementSibling;
+              const parent = el.parentElement;
+
+              genre =
+                next?.innerText?.trim() ||
+                parent?.innerText?.replace(label, '').trim() ||
+                '';
+
+              if (genre && genre.length < 150) break;
+              genre = '';
+            }
+          }
+        }
+
+        // Synopsis
+        const candidates = Array.from(
+          document.querySelectorAll('p, div, span')
+        )
           .filter(el => el.children.length === 0 || el.tagName === 'P')
           .map(el => el.innerText?.trim() || '')
-          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026') && !t.includes('Horaires'));
+          .filter(t =>
+            t.length > 90 &&
+            !t.includes('cookies') &&
+            !t.includes('Mentions légales') &&
+            !t.includes('© 2026') &&
+            !t.includes('Horaires')
+          );
+
         candidates.sort((a, b) => b.length - a.length);
 
-        return { duration, genre, director, cast, synopsis: candidates.at(0) || '' };
+        return {
+          duration,
+          genre,
+          director,
+          cast,
+          synopsis: candidates[0] || ''
+        };
       });
+
       film.duration = details.duration;
       film.genre = details.genre;
       film.director = details.director;
       film.cast = details.cast;
       film.synopsis = details.synopsis;
-    } catch (e) {}
-  }
 
+      console.log(
+        `${film.title} | Genre trouvé : ${film.genre || 'NON TROUVÉ'}`
+      );
+
+    } catch (e) {
+      console.warn(`Erreur pour ${film.title} :`, e.message);
+    }
+  }
   await browser.close();
   fs.mkdirSync('data', { recursive: true });
   fs.writeFileSync('data/cinema.json', JSON.stringify(films, null, 2));
