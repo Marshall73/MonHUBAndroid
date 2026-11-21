@@ -11,7 +11,8 @@ const fs = require('fs');
   const page = await context.newPage();
 
   await page.goto(urlScores, { waitUntil: 'domcontentloaded', timeout: 60000 });
-  await page.waitForTimeout(2500);
+  await page.waitForSelector('h3, article, li', { timeout: 15000 }).catch(() => {});
+  await page.waitForTimeout(3000);
 
   try {
     const btn = page.locator('button:has-text("Accepter"), button:has-text("Tout accepter"), button:has-text("Continuer")').first();
@@ -37,8 +38,7 @@ const fs = require('fs');
     const blocks = Array.from(document.querySelectorAll('li, article, div'))
       .filter(el => {
         const txt = el.innerText || '';
-        // Un bloc score contient un score chiffré (ex: "2 - 1" ou "2-1" ou "3 : 0") et moins de 350 caractères
-        return /\b\d{1,3}\s*[-–:]\s*\d{1,3}\b/.test(txt) && txt.length > 10 && txt.length < 350;
+        return (el.querySelector('h3') || /\b\d{1,3}\s*[-–:]\s*\d{1,3}\b/.test(txt)) && txt.length > 10 && txt.length < 400;
       });
 
     const leafBlocks = blocks.filter(b => !blocks.some(o => o !== b && b.contains(o)));
@@ -51,18 +51,27 @@ const fs = require('fs');
       const sport = normalizeSport(text);
       if (!sport) continue;
 
-      const scoreMatch = text.match(/\b(\d{1,3}\s*[-–:]\s*\d{1,3})\b/);
-      if (!scoreMatch) continue;
-      const score = scoreMatch.at(1).replace(/\s+/g, ' ').trim();
+      // Cherche un score au format "2 - 1" OU deux nombres isolés sur des lignes séparées (ex: Equipe A / 2 / Equipe B / 1)
+      let score = '';
+      const inlineScore = text.match(/\b(\d{1,3}\s*[-–:]\s*\d{1,3})\b/);
+      if (inlineScore) {
+        score = inlineScore.at(1).replace(/\s+/g, ' ').trim();
+      } else {
+        const numLines = lines.filter(l => /^\d{1,3}$/.test(l));
+        if (numLines.length >= 2) {
+          score = `${numLines.at(0)} - ${numLines.at(1)}`;
+        }
+      }
+      if (!score) continue;
 
       const compLine = lines.find(l => l.includes('·')) || '';
       const competition = compLine ? compLine.split('·').at(-1).trim() : sport;
 
-      // Reconstitue l'affiche (ex: "Manchester City 2 - 1 Fulham" ou "Equipe A vs Equipe B")
       const cleanLines = lines.filter(l =>
         !l.includes('·') &&
         l !== score &&
-        !/^(Terminé|Score final|FT|Final)$/i.test(l) &&
+        !/^\d{1,3}$/.test(l) &&
+        !/^(Terminé|Score final|FT|Final|En cours|Direct)$/i.test(l) &&
         !/^\d{1,2}\/\d{1,2}(\/\d{2,4})?$/.test(l) &&
         !/^\d{1,2}h\d{2}$/.test(l)
       );
@@ -72,12 +81,12 @@ const fs = require('fs');
       if (h3 && h3.length > 3) {
         matchTitle = h3;
       } else if (cleanLines.length >= 2) {
-        matchTitle = `${cleanLines.at(0)} - ${cleanLines.at(-1)}`;
+        matchTitle = `${cleanLines.at(0)} - ${cleanLines.at(1)}`;
       } else if (cleanLines.length === 1) {
         matchTitle = cleanLines.at(0);
       }
 
-      if (!matchTitle) continue;
+      if (!matchTitle || matchTitle.startsWith('▶')) continue;
 
       const dateMatch = text.match(/\b(\d{1,2}\/\d{1,2}(?:\/\d{2,4})?)\b/);
       const date = dateMatch ? dateMatch.at(1) : "Aujourd'hui";
