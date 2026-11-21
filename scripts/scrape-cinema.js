@@ -18,9 +18,8 @@ const fs = require('fs');
     await page.waitForTimeout(1500);
   } catch (e) {}
 
-  // 1. Récupère la liste des films, horaires et liens vers leurs fiches
   const films = await page.evaluate(() => {
-    const timeRegex = /\b(?\d|2[0-3]):[0-5]\d\b/g;
+    const timeRegex = /\b(?:\d|2[0-3]):[0-5]\d\b/g;
     const allElements = Array.from(document.querySelectorAll('div, article, section, li'));
     const movieCards = allElements.filter(el => {
       const hasImg = el.querySelector('img');
@@ -57,7 +56,6 @@ const fs = require('fs');
     return results;
   });
 
-  // 2. Visite chaque fiche film pour extraire Réalisation, Casting et Synopsis
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
@@ -73,7 +71,6 @@ const fs = require('fs');
         const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
         const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
         
-        // Le synopsis est généralement le paragraphe le plus long de la page
         const paragraphs = Array.from(document.querySelectorAll('p, [class*="synopsis"], [class*="description"]'))
           .map(p => p.innerText?.trim() || '')
           .filter(t => t.length > 80 && !t.includes('cookies') && !t.includes('Mentions légales'));
