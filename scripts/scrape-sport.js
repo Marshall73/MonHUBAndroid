@@ -47,6 +47,8 @@ const fs = require('fs');
       if (c.includes('tennis') || c.includes('atp') || c.includes('wta') || c.includes('billie jean') || c.includes('roland') || c.includes('wimbledon')) return 'Tennis';
       if (c.includes('jeux olympiques') || c.includes('jo ') || c.includes('olympique')) return 'JO';
       if (c.includes('rugby') || c.includes('top 14') || c.includes('championnat des nations') || c.includes('six nations') || c.includes('pro d2')) return 'Rugby';
+      if (c.includes('bundesliga 2')) return null;
+
       const footballKeywords = [
         'ligue 1',
         'coupe de france',
