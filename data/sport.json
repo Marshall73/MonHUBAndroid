@@ -244,7 +244,7 @@
   {
     "sport": "Foot",
     "time": "18:24",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T18:24:00+01:00",
     "endAt": "2026-11-21T20:30:00+01:00",
@@ -255,7 +255,7 @@
   {
     "sport": "Foot",
     "time": "18:25",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T18:25:00+01:00",
     "endAt": "2026-11-21T20:31:00+01:00",
