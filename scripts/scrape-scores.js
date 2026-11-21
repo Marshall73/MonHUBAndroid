@@ -10,7 +10,7 @@ const fs = require('fs');
   });
   const page = await context.newPage();
 
-  await page.goto(urlScores, { waitUntil: 'networkidle', timeout: 60000 });
+  await page.goto(urlScores, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await page.waitForTimeout(2500);
 
   try {
