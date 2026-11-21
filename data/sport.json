@@ -200,7 +200,7 @@
   {
     "sport": "Tennis",
     "time": "16:00",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T16:00:00+01:00",
     "endAt": "2026-11-21T21:30:00+01:00",
@@ -233,7 +233,7 @@
   {
     "sport": "Tennis",
     "time": "17:30",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T17:30:00+01:00",
     "endAt": "2026-11-21T21:30:00+01:00",
