@@ -10,7 +10,7 @@ const fs = require('fs');
   });
   const page = await context.newPage();
 
-  await page.goto(urlSport, { waitUntil: 'networkidle', timeout: 60000 });
+  await page.goto(urlSport, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await page.waitForTimeout(2500);
 
   try {
@@ -31,6 +31,12 @@ const fs = require('fs');
 
   // Fonction d'extraction appelée à chaque cran de défilement pour contourner la virtualisation DOM
   const extractVisible = () => page.evaluate(() => {
+    const today = new Intl.DateTimeFormat('sv-SE', {
+      timeZone: 'Europe/Paris',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date());
     const normalizeSport = (compLine) => {
       const c = compLine.toLowerCase();
       if (c.includes('basket') || c.includes('nba') || c.includes('liga endesa') || c.includes('ncaa') || c.includes('euroligue') || c.includes('betclic') || c.includes('pro a') || c.includes('pro b')) return null;
@@ -103,7 +109,7 @@ const fs = require('fs');
         time,
         status: finished ? 'Terminé' : /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
         date: (block.querySelector('[data-starts-at]') ?? schedule?.querySelector('[data-starts-at]'))
-          ?.getAttribute('data-starts-at')?.slice(0, 10) || '',
+          ?.getAttribute('data-starts-at')?.slice(0, 10) || today,
         title,
         competition,
         channel
