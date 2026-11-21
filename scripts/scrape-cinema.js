@@ -18,15 +18,15 @@ const fs = require('fs');
     await page.waitForTimeout(1500);
   } catch (e) {}
 
-  // 1. Récupère tous les films et TOUS les horaires (y compris les séances passées/grisées via textContent)
+  // Retour à innerText qui fonctionnait parfaitement pour détecter les 14 films
   const films = await page.evaluate(() => {
     const timeRegex = /\b(?:\d|2[0-3]):[0-5]\d\b/g;
     const allElements = Array.from(document.querySelectorAll('div, article, section, li'));
     const movieCards = allElements.filter(el => {
       const hasImg = el.querySelector('img');
-      const text = el.textContent || '';
+      const text = el.innerText || '';
       const times = text.match(timeRegex);
-      return hasImg && times && times.length >= 1 && text.length < 2500 && text.length > 15;
+      return hasImg && times && times.length >= 1 && text.length < 1500 && text.length > 15;
     });
     const leafCards = movieCards.filter(card => !movieCards.some(other => other !== card && card.contains(other)));
 
@@ -34,10 +34,8 @@ const fs = require('fs');
     const seen = new Set();
 
     for (const card of leafCards) {
-      const lines = (card.innerText || '').split('\n').map(l => l.trim()).filter(Boolean);
-      // textContent capture même les horaires masqués ou grisés dans le HTML
-      const rawTimes = (card.textContent || '').match(timeRegex) || [];
-      const times = Array.from(new Set(rawTimes)).sort();
+      const lines = card.innerText.split('\n').map(l => l.trim()).filter(Boolean);
+      const times = Array.from(new Set((card.innerText.match(timeRegex) || []))).sort();
       const title = lines.find(l => !l.match(/^\d{1,2}:\d{2}$/) && l.length > 2 && !['VF', 'VOST', 'VOSTFR', '2D', '3D', 'Achat rapide'].includes(l));
       const poster = card.querySelector('img')?.src || '';
       const link = card.querySelector('a[href*="/film"], a[href*="/movie"], a')?.href || '';
@@ -61,7 +59,7 @@ const fs = require('fs');
     return results;
   });
 
-  // 2. Visite chaque fiche film pour extraire durée, genre, réalisation, casting et synopsis
+  // Visite chaque fiche film pour extraire durée, genre, réalisation, casting et synopsis
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
@@ -86,7 +84,6 @@ const fs = require('fs');
           const match = lines[durIdx].match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
           duration = match ? match.trim() : '';
           
-          // Cherche le genre autour de la durée (en ignorant les '•' isolés)
           const surrounding = [lines[durIdx], lines[durIdx + 1], lines[durIdx + 2]].filter(Boolean);
           for (const line of surrounding) {
             const cleaned = line.replace(duration, '').replace(/•/g, '').trim();
