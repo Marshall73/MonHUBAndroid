@@ -2,7 +2,15 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 
 (async () => {
-  const urlSport = 'https://' + 'tv-sports.fr/';
+  const base = 'https://' + 'tv-sports.fr';
+  const sportPages = [
+    { sport: 'Foot', url: `${base}/foot/` },
+    { sport: 'MMA', url: `${base}/mma/` },
+    { sport: 'MotoGP', url: `${base}/moto-gp/` },
+    { sport: 'Tennis', url: `${base}/tennis/` },
+    { sport: 'Rugby', url: `${base}/rugby/` }
+  ];
+
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
@@ -10,105 +18,110 @@ const fs = require('fs');
   });
   const page = await context.newPage();
 
-  await page.goto(urlSport, { waitUntil: 'networkidle', timeout: 60000 });
-  await page.waitForTimeout(3000);
+  const allEvents = [];
+  const seen = new Set();
 
-  try {
-    const btn = page.locator('button:has-text("Accepter"), button:has-text("Tout accepter"), button:has-text("Continuer")').first();
-    if (await btn.isVisible({ timeout: 2500 })) await btn.click();
-    await page.waitForTimeout(1000);
-  } catch (e) {}
+  for (const target of sportPages) {
+    try {
+      await page.goto(target.url, { waitUntil: 'networkidle', timeout: 45000 });
+      await page.waitForTimeout(2000);
 
-  await page.evaluate(async () => {
-    for (let i = 0; i < 8; i++) {
-      window.scrollBy(0, 1500);
-      await new Promise(r => setTimeout(r, 400));
-    }
-  });
+      // Fermer la bannière cookies au premier passage
+      try {
+        const cookieBtn = page.locator('button:has-text("Accepter"), button:has-text("Tout accepter"), button:has-text("Continuer")').first();
+        if (await cookieBtn.isVisible({ timeout: 1500 })) await cookieBtn.click();
+      } catch (e) {}
 
-  const events = await page.evaluate(() => {
-    const normalizeSport = (rawText) => {
-      const t = rawText.toLowerCase();
-      // Exclure explicitement Basket, Hockey, Foot US, Golf, Handball, Volley
-      if (t.includes('basket') || t.includes('nba') || t.includes('liga endesa') || t.includes('ncaa') || t.includes('euroligue') || t.includes('betclic') || t.includes('pro a') || t.includes('pro b')) return null;
-      if (t.includes('football américain') || t.includes('nfl') || t.includes('hockey') || t.includes('nhl') || t.includes('handball') || t.includes('volley') || t.includes('golf')) return null;
+      // Cliquer sur "Voir les diffusions terminées" pour récupérer aussi les matchs de la journée déjà joués
+      try {
+        const pastBtn = page.locator('button:has-text("Voir les diffusions terminées"), a:has-text("Voir les diffusions terminées")').first();
+        if (await pastBtn.isVisible({ timeout: 2000 })) {
+          await pastBtn.click();
+          await page.waitForTimeout(1000);
+        }
+      } catch (e) {}
 
-      if (t.includes('mma') || t.includes('ufc') || t.includes('ksw') || t.includes('pfl') || t.includes('bellator') || t.includes('ares')) return 'MMA';
-      if (t.includes('moto gp') || t.includes('motogp') || t.includes('moto2') || t.includes('moto3') || t.includes('motocyclisme')) return 'MotoGP';
-      if (t.includes('tennis') || t.includes('atp') || t.includes('wta') || t.includes('billie jean') || t.includes('roland')) return 'Tennis';
-      if (t.includes('jeux olympiques') || t.includes('jo ') || t.includes('olympique')) return 'JO';
-      if (t.includes('rugby') || t.includes('top 14') || t.includes('championnat des nations')) return 'Rugby';
-      if (t.includes('foot') || t.includes('ligue 1') || t.includes('ligue 2') || t.includes('premier league') || t.includes('bundesliga') || t.includes('la liga') || t.includes('serie a') || t.includes('champions')) return 'Foot';
-      return null;
-    };
-
-    const blocks = Array.from(document.querySelectorAll('li, article, div'))
-      .filter(el => {
-        const txt = el.innerText || '';
-        return /\b\d{1,2}h\d{2}\b/.test(txt) && el.querySelector('h3') && txt.length < 400;
+      // Défile pour charger toute la grille de la journée
+      await page.evaluate(async () => {
+        for (let i = 0; i < 6; i++) {
+          window.scrollBy(0, 1500);
+          await new Promise(r => setTimeout(r, 300));
+        }
       });
 
-    const leafBlocks = blocks.filter(b => !blocks.some(o => o !== b && b.contains(o)));
-    const results = [];
-    const seen = new Set();
+      const pageEvents = await page.evaluate((sportName) => {
+        const blocks = Array.from(document.querySelectorAll('li, article, div'))
+          .filter(el => {
+            const txt = el.innerText || '';
+            return /\b\d{1,2}h\d{2}\b/.test(txt) && el.querySelector('h3') && txt.length < 400;
+          });
 
-    for (const block of leafBlocks) {
-      const text = block.innerText || '';
-      const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+        const leafBlocks = blocks.filter(b => !blocks.some(o => o !== b && b.contains(o)));
+        const items = [];
 
-      const isLive = /\b(Direct|En cours|Streaming)\b/i.test(text);
-      const isExcluded = /\b(Rediffusion|Magazine|Sans diffusion TV|Aucune diffusion TV)\b/i.test(text);
-      if (!isLive || isExcluded) continue;
+        for (const block of leafBlocks) {
+          const text = block.innerText || '';
+          const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
 
-      const sport = normalizeSport(text);
-      if (!sport) continue;
+          // Garde Direct, En cours, Streaming direct (exclut Rediffusion, Magazine et Sans diffusion TV)
+          const isLive = /\b(Direct|En cours|Streaming)\b/i.test(text);
+          const isExcluded = /\b(Rediffusion|Magazine|Sans diffusion TV|Aucune diffusion TV)\b/i.test(text);
+          if (!isLive || isExcluded) continue;
 
-      const timeMatch = text.match(/\b(\d{1,2})h(\d{2})\b/);
-      if (!timeMatch) continue;
-      const time = `${timeMatch.at(1).padStart(2, '0')}:${timeMatch.at(2)}`;
+          const timeMatch = text.match(/\b(\d{1,2})h(\d{2})\b/);
+          if (!timeMatch) continue;
+          const time = `${timeMatch.at(1).padStart(2, '0')}:${timeMatch.at(2)}`;
 
-      const rawH3 = block.querySelector('h3')?.innerText || '';
-      const title = rawH3.replace(/[🔥✨⭐]/g, '').trim();
-      if (!title) continue;
+          const rawH3 = block.querySelector('h3')?.innerText || '';
+          const title = rawH3.replace(/[🔥✨⭐]/g, '').trim();
+          if (!title || title.startsWith('▶')) continue;
 
-      const compLine = lines.find(l => l.includes('·')) || sport;
-      const competition = compLine.split('·').at(-1)?.trim() || sport;
+          const compLine = lines.find(l => l.includes('·')) || sportName;
+          const competition = compLine.split('·').at(-1)?.trim() || sportName;
 
-      // Récupère la chaîne TV depuis l'attribut alt/title de l'image de chaîne ou la ligne dédiée (en excluant le titre)
-      const imgs = Array.from(block.querySelectorAll('img[alt], img[title]'))
-        .map(img => (img.getAttribute('alt') || img.getAttribute('title') || '').trim())
-        .filter(a => a && a.length > 1 && !a.includes(title) && !/^(Direct|En cours|Streaming)$/i.test(a));
-      
-      let channel = imgs.at(-1) || '';
-      if (!channel) {
-        channel = lines.find(l => 
-          !l.includes(title) && 
-          !l.includes('·') && 
-          !/^\d{1,2}h\d{2}$/.test(l) && 
-          !/^(VS|Direct|En cours|Streaming)$/i.test(l) &&
-          l.length > 1 && l.length < 35
-        ) || 'Chaîne TV';
+          const imgs = Array.from(block.querySelectorAll('img[alt], img[title]'))
+            .map(img => (img.getAttribute('alt') || img.getAttribute('title') || '').trim())
+            .filter(a => a && a.length > 1 && !a.includes(title) && !/^(Direct|En cours|Streaming)$/i.test(a));
+
+          let channel = imgs.at(-1) || '';
+          if (!channel) {
+            channel = lines.find(l =>
+              !l.includes(title) &&
+              !l.includes('·') &&
+              !/^\d{1,2}h\d{2}$/.test(l) &&
+              !/^(VS|Direct|En cours|Streaming)$/i.test(l) &&
+              l.length > 1 && l.length < 35
+            ) || 'Chaîne TV';
+          }
+
+          items.push({
+            sport: sportName,
+            time,
+            status: /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
+            title,
+            competition,
+            channel
+          });
+        }
+        return items;
+      }, target.sport);
+
+      for (const ev of pageEvents) {
+        const key = `${ev.sport}-${ev.time}-${ev.title}-${ev.channel}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          allEvents.push(ev);
+        }
       }
-
-      const key = `${time}-${title}-${channel}`;
-      if (!seen.has(key)) {
-        seen.add(key);
-        results.push({
-          sport,
-          time,
-          status: /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
-          title,
-          competition,
-          channel
-        });
-      }
+    } catch (e) {
+      console.warn(`Erreur sur ${target.url}:`, e.message);
     }
-    results.sort((a, b) => a.time.localeCompare(b.time));
-    return results;
-  });
+  }
 
   await browser.close();
+  allEvents.sort((a, b) => a.time.localeCompare(b.time));
+
   fs.mkdirSync('data', { recursive: true });
-  fs.writeFileSync('data/sport.json', JSON.stringify(events, null, 2));
-  console.log('Matchs en Direct extraits depuis tv-sports.fr :', events.length);
+  fs.writeFileSync('data/sport.json', JSON.stringify(allEvents, null, 2));
+  console.log('Total matchs en Direct extraits :', allEvents.length);
 })();
