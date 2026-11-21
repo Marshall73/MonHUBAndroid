@@ -3,38 +3,33 @@ const fs = require('fs');
 (async () => {
   const results = [];
 
-  // Dates d'hier et d'aujourd'hui au format YYYYMMDD
-  const formatYMD = (offsetDays) => {
-    const d = new Date(Date.now() + offsetDays * 86400000);
-    return d.toISOString().slice(0, 10).replace(/-/g, '');
-  };
-  const dateRange = `${formatYMD(-1)}-${formatYMD(0)}`;
-
-  const leagues = [
-    { sport: 'Foot', comp: 'Ligue 1', url: `https://espn.com{dateRange}` },
-    { sport: 'Foot', comp: 'Ligue des Champions', url: `https://espn.com{dateRange}` },
-    { sport: 'Foot', comp: 'Europa League', url: `https://espn.com{dateRange}` },
-    { sport: 'Foot', comp: 'Premier League', url: `https://espn.com{dateRange}` },
-    { sport: 'Foot', comp: 'La Liga', url: `https://espn.com{dateRange}` },
-    { sport: 'Foot', comp: 'Serie A', url: `https://espn.com{dateRange}` },
-    { sport: 'Foot', comp: 'Bundesliga', url: `https://espn.com{dateRange}` },
-    { sport: 'MMA', comp: 'UFC', url: `https://espn.com` },
-    { sport: 'Tennis', comp: 'ATP Tour', url: `https://espn.com` },
-    { sport: 'Tennis', comp: 'WTA Tour', url: `https://espn.com` }
+  // 1. API ESPN publique sans paramètre de date (renvoie toujours la dernière journée complète)
+  const espnEndpoints = [
+    { sport: 'Foot', comp: 'Ligue 1', url: 'https://espn.com' },
+    { sport: 'Foot', comp: 'Ligue des Champions', url: 'https://espn.com' },
+    { sport: 'Foot', comp: 'Europa League', url: 'https://espn.com' },
+    { sport: 'Foot', comp: 'Premier League', url: 'https://espn.com' },
+    { sport: 'Foot', comp: 'La Liga', url: 'https://espn.com' },
+    { sport: 'Foot', comp: 'Serie A', url: 'https://espn.com' },
+    { sport: 'Foot', comp: 'Bundesliga', url: 'https://espn.com' },
+    { sport: 'MMA', comp: 'UFC', url: 'https://espn.com' },
+    { sport: 'Tennis', comp: 'ATP Tour', url: 'https://espn.com' },
+    { sport: 'Tennis', comp: 'WTA Tour', url: 'https://espn.com' }
   ];
 
-  for (const lg of leagues) {
+  for (const ep of espnEndpoints) {
     try {
-      const res = await fetch(lg.url);
+      const res = await fetch(ep.url);
+      console.log(ep.comp, 'HTTP:', res.status);
       if (!res.ok) continue;
       const data = await res.json();
       const events = data.events || [];
+      console.log(ep.comp, 'Events bruts:', events.length);
 
       for (const ev of events) {
         const comp = ev.competitions?.at(0);
         if (!comp) continue;
 
-        // Ne garde que les matchs terminés ou en cours
         const state = ev.status?.type?.state; // 'post' = terminé, 'in' = en cours
         if (state !== 'post' && state !== 'in') continue;
 
@@ -57,17 +52,19 @@ const fs = require('fs');
         });
 
         results.push({
-          sport: lg.sport,
+          sport: ep.sport,
           date: state === 'in' ? 'En cours' : dateLabel,
-          competition: data.leagues?.at(0)?.name || lg.comp,
+          competition: data.leagues?.at(0)?.name || ep.comp,
           match: `${homeName} - ${awayName}`,
           score: `${homeScore} - ${awayScore}`
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('Erreur', ep.comp, e.message);
+    }
   }
 
   fs.mkdirSync('data', { recursive: true });
   fs.writeFileSync('data/scores.json', JSON.stringify(results, null, 2));
-  console.log('Scores extraits via API ESPN :', results.length);
+  console.log('Total scores sauvegardes :', results.length);
 })();
