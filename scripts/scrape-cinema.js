@@ -1,4 +1,4 @@
-const { chromium } = require('playwright');
+﻿const { chromium } = require('playwright');
 const fs = require('fs');
 
 (async () => {
@@ -62,18 +62,18 @@ const fs = require('fs');
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
       await page.goto(film.link, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      // Attend explicitement que les infos du film s'affichent (jusqu'à 8s)
-      await page.waitForFunction(() => document.body.innerText.includes('Réalisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
+      // Attend explicitement que les infos du film s'affichent (jusqu'Ã  8s)
+      await page.waitForFunction(() => document.body.innerText.includes('RÃ©alisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
       await page.waitForTimeout(800);
 
       const details = await page.evaluate(() => {
         const text = document.body.innerText || '';
         const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
         
-        const dirLine = lines.find(l => l.match(/^(Réalisation|De)\s*:/i));
+        const dirLine = lines.find(l => l.match(/^(RÃ©alisation|De)\s*:/i));
         const castLine = lines.find(l => l.match(/^(Casting|Avec)\s*:/i));
         
-        const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
+        const director = dirLine ? dirLine.replace(/^(RÃ©alisation|De)\s*:\s*/i, '').trim() : '';
         const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
 
         let duration = '';
@@ -82,12 +82,12 @@ const fs = require('fs');
         if (durIdx !== -1) {
           const match = lines[durIdx].match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
           duration = match ? match[0].trim() : '';
-          if (lines[durIdx].includes('•')) {
-            const parts = lines[durIdx].split('•').map(p => p.trim()).filter(p => p && !p.includes(duration));
+          if (lines[durIdx].includes('â€¢')) {
+            const parts = lines[durIdx].split('â€¢').map(p => p.trim()).filter(p => p && !p.includes(duration));
             if (parts.length > 0) genre = parts.join(', ');
           }
-          if (!genre && lines[durIdx + 1] && lines[durIdx + 1].length < 45 && !lines[durIdx + 1].includes(':')) {
-            genre = lines[durIdx + 1].replace(/^•\s*/, '').trim();
+          const nextLine = nextLine === "•" ? lines[durIdx + 2] : nextLine; if (!genre && nextLine && nextLine.length < 45 && !nextLine.includes(':')) {
+            genre = nextLine.replace(/^â€¢\s*/, '').trim();
           }
         }
         
@@ -95,7 +95,7 @@ const fs = require('fs');
         const candidates = Array.from(document.querySelectorAll('p, div, span'))
           .filter(el => el.children.length === 0 || el.tagName === 'P')
           .map(el => el.innerText?.trim() || '')
-          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026') && !t.includes('Horaires'));
+          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions lÃ©gales') && !t.includes('Â© 2026') && !t.includes('Horaires'));
         candidates.sort((a, b) => b.length - a.length);
 
         return { duration, genre, director, cast, synopsis: candidates[0] || '' };
