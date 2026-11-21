@@ -1,0 +1,38 @@
+﻿name: Mise à jour Horaires Cinéma
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Installer Pipet et Playwright
+        run: |
+          go install ://github.com
+          npx playwright install chromium --with-deps
+
+      - name: Exécuter Pipet sur Les Toiles du Lac
+        run: |
+          mkdir -p data
+          pipet --json scripts/toiles-du-lac.pipet > data/cinema.json
+
+      - name: Sauvegarder le JSON dans le dépôt
+        run: |
+          git config user.name "Hub Scraper Bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/cinema.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update cinema schedule" && git push)

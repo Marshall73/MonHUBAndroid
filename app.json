@@ -1,0 +1,8 @@
+{
+  "expo": {
+    "name": "Mon Hub",
+    "slug": "monhubandroid",
+    "userInterfaceStyle": "dark",
+    "plugins": ["expo-router"]
+  }
+}
