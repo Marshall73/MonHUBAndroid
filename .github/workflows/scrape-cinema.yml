@@ -28,7 +28,7 @@ jobs:
       - name: Exécuter Pipet sur Les Toiles du Lac
         run: |
           mkdir -p data
-          pipet --json scripts/toiles-du-lac.pipet > data/cinema.json
+          $(go env GOPATH)/bin/pipet -v --json scripts/toiles-du-lac.pipet > data/cinema.json
 
       - name: Sauvegarder le JSON dans le dépôt
         run: |
