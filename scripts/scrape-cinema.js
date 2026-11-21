@@ -84,14 +84,10 @@ const fs = require('fs');
           const match = durLine.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
           duration = match ? match.at(0).trim() : '';
           
-          const surrounding = [lines.at(durIdx), lines.at(durIdx + 1), lines.at(durIdx + 2), lines.at(durIdx - 1), lines.at(durIdx - 2)].filter(Boolean);
-          for (const line of surrounding) {
-            const cleaned = line.replace(duration, '').replace(/•/g, '').trim();
-            if (cleaned.length > 2 && cleaned.length < 40 && !cleaned.includes(':') && !cleaned.match(/\d/)) {
-              genre = cleaned;
-              break;
-            }
-          }
+          const knownGenres = ['Comédie dramatique', 'Science-fiction', 'Comédie', 'Drame', 'Action', 'Thriller', 'Animation', 'Horreur', 'Épouvante', 'Aventure', 'Documentaire', 'Biopic', 'Policier', 'Romance', 'Fantastique', 'Historique', 'Musical', 'Famille', 'Guerre', 'Western'];
+          const surrounding = [lines.at(durIdx), lines.at(durIdx + 1), lines.at(durIdx + 2), lines.at(durIdx + 3)].filter(Boolean).join(' ');
+          const found = knownGenres.filter(g => new RegExp('\\b' + g + '\\b', 'i').test(surrounding));
+          if (found.length > 0) genre = found.join(', ');
         }
         
         const candidates = Array.from(document.querySelectorAll('p, div, span'))
