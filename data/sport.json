@@ -348,7 +348,7 @@
   {
     "sport": "Foot",
     "time": "20:25",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T20:25:00+01:00",
     "endAt": "2026-11-21T22:40:00+01:00",
@@ -370,13 +370,24 @@
   {
     "sport": "MMA",
     "time": "20:30",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T20:30:00+01:00",
     "endAt": "2026-11-21T22:00:00+01:00",
     "title": "MMA MMA : Ultimate Fighting Championship 2026",
     "competition": "UFC",
     "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "20:30",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:30:00+01:00",
+    "endAt": "2026-11-21T22:30:00+01:00",
+    "title": "ATP Finals",
+    "competition": "ATP Finals",
+    "channel": "Eurosport 1"
   },
   {
     "sport": "MMA",
@@ -390,20 +401,9 @@
     "channel": "RMC Sport 2"
   },
   {
-    "sport": "Tennis",
-    "time": "20:30",
-    "status": "Direct",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T20:30:00+01:00",
-    "endAt": "2026-11-21T22:30:00+01:00",
-    "title": "ATP Finals",
-    "competition": "ATP Finals",
-    "channel": "Eurosport 1"
-  },
-  {
     "sport": "Foot",
     "time": "20:38",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T20:38:00+01:00",
     "endAt": "2026-11-21T22:40:00+01:00",
@@ -414,7 +414,7 @@
   {
     "sport": "Foot",
     "time": "20:45",
-    "status": "En cours",
+    "status": "Terminé",
     "date": "2026-11-21",
     "startAt": "2026-11-21T20:45:00+01:00",
     "title": "Naples – Torino",
