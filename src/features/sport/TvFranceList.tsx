@@ -62,7 +62,12 @@ function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: nu
   );
 }
 
-export function TvFranceList({ sport, query, now }: { sport: Sport; query: string; now?: Date }) {
+export function TvFranceList({ sport, query, now, upcomingOnly }: {
+  sport: Sport;
+  query: string;
+  now: Date;
+  upcomingOnly: boolean;
+}) {
   const [programs, setPrograms] = useState<TvProgram[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [request, setRequest] = useState<{ refresh: boolean } | null>({ refresh: false });
@@ -104,7 +109,7 @@ export function TvFranceList({ sport, query, now }: { sport: Sport; query: strin
     <FlatList
       className="flex-1 px-5"
       keyboardShouldPersistTaps="handled"
-      data={programs ? filterPrograms(programs, sport, query, now) : undefined}
+      data={programs ? filterPrograms(programs, sport, query, now, upcomingOnly) : undefined}
       keyExtractor={programKey}
       renderItem={({ item, index }) => <ProgramCard item={item} index={index} reduceMotion={reduceMotion} />}
       refreshControl={<RefreshControl refreshing={request?.refresh === true} onRefresh={() => load(true)} colors={['#3B82F6']} />}
@@ -131,7 +136,9 @@ export function TvFranceList({ sport, query, now }: { sport: Sport; query: strin
         </View>
       ) : (
         <Text className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 text-zinc-300">
-          {programs.length === 0 ? 'Aucun programme TV France publié pour le moment.' : 'Aucun programme ne correspond aux filtres.'}
+          {programs.length === 0
+            ? 'Aucun programme TV France publié pour le moment.'
+            : upcomingOnly ? 'Aucun match à venir pour ces filtres.' : 'Aucun programme ne correspond aux filtres.'}
         </Text>
       )}
     />

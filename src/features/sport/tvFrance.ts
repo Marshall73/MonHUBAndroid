@@ -55,12 +55,15 @@ export async function fetchTvSchedule(signal: AbortSignal): Promise<TvProgram[]>
   return [...programs.values()].sort((first, second) => first.time.localeCompare(second.time));
 }
 
-export function filterPrograms(programs: TvProgram[], sport: Sport, search: string, now?: Date) {
+export function filterPrograms(programs: TvProgram[], sport: Sport, search: string, now: Date, upcomingOnly: boolean) {
   const query = searchable(search.trim());
-  const cutoff = now ? now.getHours() * 60 + now.getMinutes() - 120 : 0;
+  const currentMinute = now.getHours() * 60 + now.getMinutes();
   return programs.filter((item) => {
     const start = Number(item.time.slice(0, 2)) * 60 + Number(item.time.slice(3));
-    return start >= cutoff && matchesSport(sport, item.sport) &&
+    const matchesTime = upcomingOnly
+      ? start > currentMinute && item.status !== 'En cours'
+      : item.status === 'Direct' || start >= currentMinute - 120;
+    return matchesTime && matchesSport(sport, item.sport) &&
       searchable(`${item.title} ${item.competition} ${item.channel}`).includes(query);
   });
 }

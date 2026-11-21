@@ -8,20 +8,19 @@ import { sports, type Sport } from './filters';
 import { TvFranceList } from './TvFranceList';
 
 const timeFilters = [
-  { recentOnly: true, label: 'À venir / En cours' },
-  { recentOnly: false, label: 'Toute la journée' },
+  { upcomingOnly: false, label: 'En cours' },
+  { upcomingOnly: true, label: 'À venir' },
 ] as const;
 
 const searchLabel = 'Équipe, combattant, compétition ou chaîne';
 
 export default function SportScreen() {
   const [sport, setSport] = useState<Sport>(sports[0]);
-  const [recentOnly, setRecentOnly] = useState(true);
+  const [upcomingOnly, setUpcomingOnly] = useState(false);
   const [search, setSearch] = useState('');
   const [now, setNow] = useState(() => new Date());
 
   useFocusEffect(useCallback(() => {
-    if (!recentOnly) return;
     let timeout: ReturnType<typeof setTimeout>;
     function updateTime() {
       clearTimeout(timeout);
@@ -38,7 +37,7 @@ export default function SportScreen() {
       clearTimeout(timeout);
       subscription.remove();
     };
-  }, [recentOnly]));
+  }, []));
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-zinc-950">
@@ -66,11 +65,11 @@ export default function SportScreen() {
               <Pressable
                 key={option.label}
                 accessibilityRole="button"
-                accessibilityState={{ selected: recentOnly === option.recentOnly }}
-                onPress={() => setRecentOnly(option.recentOnly)}
-                className={`min-h-11 shrink justify-center rounded-lg px-3 ${recentOnly === option.recentOnly ? 'bg-blue-500/20' : ''}`}
+                accessibilityState={{ selected: upcomingOnly === option.upcomingOnly }}
+                onPress={() => setUpcomingOnly(option.upcomingOnly)}
+                className={`min-h-11 shrink justify-center rounded-lg px-3 ${upcomingOnly === option.upcomingOnly ? 'bg-blue-500/20' : ''}`}
               >
-                <Text className={`text-center text-sm font-semibold ${recentOnly === option.recentOnly ? 'text-blue-200' : 'text-zinc-300'}`}>
+                <Text className={`text-center text-sm font-semibold ${upcomingOnly === option.upcomingOnly ? 'text-blue-200' : 'text-zinc-300'}`}>
                   {option.label}
                 </Text>
               </Pressable>
@@ -101,7 +100,7 @@ export default function SportScreen() {
             )}
           </View>
         </View>
-        <TvFranceList sport={sport} query={search} now={recentOnly ? now : undefined} />
+        <TvFranceList sport={sport} query={search} now={now} upcomingOnly={upcomingOnly} />
       </View>
     </SafeAreaView>
   );
