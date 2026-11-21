@@ -44,17 +44,6 @@
     "channel": "Canal+"
   },
   {
-    "sport": "Foot",
-    "time": "13:25",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T13:25:00+01:00",
-    "endAt": "2026-11-21T15:30:00+01:00",
-    "title": "Millwall – Queens Park Rangers",
-    "competition": "Championship anglais",
-    "channel": "beIN SPORTS MAX 10"
-  },
-  {
     "sport": "Tennis",
     "time": "13:30",
     "status": "Terminé",
@@ -66,39 +55,6 @@
     "channel": "beIN SPORTS 3"
   },
   {
-    "sport": "Foot",
-    "time": "13:45",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T13:45:00+01:00",
-    "endAt": "2026-11-21T16:00:00+01:00",
-    "title": "Laval – Montpellier",
-    "competition": "Ligue 2",
-    "channel": "beIN SPORTS 1"
-  },
-  {
-    "sport": "Foot",
-    "time": "13:55",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T13:55:00+01:00",
-    "endAt": "2026-11-21T16:00:00+01:00",
-    "title": "Galatasaray – Samsunspor",
-    "competition": "Süper Lig de Turquie",
-    "channel": "beIN SPORTS MAX 9"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:30",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:30:00+01:00",
-    "endAt": "2026-11-21T17:05:00+01:00",
-    "title": "Multiplex",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+"
-  },
-  {
     "sport": "Tennis",
     "time": "14:30",
     "status": "Terminé",
@@ -108,83 +64,6 @@
     "title": "Carlos Alcaraz – Ben Shelton",
     "competition": "ATP Finals",
     "channel": "Eurosport 1"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:38",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:38:00+01:00",
-    "endAt": "2026-11-21T17:00:00+01:00",
-    "title": "Fleury – Rouen",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+ 3"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:38",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:38:00+01:00",
-    "endAt": "2026-11-21T17:00:00+01:00",
-    "title": "Bastia – Villefranche",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+ 4"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:38",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:38:00+01:00",
-    "endAt": "2026-11-21T17:00:00+01:00",
-    "title": "Cannes – Aubagne",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+ 5"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:38",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:38:00+01:00",
-    "endAt": "2026-11-21T17:00:00+01:00",
-    "title": "Rouen – Valenciennes",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+ 6"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:38",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:38:00+01:00",
-    "endAt": "2026-11-21T17:00:00+01:00",
-    "title": "La Roche-sur-Yon – Concarneau",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+ 8"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:38",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:38:00+01:00",
-    "endAt": "2026-11-21T17:00:00+01:00",
-    "title": "Le Puy – Paris 13 Atletico",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+ 10"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:38",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T14:38:00+01:00",
-    "endAt": "2026-11-21T17:00:00+01:00",
-    "title": "Versailles – Bourg-en-Bresse Péronnas",
-    "competition": "Ligue 3",
-    "channel": "Ligue 1+ 7"
   },
   {
     "sport": "Rugby",
@@ -342,17 +221,6 @@
   },
   {
     "sport": "Foot",
-    "time": "17:00",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T17:00:00+01:00",
-    "endAt": "2026-11-21T19:00:00+01:00",
-    "title": "Kocaelispor – Fenerbahçe",
-    "competition": "Süper Lig de Turquie",
-    "channel": "beIN SPORTS 1"
-  },
-  {
-    "sport": "Foot",
     "time": "17:05",
     "status": "Terminé",
     "date": "2026-11-21",
@@ -405,17 +273,6 @@
     "title": "Newcastle – Arsenal",
     "competition": "Premier League",
     "channel": "Canal+ Foot"
-  },
-  {
-    "sport": "Foot",
-    "time": "20:00",
-    "status": "Direct",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T20:00:00+01:00",
-    "endAt": "2026-11-21T22:00:00+01:00",
-    "title": "Reims – Saint-Etienne",
-    "competition": "Ligue 2",
-    "channel": "beIN SPORTS 1"
   },
   {
     "sport": "Foot",
@@ -515,17 +372,6 @@
     "title": "Multiplex",
     "competition": "Ligue 1",
     "channel": "Ligue 1+"
-  },
-  {
-    "sport": "Foot",
-    "time": "20:55",
-    "status": "Direct",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T20:55:00+01:00",
-    "endAt": "2026-11-21T22:57:00+01:00",
-    "title": "PSG féminine – Saint-Malo féminine",
-    "competition": "Arkema Première Ligue",
-    "channel": "Canal+ Foot"
   },
   {
     "sport": "Rugby",
