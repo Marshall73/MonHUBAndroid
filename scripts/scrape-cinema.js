@@ -84,7 +84,7 @@ const fs = require('fs');
           const match = durLine.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
           duration = match ? match.at(0).trim() : '';
           
-          const surrounding = [lines.at(durIdx), lines.at(durIdx + 1), lines.at(durIdx + 2)].filter(Boolean);
+          const surrounding = [lines.at(durIdx), lines.at(durIdx + 1), lines.at(durIdx + 2), lines.at(durIdx - 1), lines.at(durIdx - 2)].filter(Boolean);
           for (const line of surrounding) {
             const cleaned = line.replace(duration, '').replace(/•/g, '').trim();
             if (cleaned.length > 2 && cleaned.length < 40 && !cleaned.includes(':') && !cleaned.match(/\d/)) {
