@@ -62,9 +62,8 @@ const fs = require('fs');
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
-      await page.goto(film.link, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      await page.waitForFunction(() => document.body.innerText.includes('Réalisation') || document.body.innerText.includes('min'), { timeout: 8000 }).catch(() => {});
-      await page.waitForTimeout(800);
+      await page.goto(film.link, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForTimeout(1000);
 
       const details = await page.evaluate(() => {
         const text = document.body.innerText || '';
@@ -99,7 +98,7 @@ const fs = require('fs');
           .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026') && !t.includes('Horaires'));
         candidates.sort((a, b) => b.length - a.length);
 
-        return { duration, genre, director, cast, synopsis: candidates || '' };
+        return { duration, genre, director, cast, synopsis: candidates[0] || '' };
       });
       film.duration = details.duration;
       film.genre = details.genre;
