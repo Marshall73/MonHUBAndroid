@@ -112,7 +112,7 @@ const fs = require('fs');
       const isExcluded = /\b(Rediffusion|Magazine|Sans diffusion TV|Aucune diffusion TV)\b/i.test(text);
       const compLine = lines.find(l => l.includes('·')) || text;
 
-      if (/serie\s*a|la\s*liga|laliga/i.test(text + ' ' + compLine)) {
+      if (/serie|italia|liga|espagne|españa/i.test(text + ' ' + compLine)) {
         console.log('[DEBUG COMP] ' + JSON.stringify({
           text,
           compLine,
