@@ -1,5 +1,461 @@
 [
   {
+    "sport": "MotoGP",
+    "time": "11:00",
+    "status": "Direct",
+    "title": "Grand Prix du Portugal — Essais libres 2 des Moto GP",
+    "competition": "Grand Prix du Portugal",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "11:45",
+    "status": "Direct",
+    "title": "Grand Prix du Portugal — Essais qualificatifs 1 et 2 des Moto GP",
+    "competition": "Grand Prix du Portugal",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Foot",
+    "time": "12:55",
+    "status": "Direct",
+    "title": "Wolfsburg – Holstein Kiel",
+    "competition": "Bundesliga 2",
+    "channel": "beIN SPORTS MAX 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "status": "Direct",
+    "title": "Manchester City – Fulham",
+    "competition": "Premier League",
+    "channel": "Canal+"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:25",
+    "status": "Direct",
+    "title": "Millwall – Queens Park Rangers",
+    "competition": "Championship anglais",
+    "channel": "beIN SPORTS MAX 10"
+  },
+  {
+    "sport": "Tennis",
+    "time": "13:30",
+    "status": "Direct",
+    "title": "France – Australie",
+    "competition": "Billie Jean King Cup",
+    "channel": "beIN SPORTS 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:45",
+    "status": "Direct",
+    "title": "Laval – Montpellier",
+    "competition": "Ligue 2",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "13:55",
+    "status": "Direct",
+    "title": "Galatasaray – Samsunspor",
+    "competition": "Süper Lig de Turquie",
+    "channel": "beIN SPORTS MAX 9"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:00",
+    "status": "Direct",
+    "title": "Deportivo Alavès – Deportivo La Corogne",
+    "competition": "La Liga",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:00",
+    "status": "Direct",
+    "title": "Deportivo Alavès – Deportivo La Corogne",
+    "competition": "La Liga",
+    "channel": "Disney+"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:30",
+    "status": "Direct",
+    "title": "Multiplex",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Tennis",
+    "time": "14:30",
+    "status": "Direct",
+    "title": "Carlos Alcaraz – Ben Shelton",
+    "competition": "ATP Finals",
+    "channel": "Eurosport 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "status": "Direct",
+    "title": "Fleury – Rouen",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "status": "Direct",
+    "title": "Bastia – Villefranche",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "status": "Direct",
+    "title": "Cannes – Aubagne",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "status": "Direct",
+    "title": "Rouen – Valenciennes",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "status": "Direct",
+    "title": "La Roche-sur-Yon – Concarneau",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+ 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "status": "Direct",
+    "title": "Le Puy – Paris 13 Atletico",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+ 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "14:38",
+    "status": "Direct",
+    "title": "Versailles – Bourg-en-Bresse Péronnas",
+    "competition": "Ligue 3",
+    "channel": "Ligue 1+ 7"
+  },
+  {
+    "sport": "Rugby",
+    "time": "15:00",
+    "status": "Direct",
+    "title": "Angleterre – Nouvelle-Zélande",
+    "competition": "Championnat des nations",
+    "channel": "TF1"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:00",
+    "status": "Direct",
+    "title": "Lazio Rome – Lecce",
+    "competition": "Serie A",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:00",
+    "status": "Direct",
+    "title": "Como – Cagliari",
+    "competition": "Serie A",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "status": "Direct",
+    "title": "Mönchengladbach – Borussia Dortmund",
+    "competition": "Bundesliga",
+    "channel": "beIN SPORTS MAX 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "status": "Direct",
+    "title": "FC Union Berlin – Leipzig",
+    "competition": "Bundesliga",
+    "channel": "beIN SPORTS MAX 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "status": "Direct",
+    "title": "Eintracht Francfort – Hoffenheim",
+    "competition": "Bundesliga",
+    "channel": "beIN SPORTS MAX 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:24",
+    "status": "Direct",
+    "title": "SV Elversberg – Fribourg",
+    "competition": "Bundesliga",
+    "channel": "beIN SPORTS MAX 8"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:30",
+    "status": "Direct",
+    "title": "Multiplex",
+    "competition": "Bundesliga",
+    "channel": "beIN SPORTS 2"
+  },
+  {
+    "sport": "MotoGP",
+    "time": "15:55",
+    "status": "Direct",
+    "title": "Grand Prix du Portugal — Sprint des MotoGP",
+    "competition": "Grand Prix du Portugal",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "status": "Direct",
+    "title": "Tottenham – Ipswich Town",
+    "competition": "Premier League",
+    "channel": "Canal+ Live 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "status": "Direct",
+    "title": "Chelsea – Leeds",
+    "competition": "Premier League",
+    "channel": "Canal+ Live 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "status": "Direct",
+    "title": "Aston Villa – Sunderland",
+    "competition": "Premier League",
+    "channel": "Canal+ Live 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "status": "Direct",
+    "title": "Coventry – Crystal Palace",
+    "competition": "Premier League",
+    "channel": "Canal+ Live 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:55",
+    "status": "Direct",
+    "title": "Bournemouth – Nottingham Forest",
+    "competition": "Premier League",
+    "channel": "Canal+ Live 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:59",
+    "status": "Direct",
+    "title": "Multiplex",
+    "competition": "Premier League",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Tennis",
+    "time": "16:00",
+    "status": "Direct",
+    "title": "Pologne féminine – Suède",
+    "competition": "Billie Jean King Cup",
+    "channel": "beIN SPORTS MAX 10"
+  },
+  {
+    "sport": "Foot",
+    "time": "16:15",
+    "status": "Direct",
+    "title": "Rayo Vallecano – Valence",
+    "competition": "La Liga",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "16:15",
+    "status": "Direct",
+    "title": "Rayo Vallecano – Valence",
+    "competition": "La Liga",
+    "channel": "Disney+"
+  },
+  {
+    "sport": "Foot",
+    "time": "16:30",
+    "status": "Direct",
+    "title": "Nimègue – PSV Eindhoven",
+    "competition": "Eredivisie championnat des Pays-Bas",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:00",
+    "status": "Direct",
+    "title": "Kocaelispor – Fenerbahçe",
+    "competition": "Süper Lig de Turquie",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "17:05",
+    "status": "Direct",
+    "title": "Nice – PSG",
+    "competition": "Ligue 1",
+    "channel": "Ligue 1+"
+  },
+  {
+    "sport": "Rugby",
+    "time": "17:30",
+    "status": "Direct",
+    "title": "Irlande – Afrique du Sud",
+    "competition": "Championnat des nations",
+    "channel": "TF1"
+  },
+  {
+    "sport": "Tennis",
+    "time": "17:30",
+    "status": "Direct",
+    "title": "France – Australie",
+    "competition": "Billie Jean King Cup",
+    "channel": "beIN SPORTS 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:00",
+    "status": "Direct",
+    "title": "Parme – AS Roma",
+    "competition": "Serie A",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:24",
+    "status": "Direct",
+    "title": "Schalke 04 – Stuttgart",
+    "competition": "Bundesliga",
+    "channel": "beIN SPORTS MAX 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:25",
+    "status": "Direct",
+    "title": "Newcastle – Arsenal",
+    "competition": "Premier League",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:30",
+    "status": "Direct",
+    "title": "FC Séville – Betis Séville",
+    "competition": "La Liga",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:30",
+    "status": "Direct",
+    "title": "FC Séville – Betis Séville",
+    "competition": "La Liga",
+    "channel": "Disney+"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:00",
+    "status": "Direct",
+    "title": "Reims – Saint-Etienne",
+    "competition": "Ligue 2",
+    "channel": "beIN SPORTS 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:15",
+    "status": "Direct",
+    "title": "Lille – Lyon",
+    "competition": "Ligue 1",
+    "channel": "Ligue 1+ 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:15",
+    "status": "Direct",
+    "title": "Strasbourg – Brest",
+    "competition": "Ligue 1",
+    "channel": "Ligue 1+ 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:25",
+    "status": "Direct",
+    "title": "FC Sankt Pauli – Bochum",
+    "competition": "Bundesliga 2",
+    "channel": "beIN SPORTS MAX 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:25",
+    "status": "Direct",
+    "title": "Lens – Toulouse",
+    "competition": "Ligue 1",
+    "channel": "Ligue 1+ 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:25",
+    "status": "Direct",
+    "title": "Monaco – Auxerre",
+    "competition": "Ligue 1",
+    "channel": "Ligue 1+ 5"
+  },
+  {
+    "sport": "MMA",
+    "time": "20:30",
+    "status": "Direct",
+    "title": "MMA MMA : Ultimate Fighting Championship 2026",
+    "competition": "UFC",
+    "channel": "RMC Sport 1"
+  },
+  {
+    "sport": "MMA",
+    "time": "20:30",
+    "status": "Direct",
+    "title": "Adrian Bartosinski – Tymoteusz Lopaczyk",
+    "competition": "KSW",
+    "channel": "RMC Sport 2"
+  },
+  {
+    "sport": "Tennis",
+    "time": "20:30",
+    "status": "Direct",
+    "title": "ATP Finals",
+    "competition": "ATP Finals",
+    "channel": "Eurosport 1"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:38",
+    "status": "Direct",
+    "title": "Multiplex",
+    "competition": "Ligue 1",
+    "channel": "Ligue 1+"
+  },
+  {
     "sport": "Foot",
     "time": "20:45",
     "status": "Direct",
