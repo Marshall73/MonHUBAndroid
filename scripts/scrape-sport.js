@@ -16,7 +16,74 @@ const fs = require('fs');
     }
   });
 
-  await page.goto(urlSport, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  const response = await page.goto(urlSport, { waitUntil: 'domcontentloaded', timeout: 60000 })
+    .catch(async error => {
+      await browser.close();
+      throw error;
+    });
+  if (!response?.ok()) {
+    const status = response?.status();
+    console.error(`[LIGUES] Erreurs HTTP : ${status ? 1 : 0}`);
+    await browser.close();
+    throw new Error(status ? `Programme TV-Sports inaccessible : HTTP ${status}` : 'Aucune réponse de TV-Sports');
+  }
+  // Les cartes streaming peuvent n'avoir que <time datetime> et un état publié par TV-Sports.
+  const leagueMatches = await page.evaluate(() => {
+    const matches = new Map();
+    const parisDate = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Paris' });
+    const parisTime = new Intl.DateTimeFormat('fr-FR', {
+      timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit'
+    });
+    const hasTimestamp = value => value && /T\d{2}:\d{2}.*(?:Z|[+-]\d{2}:\d{2})$/.test(value) &&
+      Number.isFinite(Date.parse(value));
+    const now = Date.now();
+
+    for (const row of document.querySelectorAll('li.schedule-item[data-is-match="1"]')) {
+      const link = row.querySelector('h3 a[href]');
+      const match = link?.pathname.match(/-(serie-a|la-liga)-e(\d+)\/?$/);
+      if (!match || !link.textContent.trim()) continue;
+      if (['replay', 'show'].includes(row.dataset.scheduleType)) continue;
+
+      const [, league, id] = match;
+      const competition = league === 'serie-a' ? 'Serie A' : 'La Liga';
+      const title = link.textContent.trim();
+      const timingSelector = '[data-starts-at][data-ends-at]';
+      const timing = row.matches(timingSelector) ? row : row.querySelector(timingSelector);
+      const startAt = [timing?.dataset.startsAt, row.querySelector('time[datetime]')?.dateTime]
+        .find(hasTimestamp);
+      const publishedEnd = timing?.dataset.endsAt;
+      const endAt = startAt && hasTimestamp(publishedEnd) && Date.parse(publishedEnd) > Date.parse(startAt)
+        ? publishedEnd : undefined;
+      const start = Date.parse(startAt);
+      const statusLabel = row.querySelector('.schedule-status')?.textContent.trim() ?? '';
+      const finished = row.dataset.isPast === '1' || row.dataset.scheduleSection === 'past' ||
+        /^terminé/i.test(statusLabel) || (endAt && now >= Date.parse(endAt));
+      const live = row.dataset.isLive === '1' || row.dataset.scheduleSection === 'current' ||
+        /^en cours/i.test(statusLabel) || (endAt && now >= start);
+      const status = finished ? 'Terminé' : live ? 'En cours' : 'Direct';
+
+      const channels = [];
+      for (const item of row.querySelectorAll('.schedule-channel__item')) {
+        const country = item.dataset.channelCountry ??
+          item.querySelector('[data-channel-country]')?.dataset.channelCountry ?? row.dataset.channelCountry;
+        if (country !== 'FR') continue;
+        const channel = item.querySelector('.schedule-channel__name')?.textContent.trim() ||
+          item.querySelector('img.channel-logo[alt]')?.alt.trim() ||
+          item.querySelector('[title]')?.getAttribute('title')?.trim() || item.textContent.trim();
+        if (channel) channels.push(channel);
+      }
+
+      const fixtureKey = `${league}-${id}`;
+      const fixture = matches.get(fixtureKey) ?? { competition, rows: [] };
+      const date = startAt ? parisDate.format(start) : undefined;
+      const time = startAt ? parisTime.format(start) : undefined;
+      fixture.rows.push({ sport: 'Foot', time, status, date, startAt, endAt, title, competition, channels });
+      matches.set(fixtureKey, fixture);
+    }
+
+    return [...matches.values()];
+  });
+
   await page.waitForTimeout(2500);
 
   try {
@@ -138,6 +205,7 @@ const fs = require('fs');
       if (!title || title.startsWith('▶')) continue;
 
       const competition = compLine.includes('·') ? compLine.split('·').at(-1).trim() : sport;
+      if (/^(Serie A|La Liga)$/i.test(competition)) continue;
 
       const imgs = Array.from(block.querySelectorAll('img[alt], img[title]'))
         .map(img => (img.getAttribute('alt') || img.getAttribute('title') || '').trim())
@@ -189,126 +257,59 @@ const fs = require('fs');
   }
 
 
-  // Extraction complémentaire des matchs de Serie A et La Liga
-  await page.goto('https://tv-sports.fr/foot/match-direct', {
-    waitUntil: 'domcontentloaded',
-    timeout: 60000
-  });
-  await page.waitForTimeout(1500);
+  let addedLeagueMatches = 0;
+  let addedLeagueBroadcasts = 0;
+  let duplicateRows = 0;
+  let missingStart = 0;
+  let missingEnd = 0;
+  let missingChannel = 0;
+  const matchesByLeague = { 'Serie A': 0, 'La Liga': 0 };
 
-  const leagueDebug = await page.evaluate(() => {
-    const items = [...document.querySelectorAll('li.schedule-item[data-is-match="1"]')];
-    const leagues = items.filter(item =>
-      [...item.querySelectorAll('.schedule-meta a[href]')].some(a =>
-        /^\/foot\/(serie-a|la-liga)\/?$/.test(a.getAttribute('href') || '')
-      )
-    );
+  for (const { competition, rows } of leagueMatches) {
+    matchesByLeague[competition]++;
+    const broadcasts = new Map();
+    const hasStart = rows.some(row => row.startAt);
+    const hasChannel = rows.some(row => row.channels.length);
+    duplicateRows += rows.length - 1;
+    if (!hasStart) missingStart++;
+    if (hasStart && !rows.some(row => row.endAt)) missingEnd++;
+    if (!hasChannel) missingChannel++;
 
-    return {
-      url: location.href,
-      title: document.title,
-      items: items.length,
-      leagues: leagues.length,
-      withFrenchChannel: leagues.filter(item =>
-        item.querySelector('.schedule-channel__item[data-channel-country="FR"]')
-      ).length,
-      examples: leagues.slice(0, 5).map(item => ({
-        title: item.querySelector('h3 a')?.textContent?.trim(),
-        competition: item.querySelector('.schedule-meta a[href*="serie-a"], .schedule-meta a[href*="la-liga"]')?.textContent?.trim(),
-        channels: [...item.querySelectorAll('.schedule-channel__item')].map(el => el.getAttribute('data-channel-country'))
-      }))
-    };
-  });
-
-  console.log('[DEBUG PAGE LIGUES]', JSON.stringify(leagueDebug));
-
-  const leagueMatches = await page.evaluate(() => {
-    const results = [];
-
-    for (const item of document.querySelectorAll('li.schedule-item[data-is-match="1"]')) {
-      const competitionLink = Array.from(item.querySelectorAll('.schedule-meta a[href]'))
-        .find(a => /^\/foot\/(serie-a|la-liga)\/?$/.test(a.getAttribute('href') || ''));
-
-      if (!competitionLink) continue;
-
-      const title = item.querySelector('h3 a')?.textContent?.trim() || '';
-      const competition = competitionLink.textContent.trim();
-      const timeElement = item.querySelector('time.schedule-time');
-      const timing = item.querySelector('[data-starts-at][data-ends-at]');
-
-      const startAt =
-        timing?.getAttribute('data-starts-at') ||
-        timeElement?.getAttribute('datetime') ||
-        '';
-      const endAt = timing?.getAttribute('data-ends-at') || '';
-
-      if (!title || !startAt || !Number.isFinite(Date.parse(startAt))) continue;
-      if (endAt && (!Number.isFinite(Date.parse(endAt)) || Date.parse(endAt) <= Date.parse(startAt))) continue;
-
-      const timeMatch = startAt.match(/T(\d{2}):(\d{2})/);
-      if (!timeMatch) continue;
-
-      const channels = Array.from(
-        item.querySelectorAll('.schedule-channel__item[data-channel-country="FR"]')
-      ).map(channelItem => {
-        return (
-          channelItem.querySelector('.schedule-channel__name')?.textContent?.trim() ||
-          channelItem.querySelector('img.channel-logo')?.getAttribute('alt') ||
-          channelItem.querySelector('[title]')?.getAttribute('title') ||
-          ''
-        ).trim();
-      }).filter(Boolean);
-
-      if (!channels.length) continue;
-
-      const scheduleStatus = item.querySelector('.schedule-status')?.textContent?.trim() || '';
-      const finished = item.getAttribute('data-is-past') === '1' ||
-        item.getAttribute('data-schedule-section') === 'past' ||
-        /^terminé/i.test(scheduleStatus);
-
-      const status = finished
-        ? 'Terminé'
-        : /en cours/i.test(scheduleStatus)
-          ? 'En cours'
-          : 'Direct';
-
+    for (const { channels, ...event } of rows) {
+      if (!event.startAt) continue;
       for (const channel of channels) {
-        results.push({
-          sport: 'Foot',
-          time: `${timeMatch[1]}:${timeMatch[2]}`,
-          status,
-          date: startAt.slice(0, 10),
-          startAt,
-          ...(endAt ? { endAt } : {}),
-          title,
-          competition,
-          channel
-        });
+        const key = channel.toLocaleLowerCase('fr-FR');
+        const previous = broadcasts.get(key);
+        if (!previous || (!previous.endAt && event.endAt)) {
+          broadcasts.set(key, { ...event, channel });
+        }
       }
     }
 
-    return results;
-  });
-
-  let addedLeagueMatches = 0;
-
-  for (const ev of leagueMatches) {
-    const key = `${ev.time}-${ev.title}-${ev.channel}`;
-    if (!collected.has(key)) {
-      collected.set(key, ev);
-      addedLeagueMatches++;
-    } else if (ev.status === 'Terminé') {
-      collected.set(key, ev);
+    if (broadcasts.size) addedLeagueMatches++;
+    for (const event of broadcasts.values()) {
+      collected.set(`${event.time}-${event.title}-${event.channel}`, event);
+      addedLeagueBroadcasts++;
     }
   }
 
-  console.log(
-    `[DEBUG LIGUES] ${leagueMatches.length} matchs trouvés, ${addedLeagueMatches} nouveaux ajoutés.`
-  );
+  console.log('[LIGUES]', {
+    'Serie A détectés': matchesByLeague['Serie A'],
+    'La Liga détectés': matchesByLeague['La Liga'],
+    'Matchs ajoutés': addedLeagueMatches,
+    'Diffusions ajoutées': addedLeagueBroadcasts,
+    'Doublons de match ignorés': duplicateRows,
+    'Matchs sans horaire de début': missingStart,
+    'Matchs sans horaire de fin': missingEnd,
+    'Matchs sans chaîne française': missingChannel,
+    'Erreurs HTTP': 0
+  });
 
   const finalEvents = Array.from(collected.values()).sort((a, b) => a.time.localeCompare(b.time));
 
   await browser.close();
+  if (!finalEvents.length) throw new Error('Aucun programme TV-Sports extrait');
+
   fs.mkdirSync('data', { recursive: true });
   fs.writeFileSync('data/sport.json', JSON.stringify(finalEvents, null, 2));
   console.log('Total matchs captures palier par palier :', finalEvents.length);

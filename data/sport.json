@@ -44,6 +44,16 @@
     "channel": "beIN SPORTS 3"
   },
   {
+    "sport": "Foot",
+    "time": "14:00",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:00:00+01:00",
+    "title": "Deportivo Alavès – Deportivo La Corogne",
+    "competition": "La Liga",
+    "channel": "DAZN"
+  },
+  {
     "sport": "Tennis",
     "time": "14:30",
     "status": "Terminé",
@@ -64,6 +74,26 @@
     "title": "Angleterre – Nouvelle-Zélande",
     "competition": "Championnat des nations",
     "channel": "TF1"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:00",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:00:00+01:00",
+    "title": "Lazio Rome – Lecce",
+    "competition": "Serie A",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
+    "time": "15:00",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:00:00+01:00",
+    "title": "Como – Cagliari",
+    "competition": "Serie A",
+    "channel": "DAZN"
   },
   {
     "sport": "Foot",
@@ -210,6 +240,16 @@
   },
   {
     "sport": "Foot",
+    "time": "16:15",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T16:15:00+01:00",
+    "title": "Rayo Vallecano – Valence",
+    "competition": "La Liga",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
     "time": "17:05",
     "status": "Terminé",
     "date": "2026-11-21",
@@ -243,6 +283,16 @@
   },
   {
     "sport": "Foot",
+    "time": "18:00",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T18:00:00+01:00",
+    "title": "Parme – AS Roma",
+    "competition": "Serie A",
+    "channel": "DAZN"
+  },
+  {
+    "sport": "Foot",
     "time": "18:24",
     "status": "Terminé",
     "date": "2026-11-21",
@@ -262,6 +312,16 @@
     "title": "Newcastle – Arsenal",
     "competition": "Premier League",
     "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:30",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T18:30:00+01:00",
+    "title": "FC Séville – Betis Séville",
+    "competition": "La Liga",
+    "channel": "DAZN"
   },
   {
     "sport": "Foot",
@@ -352,6 +412,16 @@
     "channel": "Ligue 1+"
   },
   {
+    "sport": "Foot",
+    "time": "20:45",
+    "status": "En cours",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:45:00+01:00",
+    "title": "Naples – Torino",
+    "competition": "Serie A",
+    "channel": "DAZN"
+  },
+  {
     "sport": "Rugby",
     "time": "21:00",
     "status": "Direct",
@@ -361,6 +431,16 @@
     "title": "France – Argentine",
     "competition": "Championnat des nations",
     "channel": "TF1"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "status": "En cours",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T21:00:00+01:00",
+    "title": "Real Madrid – Celta Vigo",
+    "competition": "La Liga",
+    "channel": "DAZN"
   },
   {
     "sport": "MMA",

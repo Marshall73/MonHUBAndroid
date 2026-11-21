@@ -83,6 +83,10 @@ export function getProgramStatus(item: TvProgram, now: Date) {
     return 'Direct';
   }
 
+  if (Number.isFinite(start) && item.status !== 'Terminé') {
+    return now.getTime() < start ? 'À venir' : 'Direct';
+  }
+
   return item.status;
 }
 
@@ -93,21 +97,15 @@ export function filterPrograms(programs: TvProgram[], sport: Sport, search: stri
   return programs.filter((item) => {
     if (item.date && item.date !== today) return false;
 
-    const start = Date.parse(item.startAt ?? '');
-    const end = Date.parse(item.endAt ?? '');
-    const hasExactTimes = Number.isFinite(start) &&
-      Number.isFinite(end) && end > start;
-
     let matchesView: boolean;
 
-    if (hasExactTimes) {
-      const current = now.getTime();
-
+    if (Number.isFinite(Date.parse(item.startAt ?? ''))) {
+      const status = getProgramStatus(item, now);
       matchesView = view === 'live'
-        ? current >= start && current < end
+        ? status === 'Direct'
         : view === 'upcoming'
-          ? current < start
-          : current >= end;
+          ? status === 'À venir'
+          : status === 'Terminé';
     } else {
       // Compatibilité temporaire avec l'ancien JSON, sans horaires exacts.
       const currentMinute = now.getHours() * 60 + now.getMinutes();
