@@ -6,6 +6,7 @@ const scheduleUrl = 'https://raw.githubusercontent.com/Marshall73/MonHUBAndroid/
 export type TvProgram = {
   sport: string;
   time: string;
+  status: 'Direct' | 'En cours';
   title: string;
   competition: string;
   channel: string;
@@ -26,6 +27,7 @@ export async function fetchTvSchedule(signal: AbortSignal): Promise<TvProgram[]>
   if (!Array.isArray(data)) throw new Error(invalid);
 
   const programs = new Map<string, TvProgram>();
+  let hasValidProgram = false;
   for (const value of data) {
     if (typeof value !== 'object' || value === null) continue;
     const row = value as Record<string, unknown>;
@@ -33,12 +35,23 @@ export async function fetchTvSchedule(signal: AbortSignal): Promise<TvProgram[]>
     const time = text(row.time).trim();
     const title = text(row.title).trim();
     const channel = text(row.channel).trim();
-    if (!sport || !title || !channel || !/^(?:[01]?\d|2[0-3]):[0-5]\d$/.test(time)) continue;
+    if (!sport || !title || !/^(?:[01]?\d|2[0-3]):[0-5]\d$/.test(time)) continue;
+    hasValidProgram = true;
 
-    const item = { sport, time: time.padStart(5, '0'), title, channel, competition: text(row.competition).trim() };
+    const status = searchable(text(row.status).trim());
+    if (status !== 'direct' && status !== 'en cours') continue;
+
+    const item: TvProgram = {
+      sport,
+      time: time.padStart(5, '0'),
+      status: status === 'en cours' ? 'En cours' : 'Direct',
+      title,
+      channel,
+      competition: text(row.competition).trim(),
+    };
     programs.set(programKey(item), item);
   }
-  if (data.length > 0 && programs.size === 0) throw new Error(invalid);
+  if (data.length > 0 && !hasValidProgram) throw new Error(invalid);
   return [...programs.values()].sort((first, second) => first.time.localeCompare(second.time));
 }
 

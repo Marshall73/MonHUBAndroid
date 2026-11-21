@@ -13,11 +13,17 @@ function channelColors(channel: string) {
   if (name.includes('eurosport')) return 'bg-sky-500/25 text-sky-200';
   if (name.includes('rmc')) return 'bg-red-500/25 text-red-200';
   if (name.includes('equipe')) return 'bg-emerald-500/25 text-emerald-200';
+  if (name.includes('ligue 1+')) return 'bg-indigo-500/25 text-indigo-200';
   return 'bg-blue-500/25 text-blue-200';
 }
 
 function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: number; reduceMotion: boolean }) {
   const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
+  const competition = item.competition || item.sport;
+  const normalizedTitle = searchable(item.title).replace(/[^\p{L}\p{N}]/gu, '');
+  const normalizedChannel = searchable(item.channel).replace(/[^\p{L}\p{N}]/gu, '');
+  const hasChannel = normalizedChannel !== '' && normalizedChannel !== 'chainetv' &&
+    normalizedChannel !== normalizedTitle;
 
   return (
     <MotiView
@@ -29,15 +35,28 @@ function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: nu
       <View className="mb-3 gap-2 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
         <View className="flex-row flex-wrap items-center gap-x-3 gap-y-1">
           <Text className="text-lg font-extrabold text-zinc-50">{item.time}</Text>
-          <Text className="text-sm font-medium text-zinc-400">{item.sport}</Text>
+          {competition !== item.sport && <Text className="text-sm font-medium text-zinc-400">{item.sport}</Text>}
         </View>
         <Text className="text-base font-bold leading-6 text-zinc-50">{item.title}</Text>
-        {!!item.competition && item.competition !== item.sport && (
-          <Text className="text-sm text-zinc-400">{item.competition}</Text>
+        <View className="flex-row flex-wrap items-center gap-x-2 gap-y-1">
+          <Text className="text-sm text-zinc-400">{competition}</Text>
+          <View className="flex-row items-center gap-1.5 rounded-full bg-emerald-500/15 px-2 py-1">
+            <View className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <Text
+              accessibilityLabel={item.status === 'En cours' ? 'Diffusion en direct, en cours' : 'Diffusion en direct'}
+              className="text-xs font-semibold text-emerald-200"
+            >
+              Direct
+            </Text>
+          </View>
+        </View>
+        {hasChannel ? (
+          <Text className={`overflow-hidden self-start rounded-xl px-3 py-2 text-base font-extrabold ${channelColors(item.channel)}`}>
+            {item.channel}
+          </Text>
+        ) : (
+          <Text className="text-sm text-zinc-400">Chaîne non renseignée</Text>
         )}
-        <Text className={`overflow-hidden self-start rounded-xl px-3 py-1.5 text-sm font-bold ${channelColors(item.channel)}`}>
-          {item.channel}
-        </Text>
       </View>
     </MotiView>
   );
