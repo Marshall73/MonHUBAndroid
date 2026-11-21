@@ -21,7 +21,7 @@
 ## Modules de l'application
 1. **Sport** : Matchs et événements (Foot, MMA, MotoGP, Tennis, JO) avec la chaîne TV de diffusion en France.
 2. **RSS** : Lecteur de flux RSS personnalisable (ajout/suppression d'URLs par l'utilisateur).
-3. **Cinéma** : Programme des séances fourni par `data/cinema.json` via GitHub Raw, avec filtres par salle et par titre. Les cartes ouvrent la page officielle des horaires des Toiles du Lac.
+3. **Cinéma** : Programme des séances fourni par `data/cinema.json` via GitHub Raw, avec filtres par salle et par titre. Les fiches dépliables affichent les détails du film et un lien vers son site.
 4. **GitHub Trends** : Dépôts tendance du jour (langage, description, étoiles).
 5. **Trailers** : Nouvelles bandes-annonces films et jeux vidéo (via flux YouTube/RSS fournis).
 6. **Streaming** : Nouveautés films et séries par plateforme en France (Netflix, Prime, Disney+, Canal+, etc.).

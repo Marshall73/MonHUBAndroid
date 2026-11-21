@@ -59,8 +59,8 @@ const fs = require('fs');
   for (const film of films) {
     if (!film.link || film.link === 'https://lestoilesdulac.com/horaires/') continue;
     try {
-      await page.goto(film.link, { waitUntil: 'domcontentloaded', timeout: 20000 });
-      await page.waitForTimeout(1200);
+      await page.goto(film.link, { waitUntil: 'networkidle', timeout: 25000 });
+      await page.waitForTimeout(1000);
       const details = await page.evaluate(() => {
         const text = document.body.innerText || '';
         const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
@@ -71,12 +71,14 @@ const fs = require('fs');
         const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
         const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
         
-        const paragraphs = Array.from(document.querySelectorAll('p, [class*="synopsis"], [class*="description"]'))
-          .map(p => p.innerText?.trim() || '')
-          .filter(t => t.length > 80 && !t.includes('cookies') && !t.includes('Mentions légales'));
-        paragraphs.sort((a, b) => b.length - a.length);
+        // Cherche le bloc de texte descriptif le plus long (div, p, span) sur la fiche film
+        const candidates = Array.from(document.querySelectorAll('p, div, span, [class*="synopsis"], [class*="description"]'))
+          .filter(el => el.children.length === 0 || el.tagName === 'P')
+          .map(el => el.innerText?.trim() || '')
+          .filter(t => t.length > 90 && !t.includes('cookies') && !t.includes('Mentions légales') && !t.includes('© 2026'));
+        candidates.sort((a, b) => b.length - a.length);
 
-        return { director, cast, synopsis: paragraphs[0] || '' };
+        return { director, cast, synopsis: candidates[0] || '' };
       });
       film.director = details.director;
       film.cast = details.cast;
