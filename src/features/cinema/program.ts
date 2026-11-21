@@ -6,6 +6,8 @@ export type Screening = {
   title: string;
   poster: string;
   times: string[];
+  duration: string;
+  genre: string;
   director: string;
   cast: string;
   synopsis: string;
@@ -13,7 +15,7 @@ export type Screening = {
 };
 
 type ProgramEntry = Pick<Screening, 'cinema' | 'title' | 'poster' | 'times'> &
-  Partial<Record<'director' | 'cast' | 'synopsis' | 'link', unknown>>;
+  Partial<Record<'duration' | 'genre' | 'director' | 'cast' | 'synopsis' | 'link', unknown>>;
 
 function optionalText(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
@@ -74,6 +76,8 @@ export async function fetchProgram(signal: AbortSignal): Promise<Screening[]> {
       title,
       poster: existing?.poster || webUrl(item.poster),
       times: [...times].sort(),
+      duration: existing?.duration || optionalText(item.duration),
+      genre: existing?.genre || optionalText(item.genre),
       director: existing?.director || optionalText(item.director),
       cast: existing?.cast || optionalText(item.cast),
       synopsis: existing?.synopsis || optionalText(item.synopsis),

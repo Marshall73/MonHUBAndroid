@@ -10,7 +10,7 @@ const hubModules = [
   {
     href: '/streaming',
     title: 'Streaming',
-    description: 'Nouveautés des plateformes',
+    description: 'Films et séries par plateforme',
     icon: 'tv-outline',
   },
   {
