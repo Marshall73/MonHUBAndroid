@@ -29,8 +29,8 @@ const fs = require('fs');
     5    // UEFA Nations League
   ]);
 
-  const res = await fetch(`https://api-sports.io{todayParis}&timezone=Europe/Paris`, {
-    headers: {
+  const apiUrl = 'https://' + 'v3.football.api-sports.io/fixtures?date=' + todayParis + '&timezone=Europe/Paris';
+  const res = await fetch(apiUrl, {
       'x-apisports-key': apiKey
     }
   });
