@@ -76,18 +76,20 @@ const fs = require('fs');
         const director = dirLine ? dirLine.replace(/^(Réalisation|De)\s*:\s*/i, '').trim() : '';
         const cast = castLine ? castLine.replace(/^(Casting|Avec)\s*:\s*/i, '').trim() : '';
 
+        // Cible directement le span qui contient la durée (ex: "2h 38min") et lit les spans frères dans le même conteneur
         let duration = '';
         let genre = '';
-        const durIdx = lines.findIndex(l => l.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i));
-        if (durIdx !== -1) {
-          const durLine = lines.at(durIdx) || '';
-          const match = durLine.match(/\b\d+\s*h\s*\d*\s*(min)?\b/i);
-          duration = match ? match.at(0).trim() : '';
-          
-          const knownGenres = ['Comédie dramatique', 'Science-fiction', 'Comédie', 'Drame', 'Action', 'Thriller', 'Animation', 'Horreur', 'Épouvante', 'Aventure', 'Documentaire', 'Biopic', 'Policier', 'Romance', 'Fantastique', 'Historique', 'Musical', 'Famille', 'Guerre', 'Western'];
-          const surrounding = [lines.at(durIdx), lines.at(durIdx + 1), lines.at(durIdx + 2), lines.at(durIdx + 3)].filter(Boolean).join(' ');
-          const found = knownGenres.filter(g => new RegExp('\\b' + g + '\\b', 'i').test(surrounding));
-          if (found.length > 0) genre = found.join(', ');
+        const durSpan = Array.from(document.querySelectorAll('span')).find(s => s.children.length === 0 && /^\d+\s*h\s*\d*\s*(min)?$/i.test(s.innerText.trim()));
+        if (durSpan) {
+          duration = durSpan.innerText.trim();
+          const container = durSpan.parentElement?.parentElement;
+          if (container) {
+            const parts = Array.from(container.querySelectorAll('span'))
+              .filter(s => s.children.length === 0)
+              .map(s => s.innerText.trim())
+              .filter(t => t && t !== '•' && t !== duration && !t.startsWith('Interdit') && !t.startsWith('Tout public') && !t.startsWith('Avertissement'));
+            if (parts.length > 0) genre = parts.join(', ');
+          }
         }
         
         const candidates = Array.from(document.querySelectorAll('p, div, span'))
