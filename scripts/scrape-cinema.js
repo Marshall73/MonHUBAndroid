@@ -81,8 +81,7 @@ const fs = require('fs');
         const durSpan = Array.from(document.querySelectorAll('span')).find(s => s.children.length === 0 && /^\d+\s*h\s*\d*\s*(min)?$/i.test(s.innerText.trim()));
         if (durSpan) {
           duration = durSpan.innerText.trim();
-          const afterDot = durSpan.parentElement?.nextElementSibling?.nextElementSibling;
-          if (afterDot) genre = afterDot.innerText.trim();
+          const blockText = durSpan.parentElement?.parentElement?.innerText || ''; const genres = ['Comédie dramatique', 'Science fiction', 'Science-fiction', 'Comédie', 'Drame', 'Action', 'Thriller', 'Animation', 'Horreur', 'Épouvante', 'Aventure', 'Documentaire', 'Biopic', 'Policier', 'Romance', 'Fantastique', 'Historique', 'Musical', 'Famille', 'Guerre', 'Western']; genre = genres.filter(g => new RegExp('\\b' + g + '\\b', 'i').test(blockText)).join(', ');
         }
         
         const candidates = Array.from(document.querySelectorAll('p, div, span'))
