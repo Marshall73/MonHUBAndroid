@@ -13,14 +13,12 @@ const fs = require('fs');
   await page.goto(urlSport, { waitUntil: 'networkidle', timeout: 60000 });
   await page.waitForTimeout(2500);
 
-  // 1. Fermer la bannière cookies
   try {
     const btn = page.locator('button:has-text("Accepter"), button:has-text("Tout accepter"), button:has-text("Continuer")').first();
     if (await btn.isVisible({ timeout: 2500 })) await btn.click();
     await page.waitForTimeout(1000);
   } catch (e) {}
 
-  // 2. Décocher les filtres inutiles (Rediffusions, Magazines, Sans diffusion TV) pour alléger la liste de 80 %
   for (const label of ['Rediffusions', 'Magazines', 'Sans diffusion TV']) {
     try {
       const filterEl = page.locator(`label:has-text("${label}"), button:has-text("${label}")`).first();
@@ -31,7 +29,6 @@ const fs = require('fs');
     } catch (e) {}
   }
 
-  // 3. Cliquer sur "Voir les diffusions terminées" pour avoir toute la journée complète
   try {
     const pastBtn = page.locator('text=Voir les diffusions terminées').first();
     if (await pastBtn.isVisible({ timeout: 2500 })) {
@@ -40,20 +37,8 @@ const fs = require('fs');
     }
   } catch (e) {}
 
-  // 4. Défiler jusqu'en bas complet de la page (jusqu'à atteindre le footer)
-  await page.evaluate(async () => {
-    let lastHeight = 0;
-    for (let i = 0; i < 40; i++) {
-      window.scrollBy(0, 1200);
-      await new Promise(r => setTimeout(r, 250));
-      const newHeight = document.body.scrollHeight;
-      if (window.innerHeight + window.scrollY >= newHeight - 100 && newHeight === lastHeight) break;
-      lastHeight = newHeight;
-    }
-  });
-  await page.waitForTimeout(1000);
-
-  const events = await page.evaluate(() => {
+  // Fonction d'extraction appelée à chaque cran de défilement pour contourner la virtualisation DOM
+  const extractVisible = () => page.evaluate(() => {
     const normalizeSport = (compLine) => {
       const c = compLine.toLowerCase();
       if (c.includes('basket') || c.includes('nba') || c.includes('liga endesa') || c.includes('ncaa') || c.includes('euroligue') || c.includes('betclic') || c.includes('pro a') || c.includes('pro b')) return null;
@@ -75,8 +60,7 @@ const fs = require('fs');
       });
 
     const leafBlocks = blocks.filter(b => !blocks.some(o => o !== b && b.contains(o)));
-    const results = [];
-    const seen = new Set();
+    const items = [];
 
     for (const block of leafBlocks) {
       const text = block.innerText || '';
@@ -115,25 +99,41 @@ const fs = require('fs');
         ) || 'Chaîne TV';
       }
 
-      const key = `${time}-${title}-${channel}`;
-      if (!seen.has(key)) {
-        seen.add(key);
-        results.push({
-          sport,
-          time,
-          status: /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
-          title,
-          competition,
-          channel
-        });
-      }
+      items.push({
+        sport,
+        time,
+        status: /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
+        title,
+        competition,
+        channel
+      });
     }
-    results.sort((a, b) => a.time.localeCompare(b.time));
-    return results;
+    return items;
   });
+
+  // Capture du haut jusqu'en bas palier par palier
+  const collected = new Map();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(500);
+
+  for (let step = 0; step < 30; step++) {
+    const batch = await extractVisible();
+    for (const ev of batch) {
+      const key = `${ev.time}-${ev.title}-${ev.channel}`;
+      if (!collected.has(key)) collected.set(key, ev);
+    }
+    const atBottom = await page.evaluate(() => {
+      window.scrollBy(0, 800);
+      return window.innerHeight + window.scrollY >= document.body.scrollHeight - 50;
+    });
+    await page.waitForTimeout(350);
+    if (atBottom && step > 5) break;
+  }
+
+  const finalEvents = Array.from(collected.values()).sort((a, b) => a.time.localeCompare(b.time));
 
   await browser.close();
   fs.mkdirSync('data', { recursive: true });
-  fs.writeFileSync('data/sport.json', JSON.stringify(events, null, 2));
-  console.log('Total matchs extraits sur toute la journee :', events.length);
+  fs.writeFileSync('data/sport.json', JSON.stringify(finalEvents, null, 2));
+  console.log('Total matchs captures palier par palier :', finalEvents.length);
 })();
