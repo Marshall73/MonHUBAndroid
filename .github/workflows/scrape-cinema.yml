@@ -22,7 +22,7 @@ jobs:
 
       - name: Installer Pipet et Playwright
         run: |
-          go install ://github.com
+          go install github.com/bjesus/pipet/cmd/pipet@latest
           npx playwright install chromium --with-deps
 
       - name: Exécuter Pipet sur Les Toiles du Lac
