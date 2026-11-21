@@ -87,7 +87,7 @@ const fs = require('fs');
             const parts = Array.from(container.querySelectorAll('span'))
               .filter(s => s.children.length === 0)
               .map(s => s.innerText.trim())
-              .filter(t => t && t !== '•' && t !== duration && !t.startsWith('Interdit') && !t.startsWith('Tout public') && !t.startsWith('Avertissement'));
+              .filter(t => t && t !== '•' && t !== duration && !t.startsWith('Interdit') && !t.startsWith('Tout public') && !t.startsWith('Avertissement') && !/\d/.test(t));
             if (parts.length > 0) genre = parts.join(', ');
           }
         }
