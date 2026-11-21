@@ -1,2 +1,0 @@
-playwright https://lestoilesdulac.com/horaires/
-(() => { const films = Array.from(document.querySelectorAll("article, .film-item, [class*=\"movie\"], [class*=\"film\"]")).filter(el => el.querySelector("h2, h3, .title") && el.innerText.match(/\d{2}:\d{2}/)); return films.map(film => ({ cinema: "Les Toiles du Lac - Aix-les-Bains", title: film.querySelector("h2, h3, .title")?.innerText?.trim() || "Titre", poster: film.querySelector("img")?.src || "", times: Array.from(new Set(film.innerText.match(/\b(\d|2[0-3]):[0-5]\d\b/g) || [])) })); })()

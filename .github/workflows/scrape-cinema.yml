@@ -1,4 +1,4 @@
-﻿name: Mise à jour Horaires Cinéma
+name: Mise à jour Horaires Cinéma
 
 on:
   schedule:
@@ -15,20 +15,19 @@ jobs:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
-      - name: Installer Go
-        uses: actions/setup-go@v5
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
         with:
-          go-version: '1.22'
+          node-version: '20'
 
-      - name: Installer Pipet et Playwright
+      - name: Installer Playwright Chromium
         run: |
-          go install github.com/bjesus/pipet/cmd/pipet@latest
+          npm init -y
+          npm install playwright
           npx playwright install chromium --with-deps
 
-      - name: Exécuter Pipet sur Les Toiles du Lac
-        run: |
-          mkdir -p data
-          $(go env GOPATH)/bin/pipet -v --json scripts/toiles-du-lac.pipet > data/cinema.json
+      - name: Aspirer les horaires de cinéma
+        run: node scripts/scrape-cinema.js
 
       - name: Sauvegarder le JSON dans le dépôt
         run: |
