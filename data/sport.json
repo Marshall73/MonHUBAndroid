@@ -2,7 +2,10 @@
   {
     "sport": "MotoGP",
     "time": "11:00",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T11:00:00+01:00",
+    "endAt": "2026-11-21T11:45:00+01:00",
     "title": "Grand Prix du Portugal — Essais libres 2 des Moto GP",
     "competition": "Grand Prix du Portugal",
     "channel": "Canal+ Sport 360"
@@ -10,7 +13,10 @@
   {
     "sport": "MotoGP",
     "time": "11:45",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T11:45:00+01:00",
+    "endAt": "2026-11-21T12:45:00+01:00",
     "title": "Grand Prix du Portugal — Essais qualificatifs 1 et 2 des Moto GP",
     "competition": "Grand Prix du Portugal",
     "channel": "Canal+ Sport 360"
@@ -18,7 +24,10 @@
   {
     "sport": "Foot",
     "time": "12:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T12:55:00+01:00",
+    "endAt": "2026-11-21T15:00:00+01:00",
     "title": "Wolfsburg – Holstein Kiel",
     "competition": "Bundesliga 2",
     "channel": "beIN SPORTS MAX 4"
@@ -26,7 +35,10 @@
   {
     "sport": "Foot",
     "time": "13:25",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T13:25:00+01:00",
+    "endAt": "2026-11-21T15:37:00+01:00",
     "title": "Manchester City – Fulham",
     "competition": "Premier League",
     "channel": "Canal+"
@@ -34,7 +46,10 @@
   {
     "sport": "Foot",
     "time": "13:25",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T13:25:00+01:00",
+    "endAt": "2026-11-21T15:30:00+01:00",
     "title": "Millwall – Queens Park Rangers",
     "competition": "Championship anglais",
     "channel": "beIN SPORTS MAX 10"
@@ -42,7 +57,10 @@
   {
     "sport": "Tennis",
     "time": "13:30",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T13:30:00+01:00",
+    "endAt": "2026-11-21T17:30:00+01:00",
     "title": "France – Australie",
     "competition": "Billie Jean King Cup",
     "channel": "beIN SPORTS 3"
@@ -50,7 +68,10 @@
   {
     "sport": "Foot",
     "time": "13:45",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T13:45:00+01:00",
+    "endAt": "2026-11-21T16:00:00+01:00",
     "title": "Laval – Montpellier",
     "competition": "Ligue 2",
     "channel": "beIN SPORTS 1"
@@ -58,31 +79,21 @@
   {
     "sport": "Foot",
     "time": "13:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T13:55:00+01:00",
+    "endAt": "2026-11-21T16:00:00+01:00",
     "title": "Galatasaray – Samsunspor",
     "competition": "Süper Lig de Turquie",
     "channel": "beIN SPORTS MAX 9"
   },
   {
     "sport": "Foot",
-    "time": "14:00",
-    "status": "Direct",
-    "title": "Deportivo Alavès – Deportivo La Corogne",
-    "competition": "La Liga",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
-    "time": "14:00",
-    "status": "Direct",
-    "title": "Deportivo Alavès – Deportivo La Corogne",
-    "competition": "La Liga",
-    "channel": "Disney+"
-  },
-  {
-    "sport": "Foot",
     "time": "14:30",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:30:00+01:00",
+    "endAt": "2026-11-21T17:05:00+01:00",
     "title": "Multiplex",
     "competition": "Ligue 3",
     "channel": "Ligue 1+"
@@ -90,7 +101,10 @@
   {
     "sport": "Tennis",
     "time": "14:30",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:30:00+01:00",
+    "endAt": "2026-11-21T16:35:00+01:00",
     "title": "Carlos Alcaraz – Ben Shelton",
     "competition": "ATP Finals",
     "channel": "Eurosport 1"
@@ -98,7 +112,10 @@
   {
     "sport": "Foot",
     "time": "14:38",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:38:00+01:00",
+    "endAt": "2026-11-21T17:00:00+01:00",
     "title": "Fleury – Rouen",
     "competition": "Ligue 3",
     "channel": "Ligue 1+ 3"
@@ -106,7 +123,10 @@
   {
     "sport": "Foot",
     "time": "14:38",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:38:00+01:00",
+    "endAt": "2026-11-21T17:00:00+01:00",
     "title": "Bastia – Villefranche",
     "competition": "Ligue 3",
     "channel": "Ligue 1+ 4"
@@ -114,7 +134,10 @@
   {
     "sport": "Foot",
     "time": "14:38",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:38:00+01:00",
+    "endAt": "2026-11-21T17:00:00+01:00",
     "title": "Cannes – Aubagne",
     "competition": "Ligue 3",
     "channel": "Ligue 1+ 5"
@@ -122,7 +145,10 @@
   {
     "sport": "Foot",
     "time": "14:38",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:38:00+01:00",
+    "endAt": "2026-11-21T17:00:00+01:00",
     "title": "Rouen – Valenciennes",
     "competition": "Ligue 3",
     "channel": "Ligue 1+ 6"
@@ -130,7 +156,10 @@
   {
     "sport": "Foot",
     "time": "14:38",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:38:00+01:00",
+    "endAt": "2026-11-21T17:00:00+01:00",
     "title": "La Roche-sur-Yon – Concarneau",
     "competition": "Ligue 3",
     "channel": "Ligue 1+ 8"
@@ -138,7 +167,10 @@
   {
     "sport": "Foot",
     "time": "14:38",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:38:00+01:00",
+    "endAt": "2026-11-21T17:00:00+01:00",
     "title": "Le Puy – Paris 13 Atletico",
     "competition": "Ligue 3",
     "channel": "Ligue 1+ 10"
@@ -146,7 +178,10 @@
   {
     "sport": "Foot",
     "time": "14:38",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T14:38:00+01:00",
+    "endAt": "2026-11-21T17:00:00+01:00",
     "title": "Versailles – Bourg-en-Bresse Péronnas",
     "competition": "Ligue 3",
     "channel": "Ligue 1+ 7"
@@ -154,31 +189,21 @@
   {
     "sport": "Rugby",
     "time": "15:00",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:00:00+01:00",
+    "endAt": "2026-11-21T17:15:00+01:00",
     "title": "Angleterre – Nouvelle-Zélande",
     "competition": "Championnat des nations",
     "channel": "TF1"
   },
   {
     "sport": "Foot",
-    "time": "15:00",
-    "status": "Direct",
-    "title": "Lazio Rome – Lecce",
-    "competition": "Serie A",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
-    "time": "15:00",
-    "status": "Direct",
-    "title": "Como – Cagliari",
-    "competition": "Serie A",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
     "time": "15:24",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:24:00+01:00",
+    "endAt": "2026-11-21T17:30:00+01:00",
     "title": "Mönchengladbach – Borussia Dortmund",
     "competition": "Bundesliga",
     "channel": "beIN SPORTS MAX 5"
@@ -186,7 +211,10 @@
   {
     "sport": "Foot",
     "time": "15:24",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:24:00+01:00",
+    "endAt": "2026-11-21T17:30:00+01:00",
     "title": "FC Union Berlin – Leipzig",
     "competition": "Bundesliga",
     "channel": "beIN SPORTS MAX 6"
@@ -194,7 +222,10 @@
   {
     "sport": "Foot",
     "time": "15:24",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:24:00+01:00",
+    "endAt": "2026-11-21T17:30:00+01:00",
     "title": "Eintracht Francfort – Hoffenheim",
     "competition": "Bundesliga",
     "channel": "beIN SPORTS MAX 7"
@@ -202,7 +233,10 @@
   {
     "sport": "Foot",
     "time": "15:24",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:24:00+01:00",
+    "endAt": "2026-11-21T17:30:00+01:00",
     "title": "SV Elversberg – Fribourg",
     "competition": "Bundesliga",
     "channel": "beIN SPORTS MAX 8"
@@ -210,7 +244,10 @@
   {
     "sport": "Foot",
     "time": "15:30",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:30:00+01:00",
+    "endAt": "2026-11-21T17:30:00+01:00",
     "title": "Multiplex",
     "competition": "Bundesliga",
     "channel": "beIN SPORTS 2"
@@ -218,7 +255,10 @@
   {
     "sport": "MotoGP",
     "time": "15:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:55:00+01:00",
+    "endAt": "2026-11-21T16:26:00+01:00",
     "title": "Grand Prix du Portugal — Sprint des MotoGP",
     "competition": "Grand Prix du Portugal",
     "channel": "Canal+ Sport 360"
@@ -226,7 +266,10 @@
   {
     "sport": "Foot",
     "time": "15:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:55:00+01:00",
+    "endAt": "2026-11-21T17:55:00+01:00",
     "title": "Tottenham – Ipswich Town",
     "competition": "Premier League",
     "channel": "Canal+ Live 2"
@@ -234,7 +277,10 @@
   {
     "sport": "Foot",
     "time": "15:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:55:00+01:00",
+    "endAt": "2026-11-21T17:55:00+01:00",
     "title": "Chelsea – Leeds",
     "competition": "Premier League",
     "channel": "Canal+ Live 3"
@@ -242,7 +288,10 @@
   {
     "sport": "Foot",
     "time": "15:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:55:00+01:00",
+    "endAt": "2026-11-21T17:55:00+01:00",
     "title": "Aston Villa – Sunderland",
     "competition": "Premier League",
     "channel": "Canal+ Live 4"
@@ -250,7 +299,10 @@
   {
     "sport": "Foot",
     "time": "15:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:55:00+01:00",
+    "endAt": "2026-11-21T17:55:00+01:00",
     "title": "Coventry – Crystal Palace",
     "competition": "Premier League",
     "channel": "Canal+ Live 6"
@@ -258,7 +310,10 @@
   {
     "sport": "Foot",
     "time": "15:55",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:55:00+01:00",
+    "endAt": "2026-11-21T17:55:00+01:00",
     "title": "Bournemouth – Nottingham Forest",
     "competition": "Premier League",
     "channel": "Canal+ Live 5"
@@ -266,7 +321,10 @@
   {
     "sport": "Foot",
     "time": "15:59",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T15:59:00+01:00",
+    "endAt": "2026-11-21T18:01:00+01:00",
     "title": "Multiplex",
     "competition": "Premier League",
     "channel": "Canal+ Foot"
@@ -275,38 +333,20 @@
     "sport": "Tennis",
     "time": "16:00",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T16:00:00+01:00",
+    "endAt": "2026-11-21T21:30:00+01:00",
     "title": "Pologne féminine – Suède",
     "competition": "Billie Jean King Cup",
     "channel": "beIN SPORTS MAX 10"
   },
   {
     "sport": "Foot",
-    "time": "16:15",
-    "status": "Direct",
-    "title": "Rayo Vallecano – Valence",
-    "competition": "La Liga",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
-    "time": "16:15",
-    "status": "Direct",
-    "title": "Rayo Vallecano – Valence",
-    "competition": "La Liga",
-    "channel": "Disney+"
-  },
-  {
-    "sport": "Foot",
-    "time": "16:30",
-    "status": "Direct",
-    "title": "Nimègue – PSV Eindhoven",
-    "competition": "Eredivisie championnat des Pays-Bas",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
     "time": "17:00",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T17:00:00+01:00",
+    "endAt": "2026-11-21T19:00:00+01:00",
     "title": "Kocaelispor – Fenerbahçe",
     "competition": "Süper Lig de Turquie",
     "channel": "beIN SPORTS 1"
@@ -314,7 +354,10 @@
   {
     "sport": "Foot",
     "time": "17:05",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T17:05:00+01:00",
+    "endAt": "2026-11-21T19:10:00+01:00",
     "title": "Nice – PSG",
     "competition": "Ligue 1",
     "channel": "Ligue 1+"
@@ -322,7 +365,10 @@
   {
     "sport": "Rugby",
     "time": "17:30",
-    "status": "Direct",
+    "status": "Terminé",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T17:30:00+01:00",
+    "endAt": "2026-11-21T19:50:00+01:00",
     "title": "Irlande – Afrique du Sud",
     "competition": "Championnat des nations",
     "channel": "TF1"
@@ -331,22 +377,20 @@
     "sport": "Tennis",
     "time": "17:30",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T17:30:00+01:00",
+    "endAt": "2026-11-21T21:30:00+01:00",
     "title": "France – Australie",
     "competition": "Billie Jean King Cup",
     "channel": "beIN SPORTS 3"
   },
   {
     "sport": "Foot",
-    "time": "18:00",
-    "status": "Direct",
-    "title": "Parme – AS Roma",
-    "competition": "Serie A",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
     "time": "18:24",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T18:24:00+01:00",
+    "endAt": "2026-11-21T20:30:00+01:00",
     "title": "Schalke 04 – Stuttgart",
     "competition": "Bundesliga",
     "channel": "beIN SPORTS MAX 4"
@@ -355,30 +399,20 @@
     "sport": "Foot",
     "time": "18:25",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T18:25:00+01:00",
+    "endAt": "2026-11-21T20:31:00+01:00",
     "title": "Newcastle – Arsenal",
     "competition": "Premier League",
     "channel": "Canal+ Foot"
   },
   {
     "sport": "Foot",
-    "time": "18:30",
-    "status": "Direct",
-    "title": "FC Séville – Betis Séville",
-    "competition": "La Liga",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
-    "time": "18:30",
-    "status": "Direct",
-    "title": "FC Séville – Betis Séville",
-    "competition": "La Liga",
-    "channel": "Disney+"
-  },
-  {
-    "sport": "Foot",
     "time": "20:00",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:00:00+01:00",
+    "endAt": "2026-11-21T22:00:00+01:00",
     "title": "Reims – Saint-Etienne",
     "competition": "Ligue 2",
     "channel": "beIN SPORTS 1"
@@ -387,6 +421,9 @@
     "sport": "Foot",
     "time": "20:15",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:15:00+01:00",
+    "endAt": "2026-11-21T23:10:00+01:00",
     "title": "Lille – Lyon",
     "competition": "Ligue 1",
     "channel": "Ligue 1+ 3"
@@ -395,6 +432,9 @@
     "sport": "Foot",
     "time": "20:15",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:15:00+01:00",
+    "endAt": "2026-11-21T23:10:00+01:00",
     "title": "Strasbourg – Brest",
     "competition": "Ligue 1",
     "channel": "Ligue 1+ 6"
@@ -403,6 +443,9 @@
     "sport": "Foot",
     "time": "20:25",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:25:00+01:00",
+    "endAt": "2026-11-21T22:30:00+01:00",
     "title": "FC Sankt Pauli – Bochum",
     "competition": "Bundesliga 2",
     "channel": "beIN SPORTS MAX 7"
@@ -411,6 +454,9 @@
     "sport": "Foot",
     "time": "20:25",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:25:00+01:00",
+    "endAt": "2026-11-21T22:40:00+01:00",
     "title": "Lens – Toulouse",
     "competition": "Ligue 1",
     "channel": "Ligue 1+ 4"
@@ -419,6 +465,9 @@
     "sport": "Foot",
     "time": "20:25",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:25:00+01:00",
+    "endAt": "2026-11-21T23:10:00+01:00",
     "title": "Monaco – Auxerre",
     "competition": "Ligue 1",
     "channel": "Ligue 1+ 5"
@@ -427,6 +476,9 @@
     "sport": "MMA",
     "time": "20:30",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:30:00+01:00",
+    "endAt": "2026-11-21T22:00:00+01:00",
     "title": "MMA MMA : Ultimate Fighting Championship 2026",
     "competition": "UFC",
     "channel": "RMC Sport 1"
@@ -435,6 +487,9 @@
     "sport": "MMA",
     "time": "20:30",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:30:00+01:00",
+    "endAt": "2026-11-21T23:30:00+01:00",
     "title": "Adrian Bartosinski – Tymoteusz Lopaczyk",
     "competition": "KSW",
     "channel": "RMC Sport 2"
@@ -443,6 +498,9 @@
     "sport": "Tennis",
     "time": "20:30",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:30:00+01:00",
+    "endAt": "2026-11-21T22:30:00+01:00",
     "title": "ATP Finals",
     "competition": "ATP Finals",
     "channel": "Eurosport 1"
@@ -451,22 +509,20 @@
     "sport": "Foot",
     "time": "20:38",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:38:00+01:00",
+    "endAt": "2026-11-21T22:40:00+01:00",
     "title": "Multiplex",
     "competition": "Ligue 1",
     "channel": "Ligue 1+"
   },
   {
     "sport": "Foot",
-    "time": "20:45",
-    "status": "Direct",
-    "title": "Naples – Torino",
-    "competition": "Serie A",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
     "time": "20:55",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T20:55:00+01:00",
+    "endAt": "2026-11-21T22:57:00+01:00",
     "title": "PSG féminine – Saint-Malo féminine",
     "competition": "Arkema Première Ligue",
     "channel": "Canal+ Foot"
@@ -475,38 +531,20 @@
     "sport": "Rugby",
     "time": "21:00",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T21:00:00+01:00",
+    "endAt": "2026-11-21T23:00:00+01:00",
     "title": "France – Argentine",
     "competition": "Championnat des nations",
     "channel": "TF1"
   },
   {
-    "sport": "Foot",
-    "time": "21:00",
-    "status": "Direct",
-    "title": "Groningen – Heerenveen",
-    "competition": "Eredivisie championnat des Pays-Bas",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
-    "time": "21:00",
-    "status": "Direct",
-    "title": "Real Madrid – Celta Vigo",
-    "competition": "La Liga",
-    "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
-    "time": "21:00",
-    "status": "Direct",
-    "title": "Real Madrid – Celta Vigo",
-    "competition": "La Liga",
-    "channel": "Disney+"
-  },
-  {
     "sport": "MMA",
     "time": "22:00",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T22:00:00+01:00",
+    "endAt": "2026-11-21T23:30:00+01:00",
     "title": "Valeriu Mircea – Marcin Held",
     "competition": "KSW",
     "channel": "RMC Sport 1"
@@ -515,6 +553,9 @@
     "sport": "Foot",
     "time": "23:15",
     "status": "Direct",
+    "date": "2026-11-21",
+    "startAt": "2026-11-21T23:15:00+01:00",
+    "endAt": "2026-11-22T01:45:00+01:00",
     "title": "Atletico-MG – Boca Juniors",
     "competition": "Copa Sudamericana",
     "channel": "L'Equipe"
