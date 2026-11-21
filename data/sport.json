@@ -23,17 +23,6 @@
   },
   {
     "sport": "Foot",
-    "time": "12:55",
-    "status": "Terminé",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T12:55:00+01:00",
-    "endAt": "2026-11-21T15:00:00+01:00",
-    "title": "Wolfsburg – Holstein Kiel",
-    "competition": "Bundesliga 2",
-    "channel": "beIN SPORTS MAX 4"
-  },
-  {
-    "sport": "Foot",
     "time": "13:25",
     "status": "Terminé",
     "date": "2026-11-21",
@@ -295,17 +284,6 @@
     "title": "Strasbourg – Brest",
     "competition": "Ligue 1",
     "channel": "Ligue 1+ 6"
-  },
-  {
-    "sport": "Foot",
-    "time": "20:25",
-    "status": "Direct",
-    "date": "2026-11-21",
-    "startAt": "2026-11-21T20:25:00+01:00",
-    "endAt": "2026-11-21T22:30:00+01:00",
-    "title": "FC Sankt Pauli – Bochum",
-    "competition": "Bundesliga 2",
-    "channel": "beIN SPORTS MAX 7"
   },
   {
     "sport": "Foot",
