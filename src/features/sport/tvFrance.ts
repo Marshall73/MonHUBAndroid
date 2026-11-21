@@ -55,8 +55,12 @@ export async function fetchTvSchedule(signal: AbortSignal): Promise<TvProgram[]>
   return [...programs.values()].sort((first, second) => first.time.localeCompare(second.time));
 }
 
-export function filterPrograms(programs: TvProgram[], sport: Sport, search: string) {
+export function filterPrograms(programs: TvProgram[], sport: Sport, search: string, now?: Date) {
   const query = searchable(search.trim());
-  return programs.filter((item) => matchesSport(sport, item.sport) &&
-    searchable(`${item.title} ${item.competition} ${item.channel}`).includes(query));
+  const cutoff = now ? now.getHours() * 60 + now.getMinutes() - 120 : 0;
+  return programs.filter((item) => {
+    const start = Number(item.time.slice(0, 2)) * 60 + Number(item.time.slice(3));
+    return start >= cutoff && matchesSport(sport, item.sport) &&
+      searchable(`${item.title} ${item.competition} ${item.channel}`).includes(query);
+  });
 }

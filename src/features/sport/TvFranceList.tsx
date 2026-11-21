@@ -46,7 +46,7 @@ function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: nu
               accessibilityLabel={item.status === 'En cours' ? 'Diffusion en direct, en cours' : 'Diffusion en direct'}
               className="text-xs font-semibold text-emerald-200"
             >
-              Direct
+              {item.status}
             </Text>
           </View>
         </View>
@@ -62,7 +62,7 @@ function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: nu
   );
 }
 
-export function TvFranceList({ sport, query }: { sport: Sport; query: string }) {
+export function TvFranceList({ sport, query, now }: { sport: Sport; query: string; now?: Date }) {
   const [programs, setPrograms] = useState<TvProgram[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [request, setRequest] = useState<{ refresh: boolean } | null>({ refresh: false });
@@ -104,7 +104,7 @@ export function TvFranceList({ sport, query }: { sport: Sport; query: string }) 
     <FlatList
       className="flex-1 px-5"
       keyboardShouldPersistTaps="handled"
-      data={programs ? filterPrograms(programs, sport, query) : undefined}
+      data={programs ? filterPrograms(programs, sport, query, now) : undefined}
       keyExtractor={programKey}
       renderItem={({ item, index }) => <ProgramCard item={item} index={index} reduceMotion={reduceMotion} />}
       refreshControl={<RefreshControl refreshing={request?.refresh === true} onRefresh={() => load(true)} colors={['#3B82F6']} />}
