@@ -1,4 +1,0 @@
-- name: Tester API Football
-  env:
-    API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-  run: node scripts/test-api.js
