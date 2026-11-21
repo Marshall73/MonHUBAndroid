@@ -6,11 +6,21 @@ const scheduleUrl = 'https://raw.githubusercontent.com/Marshall73/MonHUBAndroid/
 export type TvProgram = {
   sport: string;
   time: string;
-  status: 'Direct' | 'En cours';
+  status: 'Direct' | 'En cours' | 'Terminé';
+  date?: string;
   title: string;
   competition: string;
   channel: string;
 };
+
+export type ProgramView = 'live' | 'upcoming' | 'finished';
+
+const parisDate = new Intl.DateTimeFormat('sv-SE', {
+  timeZone: 'Europe/Paris',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
 
 export function programKey(program: TvProgram) {
   return JSON.stringify([program.time, program.channel, program.title]);
@@ -39,12 +49,14 @@ export async function fetchTvSchedule(signal: AbortSignal): Promise<TvProgram[]>
     hasValidProgram = true;
 
     const status = searchable(text(row.status).trim());
-    if (status !== 'direct' && status !== 'en cours') continue;
+    if (status !== 'direct' && status !== 'en cours' && status !== 'termine') continue;
+    const date = text(row.date).trim();
 
     const item: TvProgram = {
       sport,
       time: time.padStart(5, '0'),
-      status: status === 'en cours' ? 'En cours' : 'Direct',
+      status: status === 'termine' ? 'Terminé' : status === 'en cours' ? 'En cours' : 'Direct',
+      date: /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : undefined,
       title,
       channel,
       competition: text(row.competition).trim(),
@@ -55,15 +67,20 @@ export async function fetchTvSchedule(signal: AbortSignal): Promise<TvProgram[]>
   return [...programs.values()].sort((first, second) => first.time.localeCompare(second.time));
 }
 
-export function filterPrograms(programs: TvProgram[], sport: Sport, search: string, now: Date, upcomingOnly: boolean) {
+export function filterPrograms(programs: TvProgram[], sport: Sport, search: string, now: Date, view: ProgramView) {
   const query = searchable(search.trim());
   const currentMinute = now.getHours() * 60 + now.getMinutes();
+  const today = parisDate.format(now);
   return programs.filter((item) => {
+    if (item.date && item.date !== today) return false;
+
     const start = Number(item.time.slice(0, 2)) * 60 + Number(item.time.slice(3));
-    const matchesTime = upcomingOnly
-      ? start > currentMinute && item.status !== 'En cours'
-      : item.status === 'Direct' || start >= currentMinute - 120;
-    return matchesTime && matchesSport(sport, item.sport) &&
+    const matchesView = item.status === 'Terminé'
+      ? view === 'finished'
+      : view === 'upcoming'
+        ? start > currentMinute && item.status !== 'En cours'
+        : view === 'live' && (item.status === 'Direct' || start >= currentMinute - 120);
+    return matchesView && matchesSport(sport, item.sport) &&
       searchable(`${item.title} ${item.competition} ${item.channel}`).includes(query);
   });
 }

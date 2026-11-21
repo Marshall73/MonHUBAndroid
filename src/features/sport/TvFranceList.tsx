@@ -4,7 +4,13 @@ import { FlatList, Pressable, RefreshControl, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 
 import { searchable, type Sport } from './filters';
-import { fetchTvSchedule, filterPrograms, programKey, type TvProgram } from './tvFrance';
+import { fetchTvSchedule, filterPrograms, programKey, type ProgramView, type TvProgram } from './tvFrance';
+
+const emptyMessages: Record<ProgramView, string> = {
+  live: 'Aucun programme ne correspond aux filtres.',
+  upcoming: 'Aucun match à venir pour ces filtres.',
+  finished: 'Aucun match terminé pour ces filtres.',
+};
 
 function channelColors(channel: string) {
   const name = searchable(channel);
@@ -20,6 +26,7 @@ function channelColors(channel: string) {
 function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: number; reduceMotion: boolean }) {
   const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
   const competition = item.competition || item.sport;
+  const finished = item.status === 'Terminé';
   const normalizedTitle = searchable(item.title).replace(/[^\p{L}\p{N}]/gu, '');
   const normalizedChannel = searchable(item.channel).replace(/[^\p{L}\p{N}]/gu, '');
   const hasChannel = normalizedChannel !== '' && normalizedChannel !== 'chainetv' &&
@@ -40,12 +47,9 @@ function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: nu
         <Text className="text-base font-bold leading-6 text-zinc-50">{item.title}</Text>
         <View className="flex-row flex-wrap items-center gap-x-2 gap-y-1">
           <Text className="text-sm text-zinc-400">{competition}</Text>
-          <View className="flex-row items-center gap-1.5 rounded-full bg-emerald-500/15 px-2 py-1">
-            <View className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            <Text
-              accessibilityLabel={item.status === 'En cours' ? 'Diffusion en direct, en cours' : 'Diffusion en direct'}
-              className="text-xs font-semibold text-emerald-200"
-            >
+          <View className={`flex-row items-center gap-1.5 rounded-full px-2 py-1 ${finished ? 'bg-zinc-800' : 'bg-emerald-500/15'}`}>
+            <View className={`h-1.5 w-1.5 rounded-full ${finished ? 'bg-zinc-400' : 'bg-emerald-400'}`} />
+            <Text className={`text-xs font-semibold ${finished ? 'text-zinc-300' : 'text-emerald-200'}`}>
               {item.status}
             </Text>
           </View>
@@ -62,11 +66,11 @@ function ProgramCard({ item, index, reduceMotion }: { item: TvProgram; index: nu
   );
 }
 
-export function TvFranceList({ sport, query, now, upcomingOnly }: {
+export function TvFranceList({ sport, query, now, view }: {
   sport: Sport;
   query: string;
   now: Date;
-  upcomingOnly: boolean;
+  view: ProgramView;
 }) {
   const [programs, setPrograms] = useState<TvProgram[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -109,7 +113,7 @@ export function TvFranceList({ sport, query, now, upcomingOnly }: {
     <FlatList
       className="flex-1 px-5"
       keyboardShouldPersistTaps="handled"
-      data={programs ? filterPrograms(programs, sport, query, now, upcomingOnly) : undefined}
+      data={programs ? filterPrograms(programs, sport, query, now, view) : undefined}
       keyExtractor={programKey}
       renderItem={({ item, index }) => <ProgramCard item={item} index={index} reduceMotion={reduceMotion} />}
       refreshControl={<RefreshControl refreshing={request?.refresh === true} onRefresh={() => load(true)} colors={['#3B82F6']} />}
@@ -136,9 +140,7 @@ export function TvFranceList({ sport, query, now, upcomingOnly }: {
         </View>
       ) : (
         <Text className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 text-zinc-300">
-          {programs.length === 0
-            ? 'Aucun programme TV France publié pour le moment.'
-            : upcomingOnly ? 'Aucun match à venir pour ces filtres.' : 'Aucun programme ne correspond aux filtres.'}
+          {programs.length === 0 ? 'Aucun programme TV France publié pour le moment.' : emptyMessages[view]}
         </Text>
       )}
     />

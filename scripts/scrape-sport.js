@@ -2,7 +2,7 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 
 (async () => {
-  const urlSport = 'https://' + 'tv-sports.fr/';
+  const urlSport = 'https://tv-sports.fr/?passes=1';
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
@@ -28,14 +28,6 @@ const fs = require('fs');
       }
     } catch (e) {}
   }
-
-  try {
-    const pastBtn = page.locator('text=Voir les diffusions terminées').first();
-    if (await pastBtn.isVisible({ timeout: 2500 })) {
-      await pastBtn.click();
-      await page.waitForTimeout(1500);
-    }
-  } catch (e) {}
 
   // Fonction d'extraction appelée à chaque cran de défilement pour contourner la virtualisation DOM
   const extractVisible = () => page.evaluate(() => {
@@ -66,7 +58,14 @@ const fs = require('fs');
       const text = block.innerText || '';
       const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
 
-      const isLive = /\b(Direct|En cours|Streaming|Terminé)\b/i.test(text);
+      const schedule = block.closest('[data-schedule-type]');
+      const scheduleType = schedule?.getAttribute('data-schedule-type');
+      const finished = schedule?.getAttribute('data-is-past') === '1' ||
+        schedule?.getAttribute('data-schedule-section') === 'past' ||
+        lines.some(line => /^terminé(?:e)?$/i.test(line));
+      const isLive = scheduleType
+        ? scheduleType === 'live' || scheduleType === 'streaming'
+        : /\b(Direct|En cours|Streaming)\b/i.test(text) || finished;
       const isExcluded = /\b(Rediffusion|Magazine|Sans diffusion TV|Aucune diffusion TV)\b/i.test(text);
       if (!isLive || isExcluded) continue;
 
@@ -102,7 +101,9 @@ const fs = require('fs');
       items.push({
         sport,
         time,
-        status: /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
+        status: finished ? 'Terminé' : /\bEn cours\b/i.test(text) ? 'En cours' : 'Direct',
+        date: (block.querySelector('[data-starts-at]') ?? schedule?.querySelector('[data-starts-at]'))
+          ?.getAttribute('data-starts-at')?.slice(0, 10) || '',
         title,
         competition,
         channel
@@ -120,7 +121,7 @@ const fs = require('fs');
     const batch = await extractVisible();
     for (const ev of batch) {
       const key = `${ev.time}-${ev.title}-${ev.channel}`;
-      if (!collected.has(key)) collected.set(key, ev);
+      if (!collected.has(key) || ev.status === 'Terminé') collected.set(key, ev);
     }
     const atBottom = await page.evaluate(() => {
       window.scrollBy(0, 800);

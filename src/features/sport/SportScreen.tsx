@@ -6,17 +6,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { sports, type Sport } from './filters';
 import { TvFranceList } from './TvFranceList';
+import type { ProgramView } from './tvFrance';
 
 const timeFilters = [
-  { upcomingOnly: false, label: 'En cours' },
-  { upcomingOnly: true, label: 'À venir' },
+  { id: 'live', label: 'En cours' },
+  { id: 'upcoming', label: 'À venir' },
+  { id: 'finished', label: 'Terminé' },
 ] as const;
 
 const searchLabel = 'Équipe, combattant, compétition ou chaîne';
 
 export default function SportScreen() {
   const [sport, setSport] = useState<Sport>(sports[0]);
-  const [upcomingOnly, setUpcomingOnly] = useState(false);
+  const [view, setView] = useState<ProgramView>('live');
   const [search, setSearch] = useState('');
   const [now, setNow] = useState(() => new Date());
 
@@ -65,11 +67,11 @@ export default function SportScreen() {
               <Pressable
                 key={option.label}
                 accessibilityRole="button"
-                accessibilityState={{ selected: upcomingOnly === option.upcomingOnly }}
-                onPress={() => setUpcomingOnly(option.upcomingOnly)}
-                className={`min-h-11 shrink justify-center rounded-lg px-3 ${upcomingOnly === option.upcomingOnly ? 'bg-blue-500/20' : ''}`}
+                accessibilityState={{ selected: view === option.id }}
+                onPress={() => setView(option.id)}
+                className={`min-h-11 shrink justify-center rounded-lg px-3 ${view === option.id ? 'bg-blue-500/20' : ''}`}
               >
-                <Text className={`text-center text-sm font-semibold ${upcomingOnly === option.upcomingOnly ? 'text-blue-200' : 'text-zinc-300'}`}>
+                <Text className={`text-center text-sm font-semibold ${view === option.id ? 'text-blue-200' : 'text-zinc-300'}`}>
                   {option.label}
                 </Text>
               </Pressable>
@@ -100,7 +102,7 @@ export default function SportScreen() {
             )}
           </View>
         </View>
-        <TvFranceList sport={sport} query={search} now={now} upcomingOnly={upcomingOnly} />
+        <TvFranceList sport={sport} query={search} now={now} view={view} />
       </View>
     </SafeAreaView>
   );
