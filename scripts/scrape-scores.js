@@ -7,10 +7,8 @@ const fs = require('fs');
     process.exit(1);
   }
 
-  // Date du jour au format YYYY-MM-DD (fuseau Paris)
   const todayParis = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Paris' }).format(new Date());
 
-  // IDs officiels API-Football des grandes compétitions (pour filtrer les championnats majeurs)
   const majorLeagues = new Set([
     2,   // UEFA Champions League
     3,   // UEFA Europa League
@@ -31,6 +29,7 @@ const fs = require('fs');
 
   const apiUrl = 'https://' + 'v3.football.api-sports.io/fixtures?date=' + todayParis + '&timezone=Europe/Paris';
   const res = await fetch(apiUrl, {
+    headers: {
       'x-apisports-key': apiKey
     }
   });
@@ -42,7 +41,7 @@ const fs = require('fs');
 
   const json = await res.json();
   const fixtures = json.response || [];
-  console.log(`Matchs totaux trouves le ${todayParis} :`, fixtures.length);
+  console.log('Matchs totaux trouves le ' + todayParis + ' :', fixtures.length);
 
   const results = [];
 
@@ -50,8 +49,7 @@ const fs = require('fs');
     const leagueId = item.league?.id;
     if (!majorLeagues.has(leagueId)) continue;
 
-    const shortStatus = item.fixture?.status?.short; // FT, AET, PEN, 1H, 2H, HT, NS...
-    // Ne garde que les matchs terminés ou en cours
+    const shortStatus = item.fixture?.status?.short;
     if (!['FT', 'AET', 'PEN', '1H', '2H', 'HT', 'ET', 'BT', 'P', 'LIVE'].includes(shortStatus)) continue;
 
     const homeName = item.teams?.home?.name || 'Domicile';
@@ -64,10 +62,10 @@ const fs = require('fs');
 
     results.push({
       sport: 'Foot',
-      date: isLive ? `En cours (${elapsed || ''}')` : 'Terminé',
+      date: isLive ? ('En cours (' + (elapsed || '') + "')") : 'Terminé',
       competition: item.league?.name || 'Football',
-      match: `${homeName} - ${awayName}`,
-      score: `${homeGoals} - ${awayGoals}`,
+      match: homeName + ' - ' + awayName,
+      score: homeGoals + ' - ' + awayGoals,
       homeLogo: item.teams?.home?.logo || '',
       awayLogo: item.teams?.away?.logo || ''
     });
