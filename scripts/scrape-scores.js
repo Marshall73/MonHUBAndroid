@@ -5,7 +5,7 @@ const fs = require('fs');
   const results = [];
   const seen = new Set();
 
-  // 1. Lecture directe des lignes de texte de tv-sports.fr/scores-matchs-recents
+  // 1. Ouvre tv-sports.fr et clique directement sur l'onglet "Scores" du menu
   try {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({
@@ -13,17 +13,24 @@ const fs = require('fs');
       locale: 'fr-FR'
     });
     const page = await context.newPage();
-    await page.goto('https://' + 'tv-sports.fr/scores-matchs-recents', { waitUntil: 'domcontentloaded', timeout: 45000 });
-    await page.waitForTimeout(3000);
+    await page.goto('https://' + 'tv-sports.fr/', { waitUntil: 'domcontentloaded', timeout: 45000 });
+    await page.waitForTimeout(2000);
 
     try {
       const btn = page.locator('button:has-text("Accepter"), button:has-text("Tout accepter"), button:has-text("Continuer")').first();
       if (await btn.isVisible({ timeout: 2000 })) await btn.click();
     } catch (e) {}
 
-    // Défile et collecte toutes les lignes de texte visibles
+    // Clique sur le lien "Scores" dans la navigation
+    const scoreLink = page.locator('a:has-text("Scores")').first();
+    if (await scoreLink.isVisible({ timeout: 3000 })) {
+      await scoreLink.click();
+      await page.waitForTimeout(3000);
+      console.log('URL Scores ouverte :', page.url());
+    }
+
     const allLines = [];
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 12; i++) {
       const text = await page.evaluate(() => document.body.innerText || '');
       for (const line of text.split('\n')) {
         const clean = line.trim();
@@ -34,9 +41,8 @@ const fs = require('fs');
     }
     await browser.close();
 
-    console.log('Lignes brutes lues sur tv-sports.fr/scores-matchs-recents :', allLines.length);
+    console.log('Apercu lignes Scores :', allLines.slice(0, 35).join(' | '));
 
-    // Analyse les lignes pour repérer les scores (ex: ligne "2 - 1" ou "2" puis "1" entre deux équipes)
     let currentSport = 'Foot';
     let currentComp = 'Match récent';
 
@@ -57,7 +63,7 @@ const fs = require('fs');
 
       if (currentSport === 'Autre') continue;
 
-      // Cas A : Score sur une seule ligne ("2 - 1" ou "2-1") entre Equipe 1 (i-1) et Equipe 2 (i+1)
+      // Format A : "2 - 1" entre Equipe 1 (i-1) et Equipe 2 (i+1)
       const scoreMatch = line.match(/^(\d{1,3})\s*[-–:]\s*(\d{1,3})$/);
       if (scoreMatch && i > 0 && i + 1 < allLines.length) {
         const teamA = allLines.at(i - 1);
@@ -66,13 +72,19 @@ const fs = require('fs');
         const key = `${teamA}-${teamB}-${score}`;
         if (teamA.length > 2 && teamB.length > 2 && !seen.has(key)) {
           seen.add(key);
-          results.push({
-            sport: currentSport,
-            date: "Aujourd'hui",
-            competition: currentComp,
-            match: `${teamA} - ${teamB}`,
-            score
-          });
+          results.push({ sport: currentSport, date: "Aujourd'hui", competition: currentComp, match: `${teamA} - ${teamB}`, score });
+        }
+      }
+
+      // Format B : "Equipe A 2 - 1 Equipe B" sur une seule ligne
+      const inlineMatch = line.match(/^([A-Za-zÀ-ÿ0-9 .'-]{3,35})\s+(\d{1,2})\s*[-–]\s*(\d{1,2})\s+([A-Za-zÀ-ÿ0-9 .'-]{3,35})$/);
+      if (inlineMatch) {
+        const matchName = `${inlineMatch.at(1).trim()} - ${inlineMatch.at(4).trim()}`;
+        const score = `${inlineMatch.at(2)} - ${inlineMatch.at(3)}`;
+        const key = `${matchName}-${score}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          results.push({ sport: currentSport, date: "Aujourd'hui", competition: currentComp, match: matchName, score });
         }
       }
     }
@@ -80,14 +92,17 @@ const fs = require('fs');
     console.error('Erreur Playwright scores:', e.message);
   }
 
-  // 2. Fallback API ESPN si tv-sports.fr n'a rien renvoyé
+  // 2. Fallback API ESPN sur les 3 derniers jours
   if (results.length === 0) {
+    const fmt = (days) => new Date(Date.now() + days * 86400000).toISOString().slice(0, 10).replace(/-/g, '');
+    const range = `${fmt(-3)}-${fmt(0)}`;
+
     const espnEndpoints = [
-      { sport: 'Foot', comp: 'Ligue 1', url: 'https://espn.com' },
-      { sport: 'Foot', comp: 'Premier League', url: 'https://espn.com' },
-      { sport: 'Foot', comp: 'La Liga', url: 'https://espn.com' },
-      { sport: 'Foot', comp: 'Serie A', url: 'https://espn.com' },
-      { sport: 'Foot', comp: 'Bundesliga', url: 'https://espn.com' },
+      { sport: 'Foot', comp: 'Ligue 1', url: `https://espn.com{range}` },
+      { sport: 'Foot', comp: 'Premier League', url: `https://espn.com{range}` },
+      { sport: 'Foot', comp: 'La Liga', url: `https://espn.com{range}` },
+      { sport: 'Foot', comp: 'Serie A', url: `https://espn.com{range}` },
+      { sport: 'Foot', comp: 'Bundesliga', url: `https://espn.com{range}` },
       { sport: 'MMA', comp: 'UFC', url: 'https://espn.com' },
       { sport: 'Tennis', comp: 'ATP Tour', url: 'https://espn.com' }
     ];
@@ -105,9 +120,12 @@ const fs = require('fs');
           const away = comp?.competitors?.find(c => c.homeAway === 'away') || comp?.competitors?.at(1);
           if (!home || !away) continue;
 
+          const evDate = new Date(ev.date);
+          const dLabel = evDate.toLocaleDateString('fr-FR', { timeZone: 'Europe/Paris', day: '2-digit', month: '2-digit' });
+
           results.push({
             sport: ep.sport,
-            date: state === 'in' ? 'En cours' : "Aujourd'hui",
+            date: state === 'in' ? 'En cours' : dLabel,
             competition: ep.comp,
             match: `${home.team?.shortDisplayName || home.athlete?.displayName} - ${away.team?.shortDisplayName || away.athlete?.displayName}`,
             score: `${home.score ?? '0'} - ${away.score ?? '0'}`
