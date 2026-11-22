@@ -1,1 +1,1 @@
-export { default } from '../../src/features/sport/SportScreen';
+export { default } from '../../src/features/rss/RssScreen';
