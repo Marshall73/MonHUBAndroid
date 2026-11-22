@@ -2,7 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const directoryUrl = 'https://api.invidious.io/instances.json?sort_by=health';
 const officialListUrl = 'https://raw.githubusercontent.com/iv-org/documentation/master/docs/instances.md';
-const fallbackUris = ['https://nadeko.net', 'https://yewtu.be', 'https://nerdvpn.de'];
+const preferredUri = 'https://yewtu.be';
+const fallbackUris = ['https://nadeko.net', 'https://nerdvpn.de'];
 const cacheKey = 'invidious/instances-v1';
 const cacheDuration = 60 * 60 * 1000;
 
@@ -61,8 +62,8 @@ async function loadInstances(): Promise<readonly string[]> {
     if (typeof parsed?.expiresAt === 'number' && parsed.expiresAt > Date.now() && Array.isArray(parsed.uris)) {
       const uris = httpsOrigins(parsed.uris);
       if (uris.length) {
-        cache = { expiresAt: parsed.expiresAt, uris };
-        return uris;
+        cache = { expiresAt: parsed.expiresAt, uris: [...new Set([preferredUri, ...uris])] };
+        return cache.uris;
       }
     }
   } catch {
@@ -70,7 +71,10 @@ async function loadInstances(): Promise<readonly string[]> {
   }
 
   const discovered = await discoverInstances();
-  cache = { expiresAt: Date.now() + cacheDuration, uris: httpsOrigins([...discovered, ...fallbackUris]) };
+  cache = {
+    expiresAt: Date.now() + cacheDuration,
+    uris: [...new Set([preferredUri, ...discovered, ...fallbackUris])],
+  };
   void AsyncStorage.setItem(cacheKey, JSON.stringify(cache)).catch(() => {});
   return cache.uris;
 }
