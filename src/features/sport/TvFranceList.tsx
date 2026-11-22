@@ -149,11 +149,11 @@ function ProgramCard({
           {competition !== item.sport && (
             <Text className="text-sm text-muted">{item.sport}</Text>
           )}
-          <View className="flex-row flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-line pt-2">
+          <View className="gap-1 border-t border-line pt-2">
             {hasChannel ? (
-              <Text className="shrink text-sm font-semibold text-copy">{item.channel}</Text>
+              <Text className="text-sm font-semibold text-copy">{item.channel}</Text>
             ) : (
-              <Text className="shrink text-sm text-muted">Chaîne non renseignée</Text>
+              <Text className="text-sm text-muted">Chaîne non renseignée</Text>
             )}
             <Text className={`text-xs font-medium ${finished || upcoming ? 'text-muted' : 'text-success'}`}>
               {status}
