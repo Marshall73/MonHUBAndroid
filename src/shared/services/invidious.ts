@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const directoryUrl = 'https://api.invidious.io/instances.json?sort_by=health';
 const officialListUrl = 'https://raw.githubusercontent.com/iv-org/documentation/master/docs/instances.md';
-const preferredUri = 'https://yewtu.be';
-const fallbackUris = ['https://nadeko.net', 'https://nerdvpn.de'];
+const preferredUri = 'https://invidious.nerdvpn.de';
+const fallbackUris = ['https://yewtu.be', 'https://nadeko.net', 'https://nerdvpn.de'];
 const cacheKey = 'invidious/instances-v1';
 const cacheDuration = 60 * 60 * 1000;
 
