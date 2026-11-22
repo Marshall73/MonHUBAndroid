@@ -1,3 +1,5 @@
+import { isYouTubeVideoId } from '../../shared/services/youtube';
+
 export const tmdbKey = process.env.EXPO_PUBLIC_TMDB_API_KEY?.trim();
 
 export const mediaTypes = [
@@ -39,6 +41,7 @@ export type MediaDetails = {
   creators: string;
   cast: string;
   overview: string;
+  trailerVideoId: string | null;
 };
 
 const invalidResponse = 'TMDB a renvoyé une réponse inattendue. Réessayez.';
@@ -170,7 +173,7 @@ function personNames(people: Record<string, unknown>[]) {
 
 export async function fetchMediaDetails(key: string, type: MediaType, id: number, signal: AbortSignal): Promise<MediaDetails> {
   const url = new URL(`https://api.themoviedb.org/3/${type}/${id}`);
-  url.searchParams.set('append_to_response', 'credits');
+  url.searchParams.set('append_to_response', 'credits,videos');
   const data = record(await requestTmdb(url, key, signal));
   if (data.id !== id) throw new Error(invalidResponse);
 
@@ -188,5 +191,32 @@ export async function fetchMediaDetails(key: string, type: MediaType, id: number
     creators: personNames(creators),
     cast: personNames(Array.isArray(cast) ? cast.slice(0, 5).map(record) : []),
     overview: typeof data.overview === 'string' ? data.overview.trim() : '',
+    trailerVideoId: readTrailerVideoId(data.videos),
   };
+}
+
+function readTrailerVideoId(value: unknown): string | null {
+  const { results } = record(value);
+  if (!Array.isArray(results)) return null;
+  const videos = results.map(record).filter((video) =>
+    video.site === 'YouTube' && video.type === 'Trailer' && isYouTubeVideoId(video.key),
+  );
+  const trailer = videos.find((video) => video.official === true) ?? videos[0];
+  return isYouTubeVideoId(trailer?.key) ? trailer.key : null;
+}
+
+export async function fetchMovieTrailer(key: string, title: string, signal: AbortSignal): Promise<string | null> {
+  const url = new URL('https://api.themoviedb.org/3/search/movie');
+  url.searchParams.set('query', title);
+  const { results } = record(await requestTmdb(url, key, signal));
+  if (!Array.isArray(results)) throw new Error(invalidResponse);
+  const normalize = (value: string) => value.normalize('NFC').trim().toLocaleLowerCase('fr-FR');
+  const target = normalize(title);
+  const candidates = results.map(record).filter((movie) =>
+    [movie.title, movie.original_title].some((name) => typeof name === 'string' && normalize(name) === target),
+  );
+  const id = candidates.length === 1 ? candidates[0].id : undefined;
+  if (typeof id !== 'number' || !Number.isSafeInteger(id) || id <= 0) return null;
+  const videosUrl = new URL(`https://api.themoviedb.org/3/movie/${id}/videos`);
+  return readTrailerVideoId(await requestTmdb(videosUrl, key, signal));
 }

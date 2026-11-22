@@ -1,3 +1,5 @@
+import { isYouTubeVideoId } from '../../shared/services/youtube';
+
 export const programUrl = 'https://raw.githubusercontent.com/Marshall73/MonHUBAndroid/main/data/cinema.json';
 export const cinemaSiteUrl = 'https://lestoilesdulac.com';
 
@@ -12,10 +14,11 @@ export type Screening = {
   cast: string;
   synopsis: string;
   link: string;
+  trailerVideoId: string | null;
 };
 
 type ProgramEntry = Pick<Screening, 'cinema' | 'title' | 'poster' | 'times'> &
-  Partial<Record<'duration' | 'genre' | 'director' | 'cast' | 'synopsis' | 'link', unknown>>;
+  Partial<Record<'duration' | 'genre' | 'director' | 'cast' | 'synopsis' | 'link' | 'trailerVideoId', unknown>>;
 
 function optionalText(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
@@ -82,6 +85,7 @@ export async function fetchProgram(signal: AbortSignal): Promise<Screening[]> {
       cast: existing?.cast || optionalText(item.cast),
       synopsis: existing?.synopsis || optionalText(item.synopsis),
       link: existing?.link || webUrl(optionalText(item.link), true),
+      trailerVideoId: existing?.trailerVideoId ?? (isYouTubeVideoId(item.trailerVideoId) ? item.trailerVideoId : null),
     });
   }
 

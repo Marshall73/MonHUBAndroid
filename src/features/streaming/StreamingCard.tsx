@@ -4,6 +4,7 @@ import { MotiView } from 'moti';
 import { useState } from 'react';
 import { ActivityIndicator, Alert, Image, Pressable, Text, View } from 'react-native';
 
+import { TrailerPreview } from '../../shared/components/TrailerPreview';
 import palette from '../../theme.json';
 
 import { CollapsibleDetails } from '../CollapsibleDetails';
@@ -101,6 +102,7 @@ export function StreamingCard({ item, type, platform, index, reduceMotion, genre
           <Text className="self-stretch text-sm leading-6 text-copy">
             {data?.overview || item.overview || 'Synopsis indisponible.'}
           </Text>
+          {expanded && data?.trailerVideoId && <TrailerPreview videoId={data.trailerVideoId} />}
           <Pressable
             accessibilityRole="link"
             disabled={!expanded}

@@ -1,3 +1,4 @@
+import { isYouTubeVideoId } from '../../shared/services/youtube';
 import { fetchFeedDocument, plainText, readFeedXml, record, text, values, webUrl } from '../feedXml';
 
 export const categories = ['Films', 'Jeux Vidéo'] as const;
@@ -15,7 +16,6 @@ export type Trailer = {
 };
 
 const channelIdPattern = /^UC[\w-]{22}$/;
-const videoIdPattern = /^[\w-]{11}$/;
 
 function channelFeed(id: string) {
   return `https://www.youtube.com/feeds/videos.xml?channel_id=${id}`;
@@ -64,7 +64,7 @@ function youtubeId(address: string | null) {
       ? url.searchParams.get('v')
       : url.pathname.match(/^\/(?:embed|shorts|live)\/([\w-]{11})(?:\/|$)/)?.[1];
   }
-  return id && videoIdPattern.test(id) ? id : '';
+  return isYouTubeVideoId(id) ? id : '';
 }
 
 function discoverFeed(html: string, base: string) {
@@ -109,7 +109,7 @@ export function parseTrailers(xml: string, source: TrailerSource, base = source.
     ];
 
     const nativeId = text(entry.videoId).trim();
-    let id = videoIdPattern.test(nativeId) ? nativeId : youtubeId(link);
+    let id = isYouTubeVideoId(nativeId) ? nativeId : youtubeId(link);
     if (!id) {
       const content = [entry.description, entry.summary, entry.encoded, entry.content].map(text).join(' ');
       for (const match of content.matchAll(/(?:https?:)?\/\/(?:[\w-]+\.)?(?:youtube(?:-nocookie)?\.com|youtu\.be)\/[^\s"'<>]+/gi)) {

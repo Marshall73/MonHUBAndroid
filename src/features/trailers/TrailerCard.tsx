@@ -3,11 +3,10 @@ import { openBrowserAsync } from 'expo-web-browser';
 import { MotiView } from 'moti';
 import { Alert, Image, Pressable, Text, View } from 'react-native';
 
+import { InvidiousPlayer } from '../../shared/components/InvidiousPlayer';
 import palette from '../../theme.json';
-
 import { relativeDate } from '../feedXml';
 import type { Trailer } from './feeds';
-import { TrailerPlayer } from './TrailerPlayer';
 
 export function TrailerCard({ trailer, index, reduceMotion, active, onPlay, onClose }: {
   trailer: Trailer;
@@ -38,7 +37,7 @@ export function TrailerCard({ trailer, index, reduceMotion, active, onPlay, onCl
       <View className="mb-4 overflow-hidden rounded-xl border border-line bg-surface">
         {active && trailer.videoId ? (
           <>
-            <TrailerPlayer videoId={trailer.videoId} url={trailer.url} onClose={onClose} />
+            <InvidiousPlayer videoId={trailer.videoId} onClose={onClose} />
             {caption}
           </>
         ) : (

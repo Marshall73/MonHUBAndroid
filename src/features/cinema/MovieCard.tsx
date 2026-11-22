@@ -7,6 +7,7 @@ import { Alert, Image, Pressable, Text, View } from 'react-native';
 import palette from '../../theme.json';
 
 import { CollapsibleDetails } from '../CollapsibleDetails';
+import { CinemaTrailer } from './CinemaTrailer';
 import { cinemaSiteUrl, type Screening } from './program';
 
 export function MovieCard({ movie, index, reduceMotion }: {
@@ -74,6 +75,7 @@ export function MovieCard({ movie, index, reduceMotion }: {
           {movie.synopsis !== '' && (
             <Text className="text-sm leading-6 text-copy">{movie.synopsis}</Text>
           )}
+          {expanded && <CinemaTrailer title={movie.title} videoId={movie.trailerVideoId} />}
           <Pressable
             accessibilityRole="link"
             disabled={!expanded}
