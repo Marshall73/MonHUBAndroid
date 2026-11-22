@@ -2,13 +2,22 @@ name: Mise à jour Scores Sport
 
 on:
   schedule:
-    - cron: '0 15 * * *' # 16h00 (fin des matchs de l'après-midi)
-    - cron: '0 18 * * *' # 19h00 (fin des matchs de 17h)
-    - cron: '15 21 * * *' # 22h15 (fin des matchs de 20h15/20h30)
-    - cron: '15 22 * * *' # 23h15 (fin des matchs de 21h)
+    - cron: '17,37 16 * * *'
+      timezone: 'Europe/Paris'
+    - cron: '17,37 19 * * *'
+      timezone: 'Europe/Paris'
+    - cron: '15,35 22 * * *'
+      timezone: 'Europe/Paris'
+    - cron: '15,35 23 * * *'
+      timezone: 'Europe/Paris'
   workflow_dispatch:
 
+concurrency:
+  group: scores-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
+  actions: read
   contents: write
 
 jobs:
@@ -18,17 +27,27 @@ jobs:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
+      - name: Vérifier si le créneau a déjà réussi
+        id: freshness
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/check-scrape-freshness.sh scrape-scores.yml
+
       - name: Installer Node.js
+        if: steps.freshness.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Récupérer les scores via API-Football
+        if: steps.freshness.outputs.skip != 'true'
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: node scripts/scrape-scores.js
 
       - name: Sauvegarder scores.json dans le dépôt
+        if: steps.freshness.outputs.skip != 'true'
         run: |
           git config user.name "Hub Scraper Bot"
           git config user.email "bot@users.noreply.github.com"

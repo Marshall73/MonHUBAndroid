@@ -2,10 +2,18 @@ name: Mise à jour Horaires Cinéma
 
 on:
   schedule:
-    - cron: '0 7 * * *'
+    - cron: '17 7 * * *'
+      timezone: 'Europe/Paris'
+    - cron: '37 8 * * *'
+      timezone: 'Europe/Paris'
   workflow_dispatch:
 
+concurrency:
+  group: cinema-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
+  actions: read
   contents: write
 
 jobs:
@@ -15,20 +23,31 @@ jobs:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
 
+      - name: Vérifier si le programme a déjà été collecté aujourd’hui
+        id: freshness
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/check-scrape-freshness.sh scrape-cinema.yml 00:00
+
       - name: Installer Node.js
+        if: steps.freshness.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Installer Playwright Chromium
+        if: steps.freshness.outputs.skip != 'true'
         run: |
           npm install --no-save playwright
           npx playwright install chromium --with-deps
 
       - name: Aspirer les horaires de cinéma
+        if: steps.freshness.outputs.skip != 'true'
         run: node scripts/scrape-cinema.js
 
       - name: Sauvegarder le JSON dans le dépôt
+        if: steps.freshness.outputs.skip != 'true'
         run: |
           git config user.name "Hub Scraper Bot"
           git config user.email "bot@users.noreply.github.com"

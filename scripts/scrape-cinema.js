@@ -60,6 +60,11 @@ const fs = require('fs');
     return results;
   });
 
+  if (films.length === 0) {
+    await browser.close();
+    throw new Error('Aucune séance trouvée. Le dernier programme de cinéma est conservé.');
+  }
+
   for (const film of films) {
     if (!film.link || film.link === urlCinema) continue;
 
