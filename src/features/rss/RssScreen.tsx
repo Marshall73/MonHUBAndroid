@@ -2,21 +2,23 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MotiView } from 'moti';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, FlatList, Linking, Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { FlatList, Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import palette from '../../theme.json';
 
+import { ArticleReaderModal } from './ArticleReaderModal';
 import { FeedManager } from './FeedManager';
 import { defaultFeeds, fetchArticles, isFeed, relativeDate, type Article, type Feed } from './feeds';
 
 const storageKey = 'rss/feeds';
 
-function ArticleCard({ article, index, reduceMotion }: {
+function ArticleCard({ article, index, reduceMotion, onOpen }: {
   article: Article;
   index: number;
   reduceMotion: boolean;
+  onOpen: () => void;
 }) {
   const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
 
@@ -28,13 +30,9 @@ function ArticleCard({ article, index, reduceMotion }: {
       delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
     >
       <Pressable
-        accessibilityRole="link"
-        accessibilityHint="Ouvre l’article dans le navigateur"
-        onPress={() => {
-          Linking.openURL(article.url).catch(() => {
-            Alert.alert('Ouverture impossible', 'Impossible d’ouvrir cet article dans le navigateur.');
-          });
-        }}
+        accessibilityRole="button"
+        accessibilityHint="Ouvre l’article dans le lecteur"
+        onPress={onOpen}
         className="focus:border-ink web:focus-visible:border-ink mb-3 gap-2 rounded-xl border border-line bg-surface p-4 active:bg-raised"
       >
         <Text className="text-item-title font-semibold text-ink">{article.title}</Text>
@@ -56,6 +54,7 @@ export default function RssScreen() {
   const [feeds, setFeeds] = useState<Feed[] | null>(null);
   const [stored, setStored] = useState<Record<string, Article[]> | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [openArticle, setOpenArticle] = useState<Article | null>(null);
   const [managerOpen, setManagerOpen] = useState(false);
   const [storageError, setStorageError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -172,7 +171,9 @@ export default function RssScreen() {
           className="flex-1 px-5"
           data={articles}
           keyExtractor={(article) => JSON.stringify([article.feed.url, article.url])}
-          renderItem={({ item, index }) => <ArticleCard article={item} index={index} reduceMotion={reduceMotion} />}
+          renderItem={({ item, index }) => (
+            <ArticleCard article={item} index={index} reduceMotion={reduceMotion} onOpen={() => setOpenArticle(item)} />
+          )}
           refreshControl={
             <RefreshControl
               enabled={active.length > 0} refreshing={refreshing} colors={[palette.cobalt]}
@@ -216,6 +217,7 @@ export default function RssScreen() {
           onSave={saveFeeds} onClose={() => setManagerOpen(false)}
         />
       )}
+      {openArticle && <ArticleReaderModal article={openArticle} onClose={() => setOpenArticle(null)} />}
     </SafeAreaView>
   );
 }

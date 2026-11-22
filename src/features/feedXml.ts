@@ -11,12 +11,21 @@ export function webUrl(value: string, base?: string) {
   }
 }
 
-const parser = new XMLParser({
+const parserOptions = {
   ignoreAttributes: false,
-  removeNSPrefix: true,
   parseTagValue: false,
   processEntities: false,
+};
+
+const parser = new XMLParser({
+  ...parserOptions,
+  removeNSPrefix: true,
   stopNodes: ['*.description', '*.summary', '*.content', '*.encoded'],
+});
+
+const namespacedParser = new XMLParser({
+  ...parserOptions,
+  stopNodes: ['*.description', '*.summary', '*.content', '*.content:encoded', '*.atom:summary', '*.atom:content'],
 });
 
 const entities: Record<string, string> = {
@@ -66,9 +75,9 @@ export function relativeDate(timestamp: number | null, now = Date.now()) {
   return `Il y a ${Math.floor(minutes / 1440)} j`;
 }
 
-export function readFeedXml(xml: string) {
+export function readFeedXml(xml: string, preserveNamespaces = false) {
   if (/<!DOCTYPE\b/i.test(xml) || XMLValidator.validate(xml) !== true) throw new Error('XML invalide');
-  return record(parser.parse(xml));
+  return record((preserveNamespaces ? namespacedParser : parser).parse(xml));
 }
 
 export async function fetchFeedDocument(url: string, signal: AbortSignal) {
