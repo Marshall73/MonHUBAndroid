@@ -1,12 +1,4 @@
-export type EsportTournament = {
-  title: string;
-  url: string;
-  tier: 'S' | 'A';
-  start: string;
-  end: string;
-};
-
-export const LIQUIPEDIA_ROCKET_LEAGUE = 'https://liquipedia.net/rocketleague';
+import { LIQUIPEDIA, type EsportGame, type EsportTournament } from './games';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const entities: Record<string, string> = {
@@ -46,16 +38,17 @@ function parseDateRange(value: string): Pick<EsportTournament, 'start' | 'end'> 
   if (start && end && start <= end) return { start, end };
 }
 
-function getTournamentLink(cells: string[]): Pick<EsportTournament, 'title' | 'url'> | undefined {
+function getTournamentLink(cells: string[], game: EsportGame): Pick<EsportTournament, 'title' | 'url'> | undefined {
   for (const cell of cells.slice().reverse()) {
-    for (const link of cell.matchAll(/<a\b[^>]*\bhref="(\/rocketleague\/[^"#?]+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
+    for (const link of cell.matchAll(/<a\b[^>]*\bhref="(\/[^"#?]+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
+      if (!link[1].startsWith('/' + game.id + '/')) continue;
       const title = plainText(link[2]);
-      if (title) return { title, url: 'https://liquipedia.net' + decodeEntities(link[1]) };
+      if (title) return { title, url: LIQUIPEDIA + decodeEntities(link[1]) };
     }
   }
 }
 
-function parseTier(html: string, tier: EsportTournament['tier']): EsportTournament[] {
+function parseTier(html: string, tier: EsportTournament['tier'], game: EsportGame): EsportTournament[] {
   const rows = html.includes('divRow')
     ? html.split(/<div\b[^>]*\bclass="[^"]*\bdivRow\b[^"]*"[^>]*>/i).slice(1)
     : Array.from(html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi), (row) => row[1]);
@@ -69,9 +62,10 @@ function parseTier(html: string, tier: EsportTournament['tier']): EsportTourname
     const labels = cells.map(plainText);
     const dateIndex = labels.findIndex((label) => parseDateRange(label) !== undefined);
     if (dateIndex < 1) continue;
+    if (game.id === 'counterstrike' && !cells[0].includes('href="/counterstrike/Counter-Strike_2"')) continue;
 
     const dates = parseDateRange(labels[dateIndex]);
-    const link = getTournamentLink(cells.slice(0, dateIndex));
+    const link = getTournamentLink(cells.slice(0, dateIndex), game);
     if (!dates || !link) continue;
     foundCalendarDate = true;
     if (/\b(cancelled|canceled|postponed)\b/i.test(labels.slice(dateIndex).join(' '))) continue;
@@ -82,11 +76,11 @@ function parseTier(html: string, tier: EsportTournament['tier']): EsportTourname
   return tournaments;
 }
 
-export function parseLiquipediaSchedule(html: string): EsportTournament[] {
-  const [, tierS, tierA] = html.split(/<span\s+id="monhub-tier-[sa]"\s*><\/span>/i);
-  if (!tierS || !tierA) throw new Error('Le calendrier Liquipedia est incomplet.');
+export function parseLiquipediaSchedule(html: string, game: EsportGame): EsportTournament[] {
+  const [, firstTier, secondTier] = html.split(/<span\s+id="monhub-tier-[12]"\s*><\/span>/i);
+  if (!firstTier || !secondTier) throw new Error('Le calendrier Liquipedia est incomplet.');
   const tournaments = new Map<string, EsportTournament>();
-  for (const item of [...parseTier(tierS, 'S'), ...parseTier(tierA, 'A')]) {
+  for (const item of [...parseTier(firstTier, game.tiers[0], game), ...parseTier(secondTier, game.tiers[1], game)]) {
     if (!tournaments.has(item.url)) tournaments.set(item.url, item);
   }
   return [...tournaments.values()].sort((a, b) => a.start.localeCompare(b.start));

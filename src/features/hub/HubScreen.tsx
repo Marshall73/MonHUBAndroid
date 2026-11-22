@@ -28,7 +28,7 @@ const hubModules = [
   {
     href: '/esport',
     title: 'Esport',
-    description: 'Tournois Rocket League · Tiers S et A',
+    description: 'Tournois Rocket League, CS2 et Trackmania',
     icon: 'game-controller-outline',
   },
 ] satisfies {
