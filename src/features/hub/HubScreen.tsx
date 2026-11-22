@@ -10,28 +10,22 @@ import palette from '../../theme.json';
 
 const hubModules = [
   {
+    href: '/cinema',
+    title: 'Cinéma',
+    description: 'Séances Les Toiles du Lac',
+    icon: 'film-outline',
+  },
+  {
     href: '/streaming',
     title: 'Streaming',
     description: 'Films et séries par plateforme',
     icon: 'tv-outline',
   },
   {
-    href: '/trailers',
-    title: 'Trailers',
-    description: 'Bandes-annonces et jeux vidéo',
-    icon: 'play-circle-outline',
-  },
-  {
     href: '/github',
-    title: 'GitHub',
+    title: 'GitHub Trends',
     description: 'Dépôts tendance',
     icon: 'logo-github',
-  },
-  {
-    href: '/esport',
-    title: 'Esport',
-    description: 'Tournois Rocket League, CS2 et Trackmania',
-    icon: 'game-controller-outline',
   },
 ] satisfies {
   href: Href;

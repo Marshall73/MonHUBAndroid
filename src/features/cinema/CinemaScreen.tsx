@@ -60,7 +60,7 @@ export default function CinemaScreen() {
     (selectedCinema === null || movie.cinema === selectedCinema) && normalizeTitle(movie.title).includes(query));
 
   return (
-    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-canvas">
+    <SafeAreaView edges={['left', 'right']} className="flex-1 bg-canvas">
       <View className="mx-auto w-full max-w-xl flex-1 pt-6">
         <View className="mb-4 gap-3 px-5">
           <Text accessibilityRole="header" className="text-screen-title font-semibold text-ink">

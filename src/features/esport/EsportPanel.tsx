@@ -3,12 +3,11 @@ import { MotiView } from 'moti';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import palette from '../../theme.json';
 
 import { ESPORT_NEWS, LIQUIPEDIA, esportGames, type EsportGame, type EsportTournament } from './games';
-import { loadEsportSchedule } from './schedule';
+import { getEsportSnapshot, loadEsportSchedule } from './schedule';
 
 const dateFormat = new Intl.DateTimeFormat('fr-FR', {
   day: 'numeric',
@@ -58,7 +57,7 @@ function TournamentSection({ title, tournaments, empty }: {
                 <Text className="text-sm text-muted">{start === end ? start : start + ' – ' + end}</Text>
               </View>
               <Text className="text-xs font-medium text-muted">
-                Tier {tournament.tier}
+                {tierLabel(tournament.tier)}
               </Text>
               <Ionicons name="open-outline" size={16} color={palette.muted} />
             </Pressable>
@@ -69,7 +68,11 @@ function TournamentSection({ title, tournaments, empty }: {
   );
 }
 
-function GameSchedule({ game }: { game: EsportGame }) {
+function GameSchedule({ game, tier, now }: {
+  game: EsportGame;
+  tier: EsportTournament['tier'] | null;
+  now: Date;
+}) {
   const [result, setResult] = useState<Awaited<ReturnType<typeof loadEsportSchedule>> | null>(null);
   const [refreshCount, setRefreshCount] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
@@ -89,10 +92,13 @@ function GameSchedule({ game }: { game: EsportGame }) {
     setRefreshCount((count) => count + 1);
   }
 
-  const today = new Date().toISOString().slice(0, 10);
-  const ongoing = result?.tournaments.filter(({ start, end }) => start <= today && today <= end) ?? [];
-  const upcoming = result?.tournaments.filter(({ start }) => today < start) ?? [];
-  const fromEsportNews = result ? result.source === 'esportNews' : 'esportNewsGame' in game;
+  const today = now.toISOString().slice(0, 10);
+  const snapshot = getEsportSnapshot(game);
+  const calendar = result ?? snapshot;
+  const tournaments = calendar.tournaments.filter((item) => tier === null || item.tier === tier);
+  const ongoing = tournaments.filter(({ start, end }) => start <= today && today <= end);
+  const upcoming = tournaments.filter(({ start }) => today < start);
+  const fromEsportNews = calendar.source === 'esportNews';
 
   return (
     <ScrollView
@@ -100,7 +106,7 @@ function GameSchedule({ game }: { game: EsportGame }) {
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={palette.cobalt} colors={[palette.cobalt]} />}
     >
       <View className="px-5 pb-8 pt-4">
-        {result === null && !refreshing && <ActivityIndicator accessibilityLabel="Chargement des tournois" color={palette.cobalt} />}
+        {result === null && !refreshing && !ongoing.length && !upcoming.length && <ActivityIndicator accessibilityLabel="Chargement des tournois" color={palette.cobalt} />}
         {result?.error && (
           <View accessibilityLiveRegion="polite" className="mb-5 rounded-xl border border-error-line bg-error-surface p-4">
             <Text className="text-error">{result.error}</Text>
@@ -110,7 +116,7 @@ function GameSchedule({ game }: { game: EsportGame }) {
             </Pressable>
           </View>
         )}
-        {result && (!result.error || result.tournaments.length > 0) && (
+        {(result ? (!result.error || result.tournaments.length > 0) : ongoing.length > 0 || upcoming.length > 0) && (
           <>
             <TournamentSection title="En cours" tournaments={ongoing} empty="Aucun tournoi en cours." />
             <TournamentSection title="À venir" tournaments={upcoming} empty="Aucun tournoi annoncé." />
@@ -131,36 +137,54 @@ function GameSchedule({ game }: { game: EsportGame }) {
   );
 }
 
-export default function EsportScreen() {
-  const [selectedGame, setSelectedGame] = useState<EsportGame>(esportGames[0]);
+function tierLabel(tier: EsportTournament['tier']) {
+  return tier === 'S' || tier === 'A' ? `${tier}-Tier` : `Tier ${tier}`;
+}
+
+function Filter({ label, selected, onPress }: { label: string; selected: boolean; onPress: () => void }) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
+      onPress={onPress}
+      className={`min-h-11 justify-center rounded-lg border px-3 active:bg-pressed focus:border-ink web:focus-visible:border-ink ${selected ? 'border-accent bg-selection' : 'border-line bg-chrome'}`}
+    >
+      <Text className={selected ? 'text-sm font-semibold text-accent' : 'text-sm font-semibold text-copy'}>
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
+export default function EsportPanel({ now }: { now: Date }) {
+  const [game, setGame] = useState<EsportGame>(esportGames[0]);
+  const [tier, setTier] = useState<EsportTournament['tier'] | null>(null);
 
   return (
-    <SafeAreaView edges={['left', 'right']} className="flex-1 bg-canvas">
-      <View className="mx-auto w-full max-w-xl flex-1">
-        <View className="gap-3 px-5 pt-6">
-          <Text accessibilityRole="header" className="text-screen-title font-semibold text-ink">Esport</Text>
-          <View accessibilityRole="tablist" className="flex-row flex-wrap gap-2">
-            {esportGames.map((game) => {
-              const selected = game.id === selectedGame.id;
-              return (
-                <Pressable
-                  key={game.id}
-                  accessibilityRole="tab"
-                  accessibilityState={{ selected }}
-                  onPress={() => setSelectedGame(game)}
-                  className={`min-h-11 justify-center rounded-lg border px-3 active:bg-pressed focus:border-ink web:focus-visible:border-ink ${selected ? 'border-accent bg-selection' : 'border-line bg-chrome'}`}
-                >
-                  <Text className={selected ? 'text-sm font-semibold text-accent' : 'text-sm font-semibold text-copy'}>
-                    {game.name}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </View>
-          <Text className="text-sm text-muted">Tiers {selectedGame.tiers[0]} et {selectedGame.tiers[1]}</Text>
+    <View className="flex-1">
+      <View className="gap-2 px-5">
+        <View accessibilityLabel="Jeux" className="flex-row flex-wrap gap-2">
+          {esportGames.map((option) => (
+            <Filter
+              key={option.id}
+              label={option.name}
+              selected={option.id === game.id}
+              onPress={() => {
+                if (option.id === game.id) return;
+                setGame(option);
+                setTier(null);
+              }}
+            />
+          ))}
         </View>
-        <GameSchedule key={selectedGame.id} game={selectedGame} />
+        <View accessibilityLabel="Tiers" className="flex-row flex-wrap gap-2">
+          <Filter label="Tous les tiers" selected={tier === null} onPress={() => setTier(null)} />
+          {game.tiers.map((option) => (
+            <Filter key={option} label={tierLabel(option)} selected={tier === option} onPress={() => setTier(option)} />
+          ))}
+        </View>
       </View>
-    </SafeAreaView>
+      <GameSchedule key={game.id} game={game} tier={tier} now={now} />
+    </View>
   );
 }

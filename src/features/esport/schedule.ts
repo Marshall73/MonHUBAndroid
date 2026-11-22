@@ -1,4 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import snapshot from '../../../data/esport.json';
+
 import { fetchEsportNewsSchedule } from './esportNews';
 import { LIQUIPEDIA, type EsportGame, type EsportTournament } from './games';
 import { parseLiquipediaSchedule } from './liquipediaSchedule';
@@ -10,6 +12,15 @@ type Schedule = {
   fetchedAt: number;
   source?: CalendarSource;
 };
+
+const bundledSchedules = snapshot as Record<EsportGame['id'], {
+  source: CalendarSource;
+  tournaments: EsportTournament[];
+}>;
+
+export function getEsportSnapshot(game: EsportGame) {
+  return bundledSchedules[game.id];
+}
 
 type GameScheduleState = {
   cache?: Schedule;
@@ -111,9 +122,10 @@ export async function loadEsportSchedule(game: EsportGame, refresh = false) {
       : 'Le calendrier est temporairement indisponible.';
   }
 
+  const calendar = state.cache ?? getEsportSnapshot(game);
   return {
-    tournaments: state.cache?.tournaments ?? [],
-    source: state.cache?.source ?? ('esportNewsGame' in game ? 'esportNews' : 'liquipedia'),
+    tournaments: calendar.tournaments,
+    source: calendar.source ?? getEsportSnapshot(game).source,
     error,
   };
 }

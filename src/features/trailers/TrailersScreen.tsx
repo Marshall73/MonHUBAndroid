@@ -110,7 +110,7 @@ export default function TrailersScreen() {
   }, [activeTrailerKey, hasActiveTrailer]);
 
   return (
-    <SafeAreaView edges={['left', 'right']} className="flex-1 bg-canvas">
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-canvas">
       <View className="mx-auto w-full max-w-xl flex-1 pt-6">
         <View className="mb-4 gap-4 px-5">
           <View className="flex-row items-center justify-between gap-3">

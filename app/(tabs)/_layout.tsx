@@ -6,9 +6,9 @@ import { Text, View } from 'react-native';
 import palette from '../../src/theme.json';
 
 const tabs = [
-  { name: 'index', title: 'Sport', icon: 'football-outline' },
-  { name: 'cinema', title: 'Cinéma', icon: 'film-outline' },
-  { name: 'rss', title: 'RSS', icon: 'logo-rss' },
+  { name: 'rss', title: 'RSS', icon: 'newspaper-outline' },
+  { name: 'index', title: 'Sport', icon: 'trophy-outline' },
+  { name: 'trailers', title: 'Trailers', icon: 'play-circle-outline' },
   { name: 'hub', title: 'Hub', icon: 'grid-outline' },
 ] satisfies { name: string; title: string; icon: ComponentProps<typeof Ionicons>['name'] }[];
 

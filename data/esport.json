@@ -1,0 +1,465 @@
+{
+  "rocketleague": {
+    "source": "esportNews",
+    "tournaments": [
+      {
+        "title": "RLCS Club Championship 2027 - Kick-Off: Europe Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Kick-Off/Europe",
+        "start": "2026-11-13",
+        "end": "2026-11-22",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Kick-Off",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Kick-Off",
+        "start": "2026-12-09",
+        "end": "2026-12-13",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club Points",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_Points",
+        "start": "2026-12-13",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "Saudi eLeague 2026 - Championship",
+        "url": "https://liquipedia.net/rocketleague/Saudi_eLeague/2026",
+        "start": "2026-12-30",
+        "end": "2026-12-31",
+        "tier": "A"
+      },
+      {
+        "title": "CRL Spring 2027 - League Play",
+        "url": "https://liquipedia.net/rocketleague/Collegiate_Rocket_League/2027/Spring/League_Play",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "CRL Spring 2027 - Championship",
+        "url": "https://liquipedia.net/rocketleague/Collegiate_Rocket_League/2027/Spring",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club Finale",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - League Play: Europe",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Europe",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - League Play: Oceania",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Oceania",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - League Play: Asia-Pacific",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Asia-Pacific",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - League Play: North America",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/North_America",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - League Play: South America",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/South_America",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club League: Europe Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Europe/Open",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club League: Oceania Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Oceania/Open",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - League Play: Sub-Saharan Africa",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Sub-Saharan_Africa",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club League: Asia-Pacific Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Asia-Pacific/Open",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club League: North America Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/North_America/Open",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club League: South America Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/South_America/Open",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - League Play: Middle East and North Africa",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Middle_East_and_North_Africa",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "S"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club League: Sub-Saharan Africa Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Sub-Saharan_Africa/Open",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "RLCS Club Championship 2027 - Club League: Middle East and North Africa Qualifier",
+        "url": "https://liquipedia.net/rocketleague/Rocket_League_Championship_Series/Club_Championship/2027/Club_League/Middle_East_and_North_Africa/Open",
+        "start": "2027-01-01",
+        "end": "2027-01-01",
+        "tier": "A"
+      },
+      {
+        "title": "Esports World Cup 2027",
+        "url": "https://liquipedia.net/rocketleague/Esports_World_Cup/2027",
+        "start": "2027-08-01",
+        "end": "2027-08-01",
+        "tier": "S"
+      },
+      {
+        "title": "Esports Nations Cup 2027",
+        "url": "https://liquipedia.net/rocketleague/Esports_Nations_Cup/2027",
+        "start": "2027-11-01",
+        "end": "2027-11-01",
+        "tier": "S"
+      },
+      {
+        "title": "Esports World Cup 2028",
+        "url": "https://liquipedia.net/rocketleague/Esports_World_Cup/2028",
+        "start": "2028-01-01",
+        "end": "2028-01-01",
+        "tier": "S"
+      }
+    ]
+  },
+  "counterstrike": {
+    "source": "esportNews",
+    "tournaments": [
+      {
+        "title": "PGL Major Singapore 2026",
+        "url": "https://liquipedia.net/counterstrike/PGL/2026/Singapore",
+        "start": "2026-11-24",
+        "end": "2026-12-13",
+        "tier": "S"
+      },
+      {
+        "title": "BLAST Bounty Winter 2027",
+        "url": "https://liquipedia.net/counterstrike/BLAST/Bounty/2027/Winter",
+        "start": "2027-01-13",
+        "end": "2027-01-24",
+        "tier": "S"
+      },
+      {
+        "title": "PGL Bucharest 2027",
+        "url": "https://liquipedia.net/counterstrike/PGL/2027/Bucharest",
+        "start": "2027-01-17",
+        "end": "2027-01-24",
+        "tier": "S"
+      },
+      {
+        "title": "Intel Extreme Masters Kraków 2027",
+        "url": "https://liquipedia.net/counterstrike/Intel_Extreme_Masters/2027/Krak%C3%B3w",
+        "start": "2027-01-27",
+        "end": "2027-02-07",
+        "tier": "S"
+      },
+      {
+        "title": "PGL Cluj-Napoca 2027",
+        "url": "https://liquipedia.net/counterstrike/PGL/2027/Cluj-Napoca",
+        "start": "2027-02-11",
+        "end": "2027-02-21",
+        "tier": "S"
+      },
+      {
+        "title": "ESL Pro League Season 25",
+        "url": "https://liquipedia.net/counterstrike/ESL/Pro_League/Season_25",
+        "start": "2027-03-06",
+        "end": "2027-03-14",
+        "tier": "S"
+      },
+      {
+        "title": "PGL Łódź 2027",
+        "url": "https://liquipedia.net/counterstrike/PGL/2027/%C5%81%C3%B3d%C5%BA",
+        "start": "2027-03-18",
+        "end": "2027-03-28",
+        "tier": "S"
+      },
+      {
+        "title": "BLAST Open Spring 2027",
+        "url": "https://liquipedia.net/counterstrike/BLAST/Open/2027/Spring",
+        "start": "2027-03-19",
+        "end": "2027-03-28",
+        "tier": "S"
+      },
+      {
+        "title": "Intel Extreme Masters USA 2027",
+        "url": "https://liquipedia.net/counterstrike/Intel_Extreme_Masters/2027/United_States",
+        "start": "2027-04-05",
+        "end": "2027-04-11",
+        "tier": "S"
+      },
+      {
+        "title": "FISSURE Playground #6",
+        "url": "https://liquipedia.net/counterstrike/FISSURE/Playground/6",
+        "start": "2027-04-15",
+        "end": "2027-04-26",
+        "tier": "S"
+      },
+      {
+        "title": "PGL Ulaanbaatar 2027",
+        "url": "https://liquipedia.net/counterstrike/PGL/2027/Ulaanbaatar",
+        "start": "2027-04-16",
+        "end": "2027-04-25",
+        "tier": "S"
+      },
+      {
+        "title": "Intel Extreme Masters Brazil 2027",
+        "url": "https://liquipedia.net/counterstrike/Intel_Extreme_Masters/2027/Brazil",
+        "start": "2027-05-03",
+        "end": "2027-05-09",
+        "tier": "S"
+      },
+      {
+        "title": "BLAST Open Summer 2027",
+        "url": "https://liquipedia.net/counterstrike/BLAST/Open/2027/Summer",
+        "start": "2027-05-10",
+        "end": "2027-05-23",
+        "tier": "S"
+      },
+      {
+        "title": "FiRe Major Buenos Aires 2027",
+        "url": "https://liquipedia.net/counterstrike/FiReSPORTS/Major/2027/Buenos_Aires",
+        "start": "2027-05-31",
+        "end": "2027-06-20",
+        "tier": "S"
+      },
+      {
+        "title": "Esports World Cup 2027",
+        "url": "https://liquipedia.net/counterstrike/Esports_World_Cup/2027",
+        "start": "2027-07-20",
+        "end": "2027-08-01",
+        "tier": "S"
+      },
+      {
+        "title": "Intel Extreme Masters Cologne 2027",
+        "url": "https://liquipedia.net/counterstrike/Intel_Extreme_Masters/2027/Cologne",
+        "start": "2027-08-04",
+        "end": "2027-08-15",
+        "tier": "S"
+      },
+      {
+        "title": "CS Asia Championships 2027",
+        "url": "https://liquipedia.net/counterstrike/CS_Asia_Championships/2027",
+        "start": "2027-08-17",
+        "end": "2027-08-29",
+        "tier": "S"
+      },
+      {
+        "title": "FISSURE Playground #8",
+        "url": "https://liquipedia.net/counterstrike/FISSURE/Playground/8",
+        "start": "2027-08-18",
+        "end": "2027-08-30",
+        "tier": "S"
+      },
+      {
+        "title": "BLAST Bounty Summer 2027",
+        "url": "https://liquipedia.net/counterstrike/BLAST/Bounty/2027/Summer",
+        "start": "2027-08-30",
+        "end": "2027-09-12",
+        "tier": "S"
+      },
+      {
+        "title": "PGL September 2027",
+        "url": "https://liquipedia.net/counterstrike/PGL/2027/September",
+        "start": "2027-09-02",
+        "end": "2027-09-12",
+        "tier": "S"
+      },
+      {
+        "title": "ESL Pro League Season 26",
+        "url": "https://liquipedia.net/counterstrike/ESL/Pro_League/Season_26",
+        "start": "2027-09-25",
+        "end": "2027-10-03",
+        "tier": "S"
+      },
+      {
+        "title": "BLAST Open Fall 2027",
+        "url": "https://liquipedia.net/counterstrike/BLAST/Open/2027/Fall",
+        "start": "2027-10-04",
+        "end": "2027-10-17",
+        "tier": "S"
+      },
+      {
+        "title": "PGL October 2027",
+        "url": "https://liquipedia.net/counterstrike/PGL/2027/October",
+        "start": "2027-10-08",
+        "end": "2027-10-17",
+        "tier": "S"
+      },
+      {
+        "title": "FISSURE Playground #9",
+        "url": "https://liquipedia.net/counterstrike/FISSURE/Playground/9",
+        "start": "2027-10-21",
+        "end": "2027-10-30",
+        "tier": "S"
+      },
+      {
+        "title": "StarLadder StarSeries Fall 2027",
+        "url": "https://liquipedia.net/counterstrike/StarLadder/StarSeries/2027/Fall",
+        "start": "2027-10-21",
+        "end": "2027-10-24",
+        "tier": "S"
+      },
+      {
+        "title": "BLAST Rivals 2027",
+        "url": "https://liquipedia.net/counterstrike/BLAST/Rivals/2027",
+        "start": "2027-11-08",
+        "end": "2027-11-14",
+        "tier": "S"
+      },
+      {
+        "title": "Perfect World Shanghai Major 2027",
+        "url": "https://liquipedia.net/counterstrike/Perfect_World/Major/2027/Shanghai",
+        "start": "2027-11-22",
+        "end": "2027-12-12",
+        "tier": "S"
+      },
+      {
+        "title": "PGL January 2028",
+        "url": "https://liquipedia.net/counterstrike/PGL/2028/January",
+        "start": "2028-01-14",
+        "end": "2028-01-24",
+        "tier": "S"
+      },
+      {
+        "title": "PGL February 2028",
+        "url": "https://liquipedia.net/counterstrike/PGL/2028/February",
+        "start": "2028-02-09",
+        "end": "2028-02-21",
+        "tier": "S"
+      },
+      {
+        "title": "FISSURE Playground #10",
+        "url": "https://liquipedia.net/counterstrike/FISSURE/Playground/10",
+        "start": "2028-02-21",
+        "end": "2028-02-28",
+        "tier": "S"
+      },
+      {
+        "title": "PGL March 2028",
+        "url": "https://liquipedia.net/counterstrike/PGL/2028/March",
+        "start": "2028-03-23",
+        "end": "2028-04-03",
+        "tier": "S"
+      },
+      {
+        "title": "FISSURE Playground #11",
+        "url": "https://liquipedia.net/counterstrike/FISSURE/Playground/11",
+        "start": "2028-03-25",
+        "end": "2028-04-08",
+        "tier": "S"
+      },
+      {
+        "title": "CS2 Major Championship Summer 2028",
+        "url": "https://liquipedia.net/counterstrike/Majors/2028/Summer",
+        "start": "2028-05-29",
+        "end": "2028-06-18",
+        "tier": "S"
+      },
+      {
+        "title": "FISSURE Playground #12",
+        "url": "https://liquipedia.net/counterstrike/FISSURE/Playground/12",
+        "start": "2028-07-13",
+        "end": "2028-07-30",
+        "tier": "S"
+      },
+      {
+        "title": "Esports World Cup 2028",
+        "url": "https://liquipedia.net/counterstrike/Esports_World_Cup/2028",
+        "start": "2028-07-14",
+        "end": "2028-07-30",
+        "tier": "S"
+      },
+      {
+        "title": "FISSURE Playground #13",
+        "url": "https://liquipedia.net/counterstrike/FISSURE/Playground/13",
+        "start": "2028-10-16",
+        "end": "2028-10-22",
+        "tier": "S"
+      },
+      {
+        "title": "CS2 Major Championship Winter 2028",
+        "url": "https://liquipedia.net/counterstrike/Majors/2028/Winter",
+        "start": "2028-11-20",
+        "end": "2028-12-10",
+        "tier": "S"
+      }
+    ]
+  },
+  "trackmania": {
+    "source": "liquipedia",
+    "tournaments": [
+      {
+        "title": "FallSpeed 2026",
+        "url": "https://liquipedia.net/trackmania/FallSpeed/2026",
+        "start": "2026-11-06",
+        "end": "2026-12-13",
+        "tier": "2"
+      },
+      {
+        "title": "OverDrive 2026 Split 3: Major",
+        "url": "https://liquipedia.net/trackmania/OverDrive/2026/Split_3/Major",
+        "start": "2026-11-21",
+        "end": "2026-11-22",
+        "tier": "1"
+      },
+      {
+        "title": "Trackmania Summit",
+        "url": "https://liquipedia.net/trackmania/Trackmania_Summit/2026",
+        "start": "2026-12-05",
+        "end": "2026-12-06",
+        "tier": "1"
+      }
+    ]
+  }
+}
