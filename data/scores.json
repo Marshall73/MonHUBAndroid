@@ -1,7 +1,892 @@
 {
-  "updatedAt": "2026-11-22T02:16:34.614Z",
+  "updatedAt": "2026-11-22T21:06:32.197Z",
   "timezone": "Europe/Paris",
   "source": "API-Football",
-  "count": 0,
-  "matches": []
+  "count": 17,
+  "matches": [
+    {
+      "fixtureId": 1570458,
+      "date": "2026-11-22T18:30:00+01:00",
+      "timestamp": 1795368600,
+      "time": "18:30",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 140,
+        "name": "La Liga",
+        "country": "Spain",
+        "logo": "https://media.api-sports.io/football/leagues/140.png",
+        "round": "Regular Season - 13"
+      },
+      "teams": {
+        "home": {
+          "id": 727,
+          "name": "Osasuna",
+          "logo": "https://media.api-sports.io/football/teams/727.png"
+        },
+        "away": {
+          "id": 535,
+          "name": "Malaga",
+          "logo": "https://media.api-sports.io/football/teams/535.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 1,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 1,
+          "away": 0
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1550197,
+      "date": "2026-11-22T18:00:00+01:00",
+      "timestamp": 1795366800,
+      "time": "18:00",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media.api-sports.io/football/leagues/135.png",
+        "round": "Regular Season - 12"
+      },
+      "teams": {
+        "home": {
+          "id": 489,
+          "name": "AC Milan",
+          "logo": "https://media.api-sports.io/football/teams/489.png"
+        },
+        "away": {
+          "id": 512,
+          "name": "Frosinone",
+          "logo": "https://media.api-sports.io/football/teams/512.png"
+        }
+      },
+      "goals": {
+        "home": 5,
+        "away": 1
+      },
+      "score": {
+        "halftime": {
+          "home": 2,
+          "away": 1
+        },
+        "fulltime": {
+          "home": 5,
+          "away": 1
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1557473,
+      "date": "2026-11-22T17:30:00+01:00",
+      "timestamp": 1795365000,
+      "time": "17:30",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "country": "England",
+        "logo": "https://media.api-sports.io/football/leagues/39.png",
+        "round": "Regular Season - 11"
+      },
+      "teams": {
+        "home": {
+          "id": 40,
+          "name": "Liverpool",
+          "logo": "https://media.api-sports.io/football/teams/40.png"
+        },
+        "away": {
+          "id": 33,
+          "name": "Manchester United",
+          "logo": "https://media.api-sports.io/football/teams/33.png"
+        }
+      },
+      "goals": {
+        "home": 4,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 2,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 4,
+          "away": 0
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1575227,
+      "date": "2026-11-22T17:30:00+01:00",
+      "timestamp": 1795365000,
+      "time": "17:30",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 78,
+        "name": "Bundesliga",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "round": "Regular Season - 10"
+      },
+      "teams": {
+        "home": {
+          "id": 162,
+          "name": "Werder Bremen",
+          "logo": "https://media.api-sports.io/football/teams/162.png"
+        },
+        "away": {
+          "id": 175,
+          "name": "Hamburger SV",
+          "logo": "https://media.api-sports.io/football/teams/175.png"
+        }
+      },
+      "goals": {
+        "home": 4,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 4,
+          "away": 0
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1552821,
+      "date": "2026-11-22T17:15:00+01:00",
+      "timestamp": 1795364100,
+      "time": "17:15",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 61,
+        "name": "Ligue 1",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/61.png",
+        "round": "Regular Season - 11"
+      },
+      "teams": {
+        "home": {
+          "id": 97,
+          "name": "Lorient",
+          "logo": "https://media.api-sports.io/football/teams/97.png"
+        },
+        "away": {
+          "id": 94,
+          "name": "Rennes",
+          "logo": "https://media.api-sports.io/football/teams/94.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 1
+      },
+      "score": {
+        "halftime": {
+          "home": 1,
+          "away": 1
+        },
+        "fulltime": {
+          "home": 1,
+          "away": 1
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1552227,
+      "date": "2026-11-22T16:45:00+01:00",
+      "timestamp": 1795362300,
+      "time": "16:45",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 88,
+        "name": "Eredivisie",
+        "country": "Netherlands",
+        "logo": "https://media.api-sports.io/football/leagues/88.png",
+        "round": "Regular Season - 13"
+      },
+      "teams": {
+        "home": {
+          "id": 410,
+          "name": "GO Ahead Eagles",
+          "logo": "https://media.api-sports.io/football/teams/410.png"
+        },
+        "away": {
+          "id": 205,
+          "name": "Fortuna Sittard",
+          "logo": "https://media.api-sports.io/football/teams/205.png"
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 1
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 0,
+          "away": 1
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1570459,
+      "date": "2026-11-22T16:15:00+01:00",
+      "timestamp": 1795360500,
+      "time": "16:15",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 140,
+        "name": "La Liga",
+        "country": "Spain",
+        "logo": "https://media.api-sports.io/football/leagues/140.png",
+        "round": "Regular Season - 13"
+      },
+      "teams": {
+        "home": {
+          "id": 4665,
+          "name": "Racing Santander",
+          "logo": "https://media.api-sports.io/football/teams/4665.png"
+        },
+        "away": {
+          "id": 548,
+          "name": "Real Sociedad",
+          "logo": "https://media.api-sports.io/football/teams/548.png"
+        }
+      },
+      "goals": {
+        "home": 3,
+        "away": 2
+      },
+      "score": {
+        "halftime": {
+          "home": 2,
+          "away": 1
+        },
+        "fulltime": {
+          "home": 3,
+          "away": 2
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1575224,
+      "date": "2026-11-22T15:30:00+01:00",
+      "timestamp": 1795357800,
+      "time": "15:30",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 78,
+        "name": "Bundesliga",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "round": "Regular Season - 10"
+      },
+      "teams": {
+        "home": {
+          "id": 170,
+          "name": "FC Augsburg",
+          "logo": "https://media.api-sports.io/football/teams/170.png"
+        },
+        "away": {
+          "id": 164,
+          "name": "FSV Mainz 05",
+          "logo": "https://media.api-sports.io/football/teams/164.png"
+        }
+      },
+      "goals": {
+        "home": 3,
+        "away": 1
+      },
+      "score": {
+        "halftime": {
+          "home": 2,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 3,
+          "away": 1
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1550199,
+      "date": "2026-11-22T15:00:00+01:00",
+      "timestamp": 1795356000,
+      "time": "15:00",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media.api-sports.io/football/leagues/135.png",
+        "round": "Regular Season - 12"
+      },
+      "teams": {
+        "home": {
+          "id": 500,
+          "name": "Bologna",
+          "logo": "https://media.api-sports.io/football/teams/500.png"
+        },
+        "away": {
+          "id": 494,
+          "name": "Udinese",
+          "logo": "https://media.api-sports.io/football/teams/494.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 1
+      },
+      "score": {
+        "halftime": {
+          "home": 1,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 1,
+          "away": 1
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1550206,
+      "date": "2026-11-22T15:00:00+01:00",
+      "timestamp": 1795356000,
+      "time": "15:00",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media.api-sports.io/football/leagues/135.png",
+        "round": "Regular Season - 12"
+      },
+      "teams": {
+        "home": {
+          "id": 488,
+          "name": "Sassuolo",
+          "logo": "https://media.api-sports.io/football/teams/488.png"
+        },
+        "away": {
+          "id": 495,
+          "name": "Genoa",
+          "logo": "https://media.api-sports.io/football/teams/495.png"
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 2
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 2
+        },
+        "fulltime": {
+          "home": 0,
+          "away": 2
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1552825,
+      "date": "2026-11-22T15:00:00+01:00",
+      "timestamp": 1795356000,
+      "time": "15:00",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 61,
+        "name": "Ligue 1",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/61.png",
+        "round": "Regular Season - 11"
+      },
+      "teams": {
+        "home": {
+          "id": 114,
+          "name": "Paris FC",
+          "logo": "https://media.api-sports.io/football/teams/114.png"
+        },
+        "away": {
+          "id": 77,
+          "name": "Angers",
+          "logo": "https://media.api-sports.io/football/teams/77.png"
+        }
+      },
+      "goals": {
+        "home": 4,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 4,
+          "away": 0
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1557472,
+      "date": "2026-11-22T15:00:00+01:00",
+      "timestamp": 1795356000,
+      "time": "15:00",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "country": "England",
+        "logo": "https://media.api-sports.io/football/leagues/39.png",
+        "round": "Regular Season - 11"
+      },
+      "teams": {
+        "home": {
+          "id": 64,
+          "name": "Hull City",
+          "logo": "https://media.api-sports.io/football/teams/64.png"
+        },
+        "away": {
+          "id": 51,
+          "name": "Brighton",
+          "logo": "https://media.api-sports.io/football/teams/51.png"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 2,
+          "away": 0
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1552225,
+      "date": "2026-11-22T14:30:00+01:00",
+      "timestamp": 1795354200,
+      "time": "14:30",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 88,
+        "name": "Eredivisie",
+        "country": "Netherlands",
+        "logo": "https://media.api-sports.io/football/leagues/88.png",
+        "round": "Regular Season - 13"
+      },
+      "teams": {
+        "home": {
+          "id": 194,
+          "name": "Ajax",
+          "logo": "https://media.api-sports.io/football/teams/194.png"
+        },
+        "away": {
+          "id": 198,
+          "name": "ADO Den Haag",
+          "logo": "https://media.api-sports.io/football/teams/198.png"
+        }
+      },
+      "goals": {
+        "home": 3,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 3,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 3,
+          "away": 0
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1552230,
+      "date": "2026-11-22T14:30:00+01:00",
+      "timestamp": 1795354200,
+      "time": "14:30",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 88,
+        "name": "Eredivisie",
+        "country": "Netherlands",
+        "logo": "https://media.api-sports.io/football/leagues/88.png",
+        "round": "Regular Season - 13"
+      },
+      "teams": {
+        "home": {
+          "id": 426,
+          "name": "Sparta Rotterdam",
+          "logo": "https://media.api-sports.io/football/teams/426.png"
+        },
+        "away": {
+          "id": 201,
+          "name": "AZ Alkmaar",
+          "logo": "https://media.api-sports.io/football/teams/201.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 5
+      },
+      "score": {
+        "halftime": {
+          "home": 1,
+          "away": 1
+        },
+        "fulltime": {
+          "home": 1,
+          "away": 5
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1570455,
+      "date": "2026-11-22T14:00:00+01:00",
+      "timestamp": 1795352400,
+      "time": "14:00",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 140,
+        "name": "La Liga",
+        "country": "Spain",
+        "logo": "https://media.api-sports.io/football/leagues/140.png",
+        "round": "Regular Season - 13"
+      },
+      "teams": {
+        "home": {
+          "id": 529,
+          "name": "Barcelona",
+          "logo": "https://media.api-sports.io/football/teams/529.png"
+        },
+        "away": {
+          "id": 533,
+          "name": "Villarreal",
+          "logo": "https://media.api-sports.io/football/teams/533.png"
+        }
+      },
+      "goals": {
+        "home": 3,
+        "away": 2
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 2
+        },
+        "fulltime": {
+          "home": 3,
+          "away": 2
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1550201,
+      "date": "2026-11-22T12:30:00+01:00",
+      "timestamp": 1795347000,
+      "time": "12:30",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "logo": "https://media.api-sports.io/football/leagues/135.png",
+        "round": "Regular Season - 12"
+      },
+      "teams": {
+        "home": {
+          "id": 496,
+          "name": "Juventus",
+          "logo": "https://media.api-sports.io/football/teams/496.png"
+        },
+        "away": {
+          "id": 517,
+          "name": "Venezia",
+          "logo": "https://media.api-sports.io/football/teams/517.png"
+        }
+      },
+      "goals": {
+        "home": 4,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 4,
+          "away": 0
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    },
+    {
+      "fixtureId": 1552232,
+      "date": "2026-11-22T12:15:00+01:00",
+      "timestamp": 1795346100,
+      "time": "12:15",
+      "status": {
+        "short": "FT",
+        "long": "Match Finished",
+        "elapsed": 90
+      },
+      "league": {
+        "id": 88,
+        "name": "Eredivisie",
+        "country": "Netherlands",
+        "logo": "https://media.api-sports.io/football/leagues/88.png",
+        "round": "Regular Season - 13"
+      },
+      "teams": {
+        "home": {
+          "id": 415,
+          "name": "Twente",
+          "logo": "https://media.api-sports.io/football/teams/415.png"
+        },
+        "away": {
+          "id": 195,
+          "name": "Willem II",
+          "logo": "https://media.api-sports.io/football/teams/195.png"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 1
+      },
+      "score": {
+        "halftime": {
+          "home": 0,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 2,
+          "away": 1
+        },
+        "extratime": {
+          "home": null,
+          "away": null
+        },
+        "penalty": {
+          "home": null,
+          "away": null
+        }
+      }
+    }
+  ]
 }
