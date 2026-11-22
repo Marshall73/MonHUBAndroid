@@ -1,13 +1,24 @@
 {
   "expo": {
-    "name": "Mon HUB",
+    "name": "Mon Hub",
     "slug": "monhubandroid",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "dark",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#090D16"
+        }
+      ]
     ],
     "android": {
-      "package": "com.kennyem.monhubandroid"
+      "package": "com.kennyem.monhubandroid",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#090D16"
+      }
     },
     "extra": {
       "router": {
