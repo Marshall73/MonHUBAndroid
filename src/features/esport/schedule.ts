@@ -56,7 +56,7 @@ async function fetchWithTimeout(fetchTournaments: (signal: AbortSignal) => Promi
 async function fetchFromSource(game: EsportGame): Promise<Schedule> {
   if ('esportNewsGame' in game) {
     try {
-      const tournaments = await fetchWithTimeout((signal) => fetchEsportNewsSchedule(game.esportNewsGame, signal));
+      const tournaments = await fetchWithTimeout((signal) => fetchEsportNewsSchedule(game, signal));
       return { tournaments, fetchedAt: Date.now(), source: 'esportNews' };
     } catch {
       // Les deux calendriers Liquipedia prennent le relais en cas d’échec.
@@ -67,12 +67,15 @@ async function fetchFromSource(game: EsportGame): Promise<Schedule> {
 }
 
 async function fetchSchedule(game: EsportGame, state: GameScheduleState, refresh: boolean): Promise<Schedule> {
-  const cacheKey = 'esport:' + game.id + ':' + ('esportNewsGame' in game ? 'schedule' : 'liquipedia') + ':v1';
+  // Les clés restent stables pour conserver les calendriers enregistrés.
+  const cacheKey = 'esport:' + game.id + ':' + (game.id === 'counterstrike' ? 'schedule' : 'liquipedia') + ':v1';
   if (!state.cache) {
     const stored = await AsyncStorage.getItem(cacheKey).catch(() => null);
     try {
       const cached: Schedule | null = stored ? JSON.parse(stored) : null;
-      if (Array.isArray(cached?.tournaments) && Number.isFinite(cached.fetchedAt)) state.cache = cached;
+      if (Array.isArray(cached?.tournaments) && Number.isFinite(cached.fetchedAt)) {
+        state.cache = { ...cached, source: cached.source ?? 'liquipedia' };
+      }
     } catch {
       // Le prochain chargement remplace le cache illisible.
     }

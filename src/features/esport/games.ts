@@ -7,6 +7,7 @@ export const esportGames = [
     name: 'Rocket League',
     tiers: ['S', 'A'],
     tierPages: ['S-Tier Tournaments', 'A-Tier Tournaments'],
+    esportNewsGame: 'rl',
   },
   {
     id: 'counterstrike',

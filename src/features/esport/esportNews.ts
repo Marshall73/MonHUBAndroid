@@ -1,4 +1,4 @@
-import { LIQUIPEDIA, type EsportTournament } from './games';
+import { LIQUIPEDIA, type EsportGame, type EsportTournament } from './games';
 
 const API_URL = 'https://app-esportnews-production.up.railway.app/api/tournaments';
 
@@ -18,8 +18,11 @@ function calendarDay(value: unknown): string | undefined {
   if (Number.isFinite(timestamp)) return new Date(timestamp).toISOString().slice(0, 10);
 }
 
-export async function fetchEsportNewsSchedule(game: string, signal: AbortSignal): Promise<EsportTournament[]> {
-  const query = '?game=' + encodeURIComponent(game);
+export async function fetchEsportNewsSchedule(
+  game: Extract<EsportGame, { esportNewsGame: string }>,
+  signal: AbortSignal,
+): Promise<EsportTournament[]> {
+  const query = '?game=' + encodeURIComponent(game.esportNewsGame);
   const calendars = await Promise.all(['', '/upcoming'].map(async (path) => {
     const response = await fetch(API_URL + path + query, { signal });
     if (!response.ok) throw new Error('Esport News est indisponible (' + response.status + ').');
@@ -30,7 +33,7 @@ export async function fetchEsportNewsSchedule(game: string, signal: AbortSignal)
 
   const tournaments = new Map<string, EsportTournament>();
   for (const row of calendars.flat()) {
-    if (row?.wiki !== 'counterstrike' || (row.status !== 'running' && row.status !== 'upcoming')) continue;
+    if (row?.wiki !== game.id || (row.status !== 'running' && row.status !== 'upcoming')) continue;
     if (row.tier !== 's' && row.tier !== 'a') continue;
     const title = typeof row.name === 'string' ? row.name.trim() : '';
     const path = typeof row.pagename === 'string' ? row.pagename.trim().split('/') : [];
@@ -39,7 +42,7 @@ export async function fetchEsportNewsSchedule(game: string, signal: AbortSignal)
     if (!title || !path.length || path.some((part) => !part || part === '.' || part === '..') || !start || !end || start > end) {
       continue;
     }
-    const url = LIQUIPEDIA + '/counterstrike/' + path.map(encodeURIComponent).join('/');
+    const url = LIQUIPEDIA + '/' + game.id + '/' + path.map(encodeURIComponent).join('/');
     tournaments.set(url, { title, url, start, end, tier: row.tier === 's' ? 'S' : 'A' });
   }
   return [...tournaments.values()].sort((a, b) => a.start.localeCompare(b.start));
