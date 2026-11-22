@@ -6,7 +6,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import palette from '../../theme.json';
 
-import { webUrl, type Feed } from './feeds';
+import { feedUrlKey, webUrl, type Feed } from './feeds';
 
 export function FeedManager({ feeds, saving, saveError, onSave, onClose }: {
   feeds: Feed[];
@@ -26,7 +26,7 @@ export function FeedManager({ feeds, saving, saveError, onSave, onClose }: {
       setInputError('Saisissez un nom et une URL complète en HTTP ou HTTPS.');
       return;
     }
-    if (feeds.some((feed) => webUrl(feed.url) === url)) {
+    if (feeds.some((feed) => feedUrlKey(feed.url) === feedUrlKey(url))) {
       setInputError('Ce flux figure déjà dans vos sources.');
       return;
     }

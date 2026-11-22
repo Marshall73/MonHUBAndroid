@@ -1,5 +1,4 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MotiView } from 'moti';
 import { useEffect, useRef, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
@@ -10,9 +9,8 @@ import palette from '../../theme.json';
 
 import { ArticleReaderModal } from './ArticleReaderModal';
 import { FeedManager } from './FeedManager';
-import { defaultFeeds, fetchArticles, isFeed, relativeDate, type Article, type Feed } from './feeds';
-
-const storageKey = 'rss/feeds';
+import { loadFeedPreferences, saveFeedPreferences } from './feedPreferences';
+import { fetchArticles, relativeDate, type Article, type Feed } from './feeds';
 
 function ArticleCard({ article, index, reduceMotion, onOpen }: {
   article: Article;
@@ -68,20 +66,9 @@ export default function RssScreen() {
   useEffect(() => {
     let current = true;
 
-    async function load() {
-      const saved = await AsyncStorage.getItem(storageKey);
-      if (!current) return;
-      if (saved === null) {
-        await AsyncStorage.setItem(storageKey, JSON.stringify(defaultFeeds));
-        if (current) setFeeds(defaultFeeds);
-        return;
-      }
-      const parsed: unknown = JSON.parse(saved);
-      if (!Array.isArray(parsed) || !parsed.every(isFeed)) throw new Error('Sources invalides');
-      if (current) setFeeds(parsed);
-    }
-
-    load().catch(() => {
+    loadFeedPreferences().then((saved) => {
+      if (current) setFeeds(saved);
+    }).catch(() => {
       if (current) setStorageError('Impossible de charger vos sources.');
     });
     return () => { current = false; };
@@ -91,16 +78,18 @@ export default function RssScreen() {
     if (feeds === null) return;
     const controller = new AbortController();
     const active = feeds.filter((feed) => feed.active);
+    const activeUrls = new Set(active.map((feed) => feed.url));
+    setStored((previous) => previous && Object.fromEntries(
+      Object.entries(previous).filter(([url]) => activeUrls.has(url)),
+    ));
 
-    Promise.allSettled(active.map((feed) => fetchArticles(feed, controller.signal)))
-      .then((results) => {
-        if (controller.signal.aborted) return;
-        setStored((previous) => Object.fromEntries(active.map((feed, index) => {
-          const result = results[index];
-          return [feed.url, result.status === 'fulfilled' ? result.value : previous?.[feed.url] ?? []];
-        })));
-        setRefreshing(false);
-      });
+    void Promise.all(active.map(async (feed) => {
+      const articles = await fetchArticles(feed, controller.signal).catch(() => null);
+      if (controller.signal.aborted) return;
+      setStored((previous) => ({ ...previous, [feed.url]: articles ?? previous?.[feed.url] ?? [] }));
+    })).then(() => {
+      if (!controller.signal.aborted) setRefreshing(false);
+    });
 
     return () => controller.abort();
   }, [feeds, request]);
@@ -111,7 +100,7 @@ export default function RssScreen() {
     setSaving(true);
     setSaveError(null);
     try {
-      await AsyncStorage.setItem(storageKey, JSON.stringify(next));
+      await saveFeedPreferences(next);
       if (!next.some((feed) => feed.url === selected && feed.active)) setSelected(null);
       setFeeds(next);
       return true;

@@ -42,11 +42,47 @@ function firstHtmlImage(html: string, base: string) {
   return null;
 }
 
-export const defaultFeeds: Feed[] = [
+const originalFeeds: Feed[] = [
   { name: 'Frandroid', url: 'https://www.frandroid.com/feed', active: true },
   { name: 'Le Monde Pixels', url: 'https://www.lemonde.fr/pixels/rss_full.xml', active: true },
   { name: 'Numerama', url: 'https://www.numerama.com/feed/', active: true },
 ];
+
+export const addedFeeds: Feed[] = [
+  ['JustGeek', 'https://www.justgeek.fr/feed/'],
+  ['Futura', 'https://www.futura-sciences.com/rss/actualites.xml'],
+  ['Korben', 'https://korben.info/feed'],
+  ['SciencePost', 'https://sciencepost.fr/feed/'],
+  ['Phonandroid', 'https://www.phonandroid.com/feed'],
+  ['Cowcotland', 'https://feeds.feedburner.com/cowcotland'],
+  ['Le Comptoir du Hardware', 'https://www.comptoir-hardware.com/home.xml'],
+  ['Tom’s Hardware', 'https://www.tomshardware.fr/feed/'],
+  ['GinjFo', 'https://www.ginjfo.com/feed'],
+  ['GamersNexus', 'https://gamersnexus.net/rss.xml'],
+  ['BHmag', 'https://www.bhmag.fr/feed'],
+  ['Jeuxvideo.com', 'https://www.jeuxvideo.com/rss/rss.xml'],
+  ['ActuGaming', 'https://www.actugaming.net/feed/'],
+  ['Gameblog', 'https://www.gameblog.fr/rssmap/rss_all.xml'],
+  ['JeuxActu', 'https://www.jeuxactu.com/rss/ja.rss'],
+  ['Sitegeek', 'https://www.sitegeek.fr/feed/'],
+  ['Écran Large', 'https://www.ecranlarge.com/feed'],
+  ['AlloCiné', 'https://www.allocine.fr/rss/news.xml'],
+  ['Pêche.com', 'https://www.peche.com/rss.php'],
+  ['Reddit · r/FrancePirate', 'https://www.reddit.com/r/FrancePirate/new/.rss'],
+  ['TorrentFreak', 'https://torrentfreak.com/feed/'],
+  ['MediaKenny · Préinscriptions jeux', 'https://mediakenny.xyz/prereg_games.xml'],
+  ['Nautiljon · Actualités', 'https://www.nautiljon.com/actualite/rss.php'],
+  ['Nautiljon · Brèves', 'https://www.nautiljon.com/breves/rss.php'],
+].map(([name, url]) => ({ name, url, active: true }));
+
+export const defaultFeeds = [...originalFeeds, ...addedFeeds];
+
+export function feedUrlKey(url: string) {
+  const address = new URL(url);
+  address.hash = '';
+  address.pathname = address.pathname.replace(/\/$/, '');
+  return address.href;
+}
 
 export function isFeed(value: unknown): value is Feed {
   return typeof value === 'object' && value !== null &&
