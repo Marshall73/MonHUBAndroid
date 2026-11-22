@@ -3,6 +3,8 @@ import { Tabs } from 'expo-router';
 import type { ComponentProps } from 'react';
 import { Text, View } from 'react-native';
 
+import palette from '../../src/theme.json';
+
 const tabs = [
   { name: 'index', title: 'Sport', icon: 'football-outline' },
   { name: 'cinema', title: 'Cinéma', icon: 'film-outline' },
@@ -15,10 +17,10 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#93C5FD',
-        tabBarInactiveTintColor: '#A1A1AA',
+        tabBarActiveTintColor: palette.accent,
+        tabBarInactiveTintColor: palette.muted,
         tabBarBackground: () => (
-          <View className="absolute inset-0 border-t border-zinc-800 bg-zinc-950" />
+          <View className="absolute inset-0 border-t border-edge bg-chrome" />
         ),
         tabBarLabelPosition: 'below-icon',
       }}
@@ -31,7 +33,7 @@ export default function TabLayout() {
             title,
             tabBarIcon: ({ color, focused }) => (
               <View
-                className={`h-7 w-10 items-center justify-center rounded-full ${focused ? 'bg-blue-500/20' : ''}`}
+                className={`h-7 w-10 items-center justify-center border-t-2 ${focused ? 'border-accent' : 'border-transparent'}`}
               >
                 <Ionicons name={icon} size={20} color={typeof color === 'string' ? color : undefined} />
               </View>
@@ -39,7 +41,7 @@ export default function TabLayout() {
             tabBarLabel: ({ focused }) => (
               <Text
                 numberOfLines={1}
-                className={`text-[10px] font-semibold ${focused ? 'text-blue-300' : 'text-zinc-400'}`}
+                className={`text-xs font-medium ${focused ? 'text-accent' : 'text-muted'}`}
               >
                 {title}
               </Text>

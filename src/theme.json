@@ -1,0 +1,22 @@
+{
+  "canvas": "#09090B",
+  "surface": "#18181B",
+  "chrome": "#13151B",
+  "raised": "#22252E",
+  "line": "#27272A",
+  "edge": "#3A4354",
+  "ink": "#FAFAFA",
+  "copy": "#D4D8E2",
+  "muted": "#A6AEC0",
+  "accent": "#85B6FF",
+  "cobalt": "#3B82F6",
+  "selection": "#172949",
+  "pressed": "#20375E",
+  "on-accent": "#0B172C",
+  "success": "#82DDBE",
+  "error": "#FFB4B8",
+  "error-line": "#693D48",
+  "error-surface": "#2C1D26",
+  "media": "#08090D",
+  "scrim": "#000000"
+}

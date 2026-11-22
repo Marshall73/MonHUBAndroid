@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, RefreshControl, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 
+import palette from '../../theme.json';
+
 import { searchable, type Sport } from './filters';
 import {
   fetchFootballScores,
@@ -23,17 +25,6 @@ const emptyMessages: Record<ProgramView, string> = {
   finished: 'Aucun match terminé pour ces filtres.',
 };
 
-function channelColors(channel: string) {
-  const name = searchable(channel);
-  if (name.includes('canal+')) return 'bg-violet-500/25 text-violet-200';
-  if (name.includes('bein')) return 'bg-fuchsia-500/25 text-fuchsia-200';
-  if (name.includes('eurosport')) return 'bg-sky-500/25 text-sky-200';
-  if (name.includes('rmc')) return 'bg-red-500/25 text-red-200';
-  if (name.includes('equipe')) return 'bg-emerald-500/25 text-emerald-200';
-  if (name.includes('ligue 1+')) return 'bg-indigo-500/25 text-indigo-200';
-  return 'bg-blue-500/25 text-blue-200';
-}
-
 function Team({ name, logo }: { name: string; logo: string }) {
   return (
     <View className="min-w-0 flex-1 items-center gap-2">
@@ -45,9 +36,9 @@ function Team({ name, logo }: { name: string; logo: string }) {
           accessibilityLabel={`Logo ${name}`}
         />
       ) : (
-        <View className="h-9 w-9 rounded-full bg-zinc-800" />
+        <View className="h-9 w-9 rounded-lg bg-raised" />
       )}
-      <Text numberOfLines={2} className="text-center text-sm font-semibold text-zinc-100">
+      <Text numberOfLines={2} className="text-center text-sm font-semibold text-ink">
         {name}
       </Text>
     </View>
@@ -63,18 +54,18 @@ function ScoreCard({
   index: number;
   reduceMotion: boolean;
 }) {
-  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
+  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
   const homeScore = item.goals.home ?? '-';
   const awayScore = item.goals.away ?? '-';
 
   return (
     <MotiView
-      from={reduceMotion ? undefined : { opacity: 0, translateY: 8 }}
-      animate={{ opacity: 1, translateY: 0 }}
-      transition={{ opacity: timing, translateY: timing }}
-      delay={reduceMotion ? 0 : Math.min(index, 5) * 35}
+      from={reduceMotion ? undefined : { opacity: 0.85 }}
+      animate={{ opacity: 1 }}
+      transition={{ opacity: timing }}
+      delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
     >
-      <View className="mb-3 gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
+      <View className="mb-3 gap-3 rounded-xl border border-line bg-surface p-4">
         <View className="flex-row items-center justify-between gap-2">
           <View className="min-w-0 flex-1 flex-row items-center gap-2">
             {item.league.logo ? (
@@ -85,26 +76,26 @@ function ScoreCard({
                 accessibilityLabel={`Logo ${item.league.name}`}
               />
             ) : null}
-            <Text numberOfLines={1} className="flex-1 text-xs font-semibold text-zinc-400">
+            <Text numberOfLines={1} className="flex-1 text-xs font-semibold text-muted">
               {item.league.name}
             </Text>
           </View>
-          <Text className="text-xs font-medium text-zinc-500">{item.time}</Text>
+          <Text className="text-xs font-medium text-muted">{item.time}</Text>
         </View>
 
         <View className="flex-row items-center gap-2">
           <Team name={item.teams.home.name} logo={item.teams.home.logo} />
           <View className="min-w-16 items-center">
-            <Text className="text-2xl font-extrabold tabular-nums text-zinc-50">
+            <Text className="text-2xl font-extrabold tabular-nums text-ink">
               {homeScore} - {awayScore}
             </Text>
-            <Text className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-              {item.status.short === 'PEN' ? 'TAB' : 'Terminé'}
+            <Text className="text-xs font-medium text-muted">
+              {item.status.short === 'PEN' ? 'Tirs au but' : 'Terminé'}
             </Text>
             {item.status.short === 'PEN' &&
               item.score.penalty.home !== null &&
               item.score.penalty.away !== null && (
-                <Text className="text-xs text-zinc-400">
+                <Text className="text-xs text-muted">
                   Tirs au but : {item.score.penalty.home} - {item.score.penalty.away}
                 </Text>
               )}
@@ -113,7 +104,7 @@ function ScoreCard({
         </View>
 
         {item.league.round ? (
-          <Text className="text-center text-xs text-zinc-500">{item.league.round}</Text>
+          <Text className="text-center text-xs text-muted">{item.league.round}</Text>
         ) : null}
       </View>
     </MotiView>
@@ -131,7 +122,7 @@ function ProgramCard({
   reduceMotion: boolean;
   now: Date;
 }) {
-  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
+  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
   const competition = item.competition || item.sport;
   const status = getProgramStatus(item, now);
   const finished = status === 'Terminé';
@@ -143,35 +134,32 @@ function ProgramCard({
 
   return (
     <MotiView
-      from={reduceMotion ? undefined : { opacity: 0, translateY: 8 }}
-      animate={{ opacity: 1, translateY: 0 }}
-      transition={{ opacity: timing, translateY: timing }}
-      delay={reduceMotion ? 0 : Math.min(index, 5) * 40}
+      from={reduceMotion ? undefined : { opacity: 0.85 }}
+      animate={{ opacity: 1 }}
+      transition={{ opacity: timing }}
+      delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
     >
-      <View className="mb-3 gap-2 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-        <View className="flex-row flex-wrap items-center gap-x-3 gap-y-1">
-          <Text className="text-lg font-extrabold text-zinc-50">{item.time}</Text>
-          {competition !== item.sport && (
-            <Text className="text-sm font-medium text-zinc-400">{item.sport}</Text>
-          )}
+      <View className="mb-3 flex-row items-start rounded-xl border border-line bg-surface">
+        <View className="w-20 items-center px-2 py-4">
+          <Text className="text-item-title font-semibold tabular-nums text-ink">{item.time}</Text>
         </View>
-        <Text className="text-base font-bold leading-6 text-zinc-50">{item.title}</Text>
-        <View className="flex-row flex-wrap items-center gap-x-2 gap-y-1">
-          <Text className="text-sm text-zinc-400">{competition}</Text>
-          <View className={`flex-row items-center gap-1.5 rounded-full px-2 py-1 ${finished ? 'bg-zinc-800' : upcoming ? 'bg-blue-500/15' : 'bg-emerald-500/15'}`}>
-            <View className={`h-1.5 w-1.5 rounded-full ${finished ? 'bg-zinc-400' : upcoming ? 'bg-blue-400' : 'bg-emerald-400'}`} />
-            <Text className={`text-xs font-semibold ${finished ? 'text-zinc-300' : upcoming ? 'text-blue-200' : 'text-emerald-200'}`}>
+        <View className="min-w-0 flex-1 gap-2 border-l border-line py-3 pl-3 pr-4">
+          <Text className="text-item-title font-semibold text-ink">{item.title}</Text>
+          <Text className="text-sm text-muted">{competition}</Text>
+          {competition !== item.sport && (
+            <Text className="text-sm text-muted">{item.sport}</Text>
+          )}
+          <View className="flex-row flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-line pt-2">
+            {hasChannel ? (
+              <Text className="shrink text-sm font-semibold text-copy">{item.channel}</Text>
+            ) : (
+              <Text className="shrink text-sm text-muted">Chaîne non renseignée</Text>
+            )}
+            <Text className={`text-xs font-medium ${finished || upcoming ? 'text-muted' : 'text-success'}`}>
               {status}
             </Text>
           </View>
         </View>
-        {hasChannel ? (
-          <Text className={`overflow-hidden self-start rounded-xl px-3 py-2 text-base font-extrabold ${channelColors(item.channel)}`}>
-            {item.channel}
-          </Text>
-        ) : (
-          <Text className="text-sm text-zinc-400">Chaîne non renseignée</Text>
-        )}
       </View>
     </MotiView>
   );
@@ -281,34 +269,34 @@ export function TvFranceList({
         <RefreshControl
           refreshing={request?.refresh === true}
           onRefresh={() => load(true)}
-          colors={['#3B82F6']}
+          colors={[palette.cobalt]}
         />
       }
       ListHeaderComponent={
         <View>
           {scoreError && showScores ? (
-            <View className="mb-3 items-start gap-2 rounded-2xl border border-red-900 bg-zinc-900 p-4">
-              <Text accessibilityLiveRegion="polite" className="text-sm text-red-200">
+            <View className="mb-3 items-start gap-2 rounded-xl border border-error-line bg-error-surface p-4">
+              <Text accessibilityLiveRegion="polite" className="text-sm text-error">
                 {scoreError}
               </Text>
               <Pressable
                 accessibilityRole="button"
                 onPress={() => load(programs !== null)}
-                className="min-h-11 justify-center rounded-full bg-blue-500/15 px-4"
+                className="border border-transparent focus:border-ink web:focus-visible:border-ink active:bg-pressed min-h-11 justify-center rounded-lg bg-selection px-4"
               >
-                <Text className="font-semibold text-blue-200">Réessayer</Text>
+                <Text className="font-semibold text-accent">Réessayer</Text>
               </Pressable>
             </View>
           ) : null}
 
           {showScores ? (
             <View>
-              <Text className="mb-3 mt-1 text-lg font-extrabold text-zinc-50">
+              <Text className="mb-3 mt-1 text-section-title font-semibold text-ink">
                 Résultats du jour
               </Text>
               {scores === null && !scoreError ? (
-                <View className="mb-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-                  <Text className="text-sm text-zinc-400">Chargement des résultats...</Text>
+                <View className="mb-3 rounded-xl border border-line bg-surface p-4">
+                  <Text className="text-sm text-muted">Chargement des résultats...</Text>
                 </View>
               ) : null}
               {filteredScores.map((item, index) => (
@@ -320,7 +308,7 @@ export function TvFranceList({
                 />
               ))}
               {scores !== null && filteredScores.length === 0 ? (
-                <Text className="mb-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4 text-zinc-300">
+                <Text className="mb-3 rounded-xl border border-line bg-surface p-4 text-copy">
                   {normalizedQuery
                     ? 'Aucun résultat ne correspond à cette recherche.'
                     : 'Aucun résultat de football publié pour aujourd’hui.'}
@@ -330,22 +318,22 @@ export function TvFranceList({
           ) : null}
 
           {error ? (
-            <View className="mb-3 items-start gap-2 rounded-2xl border border-red-900 bg-zinc-900 p-4">
-              <Text accessibilityLiveRegion="polite" className="text-sm text-red-200">
+            <View className="mb-3 items-start gap-2 rounded-xl border border-error-line bg-error-surface p-4">
+              <Text accessibilityLiveRegion="polite" className="text-sm text-error">
                 {error}
               </Text>
               <Pressable
                 accessibilityRole="button"
                 onPress={() => load(programs !== null)}
-                className="min-h-11 justify-center rounded-full bg-blue-500/15 px-4"
+                className="border border-transparent focus:border-ink web:focus-visible:border-ink active:bg-pressed min-h-11 justify-center rounded-lg bg-selection px-4"
               >
-                <Text className="font-semibold text-blue-200">Réessayer</Text>
+                <Text className="font-semibold text-accent">Réessayer</Text>
               </Pressable>
             </View>
           ) : null}
 
           {showScoreSection && filteredPrograms.length > 0 ? (
-            <Text className="mb-3 mt-2 text-lg font-extrabold text-zinc-50">
+            <Text className="mb-3 mt-2 text-section-title font-semibold text-ink">
               Programmes TV terminés
             </Text>
           ) : null}
@@ -355,15 +343,15 @@ export function TvFranceList({
         programs === null ? (
           <View accessible accessibilityLabel="Chargement du programme TV France" accessibilityState={{ busy: true }}>
             {[0, 1, 2].map((index) => (
-              <View key={index} className="mb-3 gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-                <View className="h-5 w-24 rounded bg-zinc-800" />
-                <View className="h-5 w-4/5 rounded bg-zinc-800" />
-                <View className="h-7 w-28 rounded-lg bg-zinc-800" />
+              <View key={index} className="mb-3 gap-3 rounded-xl border border-line bg-surface p-4">
+                <View className="h-5 w-24 rounded bg-raised" />
+                <View className="h-5 w-4/5 rounded bg-raised" />
+                <View className="h-7 w-28 rounded-lg bg-raised" />
               </View>
             ))}
           </View>
         ) : error || showScoreSection ? undefined : (
-          <Text className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 text-zinc-300">
+          <Text className="rounded-xl border border-line bg-surface p-4 text-copy">
             {programs.length === 0
               ? 'Aucun programme TV France publié pour le moment.'
               : emptyMessages[view]}

@@ -6,6 +6,8 @@ import { FlatList, Pressable, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import palette from '../../theme.json';
+
 const hubModules = [
   {
     href: '/streaming',
@@ -40,12 +42,12 @@ const hubModules = [
 
 export default function HubScreen() {
   const reduceMotion = useReducedMotion();
-  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
+  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
 
   return (
-    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-zinc-950">
-      <View className="mx-auto w-full max-w-xl flex-1 pt-8">
-        <Text accessibilityRole="header" className="mb-5 px-5 text-4xl font-extrabold tracking-tight text-zinc-50">
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-canvas">
+      <View className="mx-auto w-full max-w-xl flex-1 pt-6">
+        <Text accessibilityRole="header" className="mb-5 px-5 text-screen-title font-semibold text-ink">
           Hub
         </Text>
         <FlatList
@@ -56,25 +58,23 @@ export default function HubScreen() {
           renderItem={({ item, index }) => (
             <View className={`mb-3 w-1/2 ${index % 2 === 0 ? 'pr-1.5' : 'pl-1.5'}`}>
               <MotiView
-                from={reduceMotion ? undefined : { opacity: 0, translateY: 10 }}
-                animate={{ opacity: 1, translateY: 0 }}
-                transition={{ opacity: timing, translateY: timing }}
-                delay={reduceMotion ? 0 : Math.min(index, 5) * 55}
+                from={reduceMotion ? undefined : { opacity: 0.85 }}
+                animate={{ opacity: 1 }}
+                transition={{ opacity: timing }}
+                delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
               >
                 <Link href={item.href} push asChild>
                   <Pressable
                     accessibilityRole="link"
-                    className="min-h-40 justify-between gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4 active:border-blue-500"
+                    className="min-h-36 justify-between gap-3 rounded-xl border border-line bg-surface p-4 active:bg-raised focus:border-ink web:focus-visible:border-ink"
                   >
                     <View className="flex-row items-start justify-between gap-1">
-                      <View className="h-10 w-10 items-center justify-center rounded-xl bg-blue-500/15">
-                        <Ionicons name={item.icon} color="#93C5FD" size={21} />
-                      </View>
-                      <Ionicons name="chevron-forward" color="#A1A1AA" size={16} />
+                      <Ionicons name={item.icon} color={palette.copy} size={24} />
+                      <Ionicons name="chevron-forward" color={palette.muted} size={17} />
                     </View>
                     <View>
-                      <Text className="text-base font-bold text-zinc-50">{item.title}</Text>
-                      <Text className="mt-1 text-xs leading-4 text-zinc-400">{item.description}</Text>
+                      <Text className="text-item-title font-semibold text-ink">{item.title}</Text>
+                      <Text className="mt-1 text-sm leading-5 text-muted">{item.description}</Text>
                     </View>
                   </Pressable>
                 </Link>

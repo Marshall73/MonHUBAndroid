@@ -5,6 +5,8 @@ import { RefreshControl, ScrollView, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import palette from '../theme.json';
+
 type Card = {
   icon: ComponentProps<typeof Ionicons>['name'];
   title: string;
@@ -21,12 +23,12 @@ type ModuleHomeProps = {
 export function ModuleHome({ title, description, cards, includeTopInset = true }: ModuleHomeProps) {
   const reduceMotion = useReducedMotion();
   const [preview, setPreview] = useState(0);
-  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 300 };
+  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
 
   return (
     <SafeAreaView
       edges={includeTopInset ? ['top', 'left', 'right'] : ['left', 'right']}
-      className="flex-1 bg-zinc-950"
+      className="flex-1 bg-canvas"
     >
       <ScrollView
         className="flex-1"
@@ -38,11 +40,11 @@ export function ModuleHome({ title, description, cards, includeTopInset = true }
         }
       >
         <View className="mx-auto w-full max-w-xl px-5 pb-8 pt-8">
-          <Text accessibilityRole="header" className="text-4xl font-extrabold tracking-tight text-zinc-50">
+          <Text accessibilityRole="header" className="text-screen-title font-semibold text-ink">
             {title}
           </Text>
-          <Text className="mt-2 text-base leading-6 text-zinc-400">{description}</Text>
-          <Text accessibilityRole="header" className="mb-3 mt-8 text-sm font-semibold text-zinc-300">
+          <Text className="mt-2 text-base leading-6 text-muted">{description}</Text>
+          <Text accessibilityRole="header" className="mb-3 mt-8 text-sm font-semibold text-copy">
             Aperçu du module
           </Text>
 
@@ -50,18 +52,16 @@ export function ModuleHome({ title, description, cards, includeTopInset = true }
             {cards.map((card, index) => (
               <MotiView
                 key={card.title}
-                from={reduceMotion ? undefined : { opacity: 0, translateY: 12 }}
-                animate={{ opacity: 1, translateY: 0 }}
-                transition={{ opacity: timing, translateY: timing }}
-                delay={reduceMotion ? 0 : index * 90}
+                from={reduceMotion ? undefined : { opacity: 0.85 }}
+                animate={{ opacity: 1 }}
+                transition={{ opacity: timing }}
+                delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
               >
-                <View className="flex-row items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-                  <View className="h-11 w-11 items-center justify-center rounded-xl bg-blue-500/15">
-                    <Ionicons name={card.icon} color="#93C5FD" size={23} />
-                  </View>
+                <View className="flex-row items-center gap-4 rounded-xl border border-line bg-surface p-4">
+                  <Ionicons name={card.icon} color={palette.copy} size={23} />
                   <View className="flex-1">
-                    <Text className="text-base font-semibold text-zinc-50">{card.title}</Text>
-                    <Text className="mt-1 text-sm leading-5 text-zinc-400">{card.description}</Text>
+                    <Text className="text-base font-semibold text-ink">{card.title}</Text>
+                    <Text className="mt-1 text-sm leading-5 text-muted">{card.description}</Text>
                   </View>
                 </View>
               </MotiView>

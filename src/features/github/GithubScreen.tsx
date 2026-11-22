@@ -7,14 +7,10 @@ import {
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import palette from '../../theme.json';
+
 import { fetchRepositories, languages, periods, type Language, type Period, type Repository } from './githubApi';
 
-const languageColors: Record<string, string> = {
-  TypeScript: 'bg-blue-400',
-  Python: 'bg-yellow-400',
-  Rust: 'bg-orange-400',
-  Kotlin: 'bg-violet-400',
-};
 const starCount = new Intl.NumberFormat('fr-FR');
 
 function Filter<T extends string>({ value, selected, label, onSelect }: {
@@ -28,10 +24,10 @@ function Filter<T extends string>({ value, selected, label, onSelect }: {
     <Pressable
       accessibilityRole="button"
       accessibilityState={{ selected: active }}
-      className={`mr-2 min-h-11 justify-center rounded-full border px-4 ${active ? 'border-blue-500/60 bg-blue-500/15' : 'border-zinc-800 bg-zinc-900'}`}
+      className={`focus:border-ink web:focus-visible:border-ink active:bg-pressed mr-2 min-h-11 justify-center rounded-lg border px-3 ${active ? 'border-accent bg-selection' : 'border-line bg-chrome'}`}
       onPress={() => onSelect(value)}
     >
-      <Text className={`text-sm font-semibold ${active ? 'text-blue-200' : 'text-zinc-300'}`}>{label}</Text>
+      <Text className={`text-sm font-semibold ${active ? 'text-accent' : 'text-copy'}`}>{label}</Text>
     </Pressable>
   );
 }
@@ -41,18 +37,16 @@ function RepositoryCard({ repository, index, reduceMotion }: {
   index: number;
   reduceMotion: boolean;
 }) {
-  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
+  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
   const language = repository.language;
-  const dotColor = !language ? 'bg-zinc-500'
-    : Object.hasOwn(languageColors, language) ? languageColors[language] : 'bg-emerald-400';
   const stars = starCount.format(repository.stargazers_count);
 
   return (
     <MotiView
-      from={reduceMotion ? undefined : { opacity: 0, translateY: 8 }}
-      animate={{ opacity: 1, translateY: 0 }}
-      transition={{ opacity: timing, translateY: timing }}
-      delay={reduceMotion ? 0 : Math.min(index, 5) * 40}
+      from={reduceMotion ? undefined : { opacity: 0.85 }}
+      animate={{ opacity: 1 }}
+      transition={{ opacity: timing }}
+      delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
     >
       <Pressable
         accessibilityRole="link"
@@ -62,26 +56,23 @@ function RepositoryCard({ repository, index, reduceMotion }: {
             Alert.alert('Ouverture impossible', 'Impossible d’ouvrir ce dépôt dans le navigateur.');
           });
         }}
-        className="mb-3 gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4 active:border-blue-500"
+        className="focus:border-ink web:focus-visible:border-ink mb-3 gap-3 rounded-xl border border-line bg-surface p-4 active:bg-raised"
       >
         <View className="flex-row items-start gap-3">
           <View className="flex-1">
-            <Text className="text-sm text-zinc-400" numberOfLines={1}>{repository.owner.login}</Text>
-            <Text className="text-lg font-bold leading-6 text-zinc-50">{repository.name}</Text>
+            <Text className="text-item-title font-semibold text-ink">{repository.name}</Text>
+            <Text className="text-sm text-muted" numberOfLines={1}>{repository.owner.login}</Text>
           </View>
-          <Ionicons name="open-outline" size={18} color="#A1A1AA" />
+          <Ionicons name="open-outline" size={18} color={palette.muted} />
         </View>
-        <Text className="text-sm leading-5 text-zinc-300" numberOfLines={3}>
+        <Text className="text-sm leading-5 text-copy" numberOfLines={3}>
           {repository.description || 'Aucune description'}
         </Text>
-        <View className="flex-row flex-wrap items-center gap-3">
-          <View className="flex-row items-center gap-2 rounded-full bg-zinc-800 px-2.5 py-1">
-            <View className={`h-2 w-2 rounded-full ${dotColor}`} />
-            <Text className="text-xs font-medium text-zinc-200">{language || 'Non renseigné'}</Text>
-          </View>
+        <View className="flex-row flex-wrap items-center justify-between gap-3 border-t border-line pt-2">
+          <Text className="text-sm text-muted">{language || 'Non renseigné'}</Text>
           <View className="flex-row items-center gap-1.5">
-            <Ionicons name="star" size={14} color="#FBBF24" />
-            <Text accessibilityLabel={`${stars} étoiles`} className="text-sm font-semibold text-zinc-200">
+            <Ionicons name="star" size={14} color={palette.muted} />
+            <Text accessibilityLabel={`${stars} étoiles`} className="text-sm font-semibold tabular-nums text-copy">
               {stars}
             </Text>
           </View>
@@ -142,32 +133,32 @@ function RepositoryList({ period, language }: { period: Period; language: Langua
       renderItem={({ item, index }) => (
         <RepositoryCard repository={item} index={index} reduceMotion={reduceMotion} />
       )}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => reload(true)} colors={['#3B82F6']} />}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => reload(true)} colors={[palette.cobalt]} />}
       ListHeaderComponent={error ? (
-        <View className="mb-3 items-start gap-2 rounded-2xl border border-red-900 bg-zinc-900 p-4">
-          <Text accessibilityLiveRegion="polite" className="text-sm leading-5 text-red-200">{error}</Text>
+        <View className="mb-3 items-start gap-2 rounded-xl border border-error-line bg-error-surface p-4">
+          <Text accessibilityLiveRegion="polite" className="text-sm leading-5 text-error">{error}</Text>
           <Pressable
             accessibilityRole="button"
-            className="min-h-11 justify-center rounded-full bg-blue-500/15 px-4"
+            className="border border-transparent focus:border-ink web:focus-visible:border-ink active:bg-pressed min-h-11 justify-center rounded-lg bg-selection px-4"
             onPress={() => reload()}
           >
-            <Text className="font-semibold text-blue-200">Réessayer</Text>
+            <Text className="font-semibold text-accent">Réessayer</Text>
           </Pressable>
         </View>
       ) : undefined}
       ListEmptyComponent={error ? undefined : repositories === null ? (
         <View accessibilityLabel="Chargement des dépôts" accessible accessibilityState={{ busy: true }}>
           {[0, 1, 2].map((index) => (
-            <View key={index} className="mb-3 gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-              <View className="h-3 w-24 rounded bg-zinc-800" />
-              <View className="h-5 w-1/2 rounded bg-zinc-800" />
-              <View className="h-3 w-11/12 rounded bg-zinc-800" />
-              <View className="h-5 w-20 rounded-full bg-zinc-800" />
+            <View key={index} className="mb-3 gap-3 rounded-xl border border-line bg-surface p-4">
+              <View className="h-3 w-24 rounded bg-raised" />
+              <View className="h-5 w-1/2 rounded bg-raised" />
+              <View className="h-3 w-11/12 rounded bg-raised" />
+              <View className="h-5 w-20 rounded-lg bg-raised" />
             </View>
           ))}
         </View>
       ) : (
-        <Text className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 text-zinc-300">
+        <Text className="rounded-xl border border-line bg-surface p-4 text-copy">
           Aucun dépôt pour ces filtres.
         </Text>
       )}
@@ -180,20 +171,20 @@ export default function GithubScreen() {
   const [language, setLanguage] = useState<Language>('Tous');
 
   return (
-    <SafeAreaView edges={['left', 'right']} className="flex-1 bg-zinc-950">
-      <View className="mx-auto w-full max-w-xl flex-1 pt-8">
+    <SafeAreaView edges={['left', 'right']} className="flex-1 bg-canvas">
+      <View className="mx-auto w-full max-w-xl flex-1 pt-6">
         <View className="px-5">
-          <Text accessibilityRole="header" className="text-4xl font-extrabold tracking-tight text-zinc-50">
+          <Text accessibilityRole="header" className="text-screen-title font-semibold text-ink">
             GitHub Trends
           </Text>
-          <Text className="mb-5 mt-2 text-base text-zinc-400">Nouveaux dépôts classés par étoiles.</Text>
-          <Text className="mb-1.5 text-xs font-semibold text-zinc-400">Période</Text>
+          <Text className="mb-5 mt-2 text-base text-muted">Nouveaux dépôts classés par étoiles.</Text>
+          <Text className="mb-1.5 text-xs font-semibold text-muted">Période</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-3 grow-0">
             {periods.map(({ value, label }) => (
               <Filter key={value} value={value} label={label} selected={period} onSelect={setPeriod} />
             ))}
           </ScrollView>
-          <Text className="mb-1.5 text-xs font-semibold text-zinc-400">Langage</Text>
+          <Text className="mb-1.5 text-xs font-semibold text-muted">Langage</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="grow-0">
             {languages.map((value) => (
               <Filter key={value} value={value} label={value} selected={language} onSelect={setLanguage} />

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, Text, View } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
+import palette from '../../theme.json';
+
 export function TrailerPlayer({ videoId, url, onClose }: {
   videoId: string;
   url: string;
@@ -23,11 +25,11 @@ export function TrailerPlayer({ videoId, url, onClose }: {
     <>
       <View
         onLayout={(event) => setWidth(event.nativeEvent.layout.width)}
-        className="aspect-video overflow-hidden bg-black"
+        className="aspect-video overflow-hidden bg-media"
       >
         {status === 'error' ? (
           <View className="flex-1 items-center justify-center px-4">
-            <Text accessibilityLiveRegion="polite" className="text-center text-sm text-zinc-300">
+            <Text accessibilityLiveRegion="polite" className="text-center text-sm text-copy">
               Cette vidéo ne peut pas être lue dans l’application.
             </Text>
           </View>
@@ -44,17 +46,17 @@ export function TrailerPlayer({ videoId, url, onClose }: {
         )}
         {status === 'loading' && (
           <View pointerEvents="none" className="absolute inset-0 items-center justify-center">
-            <ActivityIndicator color="#93C5FD" accessibilityLabel="Chargement de la vidéo" />
+            <ActivityIndicator color={palette.accent} accessibilityLabel="Chargement de la vidéo" />
           </View>
         )}
       </View>
-      <View className="flex-row flex-wrap items-center gap-x-4 border-b border-zinc-800 px-4">
+      <View className="flex-row flex-wrap items-center gap-x-4 border-b border-line px-4">
         <Pressable
           accessibilityRole="button" onPress={onClose}
-          className="min-h-11 flex-row items-center gap-1.5 active:opacity-60"
+          className="border border-transparent focus:border-ink web:focus-visible:border-ink min-h-11 flex-row items-center gap-1.5 active:opacity-60"
         >
-          <Ionicons name="close-outline" size={18} color="#D4D4D8" />
-          <Text className="text-sm font-semibold text-zinc-300">Fermer le lecteur</Text>
+          <Ionicons name="close-outline" size={18} color={palette.copy} />
+          <Text className="text-sm font-semibold text-copy">Fermer le lecteur</Text>
         </Pressable>
         {status === 'error' && (
           <Pressable
@@ -64,10 +66,10 @@ export function TrailerPlayer({ videoId, url, onClose }: {
                 Alert.alert('Lecture indisponible', 'Impossible d’ouvrir cette vidéo sur YouTube.');
               });
             }}
-            className="min-h-11 flex-row items-center gap-1.5 active:opacity-60"
+            className="border border-transparent focus:border-ink web:focus-visible:border-ink min-h-11 flex-row items-center gap-1.5 active:opacity-60"
           >
-            <Text className="text-sm font-semibold text-blue-200">Ouvrir sur YouTube</Text>
-            <Ionicons name="open-outline" size={15} color="#93C5FD" />
+            <Text className="text-sm font-semibold text-accent">Ouvrir sur YouTube</Text>
+            <Ionicons name="open-outline" size={15} color={palette.accent} />
           </Pressable>
         )}
       </View>

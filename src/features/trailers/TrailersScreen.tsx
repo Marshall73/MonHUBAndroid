@@ -6,6 +6,8 @@ import { FlatList, Pressable, RefreshControl, ScrollView, Text, View } from 'rea
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import palette from '../../theme.json';
+
 import { SourceManager } from './SourceManager';
 import { TrailerCard } from './TrailerCard';
 import { categories, defaultSources, fetchTrailers, isSource, type Category, type Trailer, type TrailerSource } from './feeds';
@@ -108,11 +110,11 @@ export default function TrailersScreen() {
   }, [activeTrailerKey, hasActiveTrailer]);
 
   return (
-    <SafeAreaView edges={['left', 'right']} className="flex-1 bg-zinc-950">
-      <View className="mx-auto w-full max-w-xl flex-1 pt-8">
+    <SafeAreaView edges={['left', 'right']} className="flex-1 bg-canvas">
+      <View className="mx-auto w-full max-w-xl flex-1 pt-6">
         <View className="mb-4 gap-4 px-5">
           <View className="flex-row items-center justify-between gap-3">
-            <Text accessibilityRole="header" className="flex-1 text-4xl font-extrabold tracking-tight text-zinc-50">
+            <Text accessibilityRole="header" className="flex-1 text-screen-title font-semibold text-ink">
               Trailers
             </Text>
             <Pressable
@@ -123,9 +125,9 @@ export default function TrailersScreen() {
                 setSaveError(null);
                 setManagerOpen(true);
               }}
-              className="h-11 w-11 items-center justify-center rounded-full bg-blue-500/20 disabled:opacity-50"
+              className="border border-transparent focus:border-ink web:focus-visible:border-ink active:bg-pressed h-11 w-11 items-center justify-center rounded-lg bg-selection disabled:opacity-50"
             >
-              <Ionicons name="add" size={26} color="#93C5FD" />
+              <Ionicons name="add" size={26} color={palette.accent} />
             </Pressable>
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="grow-0">
@@ -133,9 +135,9 @@ export default function TrailersScreen() {
               <Pressable
                 key={option} accessibilityRole="button" accessibilityState={{ selected: option === filter }}
                 onPress={() => setFilter(option)}
-                className={`mr-2 min-h-11 justify-center rounded-full border px-4 ${option === filter ? 'border-blue-500/60 bg-blue-500/15' : 'border-zinc-800 bg-zinc-900'}`}
+                className={`focus:border-ink web:focus-visible:border-ink active:bg-pressed mr-2 min-h-11 justify-center rounded-lg border px-3 ${option === filter ? 'border-accent bg-selection' : 'border-line bg-chrome'}`}
               >
-                <Text className={`text-sm font-semibold ${option === filter ? 'text-blue-200' : 'text-zinc-300'}`}>
+                <Text className={`text-sm font-semibold ${option === filter ? 'text-accent' : 'text-copy'}`}>
                   {option}
                 </Text>
               </Pressable>
@@ -159,46 +161,46 @@ export default function TrailersScreen() {
           )}
           refreshControl={
             <RefreshControl
-              enabled={!!sources?.length} refreshing={refreshing} onRefresh={refresh} colors={['#3B82F6']}
+              enabled={!!sources?.length} refreshing={refreshing} onRefresh={refresh} colors={[palette.cobalt]}
             />
           }
           ListHeaderComponent={failed.length > 0 ? (
-            <View className="mb-3 items-start rounded-2xl border border-zinc-800 bg-zinc-900 p-3">
-              <Text accessibilityLiveRegion="polite" className="text-sm text-zinc-300">
+            <View className="mb-3 items-start rounded-xl border border-line bg-surface p-3">
+              <Text accessibilityLiveRegion="polite" className="text-sm text-copy">
                 Sources indisponibles : {failed.map(({ name }) => name).join(', ')}
               </Text>
               <Pressable
                 accessibilityRole="button" disabled={refreshing} onPress={refresh}
-                className="min-h-11 justify-center pr-3 disabled:opacity-50"
+                className="border border-transparent focus:border-ink web:focus-visible:border-ink active:opacity-75 min-h-11 justify-center pr-3 disabled:opacity-50"
               >
-                <Text className="font-semibold text-blue-200">Réessayer</Text>
+                <Text className="font-semibold text-accent">Réessayer</Text>
               </Pressable>
             </View>
           ) : undefined}
           ListEmptyComponent={storageError ? (
-            <View className="items-start gap-2 rounded-2xl border border-red-900 bg-zinc-900 p-4">
-              <Text accessibilityLiveRegion="polite" className="text-red-200">Impossible de charger vos sources.</Text>
+            <View className="items-start gap-2 rounded-xl border border-error-line bg-error-surface p-4">
+              <Text accessibilityLiveRegion="polite" className="text-error">Impossible de charger vos sources.</Text>
               <Pressable
-                accessibilityRole="button" className="min-h-11 justify-center rounded-full bg-blue-500/15 px-4"
+                accessibilityRole="button" className="border border-transparent focus:border-ink web:focus-visible:border-ink active:bg-pressed min-h-11 justify-center rounded-lg bg-selection px-4"
                 onPress={() => { setStorageError(false); setStorageAttempt((attempt) => attempt + 1); }}
               >
-                <Text className="font-semibold text-blue-200">Réessayer</Text>
+                <Text className="font-semibold text-accent">Réessayer</Text>
               </Pressable>
             </View>
           ) : loading ? (
             <View accessible accessibilityLabel="Chargement des vidéos" accessibilityState={{ busy: true }}>
               {[0, 1].map((index) => (
-                <View key={index} className="mb-4 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
-                  <View className="aspect-video bg-zinc-800" />
+                <View key={index} className="mb-4 overflow-hidden rounded-xl border border-line bg-surface">
+                  <View className="aspect-video bg-raised" />
                   <View className="gap-3 p-4">
-                    <View className="h-5 w-3/4 rounded bg-zinc-800" />
-                    <View className="h-3 w-1/2 rounded bg-zinc-800" />
+                    <View className="h-5 w-3/4 rounded bg-raised" />
+                    <View className="h-3 w-1/2 rounded bg-raised" />
                   </View>
                 </View>
               ))}
             </View>
           ) : (
-            <Text className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 text-zinc-300">
+            <Text className="rounded-xl border border-line bg-surface p-4 text-copy">
               {sources?.length === 0 ? 'Ajoutez une source avec le bouton +.' : 'Aucune vidéo disponible dans cette catégorie.'}
             </Text>
           )}

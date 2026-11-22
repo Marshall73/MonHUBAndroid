@@ -1,3 +1,6 @@
+/* Hallmark v2.0.0 · theme: Dusk / Cobalt (by request) · genre: modern-minimal · shape: app screen · redesign: full */
+/* Critique · Les horaires, les titres et les états gagnent en lisibilité à mesure que les badges décoratifs disparaissent. */
+/* Hallmark · dropped onLayout={(event) => setHeight(event.nativeEvent.layout.height)} · La fiche utilise sa hauteur naturelle et anime seulement son opacité. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

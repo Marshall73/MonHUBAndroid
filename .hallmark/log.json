@@ -1,0 +1,33 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "app",
+  "shape": "app screen",
+  "theme": "dusk",
+  "axes": "dark/grotesk-sans/cool",
+  "hero": null,
+  "nav": "Expo Router tabs and module stack",
+  "footer": null,
+  "imagery": "existing posters, logos and thumbnails",
+  "photos": [],
+  "entry": "app/_layout.tsx",
+  "fingerprint": "native graphite surfaces, cobalt selection, time-column sports schedule",
+  "sections": [
+   "Sport",
+   "Cinéma",
+   "RSS",
+   "Hub",
+   "Streaming",
+   "Trailers",
+   "GitHub",
+   "Esport"
+  ],
+  "signature": "horaires et chaînes dans le programme sportif",
+  "waived": [
+   "Rendu Hallmark indisponible pour le projet Android natif sans appareil connecté"
+  ],
+  "prompt": "Refonte native Dusk/Cobalt du hub personnel",
+  "date": "2026-11-22"
+ }
+]

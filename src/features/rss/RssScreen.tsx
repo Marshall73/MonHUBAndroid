@@ -6,6 +6,8 @@ import { Alert, FlatList, Linking, Pressable, RefreshControl, ScrollView, Text, 
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import palette from '../../theme.json';
+
 import { FeedManager } from './FeedManager';
 import { defaultFeeds, fetchArticles, isFeed, relativeDate, type Article, type Feed } from './feeds';
 
@@ -16,14 +18,14 @@ function ArticleCard({ article, index, reduceMotion }: {
   index: number;
   reduceMotion: boolean;
 }) {
-  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 260 };
+  const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
 
   return (
     <MotiView
-      from={reduceMotion ? undefined : { opacity: 0, translateY: 8 }}
-      animate={{ opacity: 1, translateY: 0 }}
-      transition={{ opacity: timing, translateY: timing }}
-      delay={reduceMotion ? 0 : Math.min(index, 5) * 40}
+      from={reduceMotion ? undefined : { opacity: 0.85 }}
+      animate={{ opacity: 1 }}
+      transition={{ opacity: timing }}
+      delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
     >
       <Pressable
         accessibilityRole="link"
@@ -33,17 +35,17 @@ function ArticleCard({ article, index, reduceMotion }: {
             Alert.alert('Ouverture impossible', 'Impossible d’ouvrir cet article dans le navigateur.');
           });
         }}
-        className="mb-3 gap-2 rounded-2xl border border-zinc-800 bg-zinc-900 p-4 active:border-blue-500"
+        className="focus:border-ink web:focus-visible:border-ink mb-3 gap-2 rounded-xl border border-line bg-surface p-4 active:bg-raised"
       >
+        <Text className="text-item-title font-semibold text-ink">{article.title}</Text>
         <View className="flex-row flex-wrap items-center gap-x-3 gap-y-1">
-          <Text className="overflow-hidden rounded-full bg-blue-500/15 px-2.5 py-1 text-xs font-semibold text-blue-200">
+          <Text className="text-sm font-medium text-copy">
             {article.feed.name}
           </Text>
-          <Text className="text-xs text-zinc-400">{relativeDate(article.timestamp)}</Text>
+          <Text className="text-xs text-muted">{relativeDate(article.timestamp)}</Text>
         </View>
-        <Text className="text-lg font-bold leading-6 text-zinc-50">{article.title}</Text>
         {article.summary !== '' && (
-          <Text className="text-sm leading-5 text-zinc-300" numberOfLines={2}>{article.summary}</Text>
+          <Text className="text-sm leading-5 text-copy" numberOfLines={2}>{article.summary}</Text>
         )}
       </Pressable>
     </MotiView>
@@ -131,19 +133,19 @@ export default function RssScreen() {
     .sort((left, right) => (right.timestamp ?? Number.MIN_SAFE_INTEGER) - (left.timestamp ?? Number.MIN_SAFE_INTEGER));
 
   return (
-    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-zinc-950">
-      <View className="mx-auto w-full max-w-xl flex-1 pt-8">
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-canvas">
+      <View className="mx-auto w-full max-w-xl flex-1 pt-6">
         <View className="mb-4 px-5">
           <View className="flex-row items-center justify-between gap-3">
-            <Text accessibilityRole="header" className="flex-1 text-4xl font-extrabold tracking-tight text-zinc-50">
+            <Text accessibilityRole="header" className="flex-1 text-screen-title font-semibold text-ink">
               Flux RSS Perso
             </Text>
             <Pressable
               accessibilityRole="button" accessibilityLabel="Ajouter ou gérer les sources"
               disabled={feeds === null} onPress={() => { setSaveError(null); setManagerOpen(true); }}
-              className="h-11 w-11 items-center justify-center rounded-full bg-blue-500/20 disabled:opacity-50"
+              className="border border-transparent focus:border-ink web:focus-visible:border-ink active:bg-pressed h-11 w-11 items-center justify-center rounded-lg bg-selection disabled:opacity-50"
             >
-              <Ionicons name="add" size={26} color="#93C5FD" />
+              <Ionicons name="add" size={26} color={palette.accent} />
             </Pressable>
           </View>
           {active.length > 0 && (
@@ -154,9 +156,9 @@ export default function RssScreen() {
                   <Pressable
                     key={feed.url ?? 'all'} accessibilityRole="button" accessibilityState={{ selected: isSelected }}
                     onPress={() => setSelected(feed.url)}
-                    className={`mr-2 min-h-11 justify-center rounded-full border px-4 ${isSelected ? 'border-blue-500/60 bg-blue-500/15' : 'border-zinc-800 bg-zinc-900'}`}
+                    className={`focus:border-ink web:focus-visible:border-ink active:bg-pressed mr-2 min-h-11 justify-center rounded-lg border px-3 ${isSelected ? 'border-accent bg-selection' : 'border-line bg-chrome'}`}
                   >
-                    <Text className={`text-sm font-semibold ${isSelected ? 'text-blue-200' : 'text-zinc-300'}`}>
+                    <Text className={`text-sm font-semibold ${isSelected ? 'text-accent' : 'text-copy'}`}>
                       {feed.name}
                     </Text>
                   </Pressable>
@@ -173,33 +175,33 @@ export default function RssScreen() {
           renderItem={({ item, index }) => <ArticleCard article={item} index={index} reduceMotion={reduceMotion} />}
           refreshControl={
             <RefreshControl
-              enabled={active.length > 0} refreshing={refreshing} colors={['#3B82F6']}
+              enabled={active.length > 0} refreshing={refreshing} colors={[palette.cobalt]}
               onRefresh={() => { setRefreshing(true); setRequest((value) => value + 1); }}
             />
           }
           ListEmptyComponent={storageError ? (
-            <View className="items-start gap-2 rounded-2xl border border-red-900 bg-zinc-900 p-4">
-              <Text accessibilityLiveRegion="polite" className="text-red-200">{storageError}</Text>
+            <View className="items-start gap-2 rounded-xl border border-error-line bg-error-surface p-4">
+              <Text accessibilityLiveRegion="polite" className="text-error">{storageError}</Text>
               <Pressable
-                accessibilityRole="button" className="min-h-11 justify-center rounded-full bg-blue-500/15 px-4"
+                accessibilityRole="button" className="border border-transparent focus:border-ink web:focus-visible:border-ink active:bg-pressed min-h-11 justify-center rounded-lg bg-selection px-4"
                 onPress={() => { setStorageError(null); setStorageAttempt((value) => value + 1); }}
               >
-                <Text className="font-semibold text-blue-200">Réessayer</Text>
+                <Text className="font-semibold text-accent">Réessayer</Text>
               </Pressable>
             </View>
           ) : loading ? (
             <View accessibilityLabel="Chargement des articles" accessible accessibilityState={{ busy: true }}>
               {[0, 1, 2].map((index) => (
-                <View key={index} className="mb-3 gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-                  <View className="h-5 w-24 rounded-full bg-zinc-800" />
-                  <View className="h-5 w-3/4 rounded bg-zinc-800" />
-                  <View className="h-3 w-11/12 rounded bg-zinc-800" />
-                  <View className="h-3 w-2/3 rounded bg-zinc-800" />
+                <View key={index} className="mb-3 gap-3 rounded-xl border border-line bg-surface p-4">
+                  <View className="h-5 w-24 rounded-lg bg-raised" />
+                  <View className="h-5 w-3/4 rounded bg-raised" />
+                  <View className="h-3 w-11/12 rounded bg-raised" />
+                  <View className="h-3 w-2/3 rounded bg-raised" />
                 </View>
               ))}
             </View>
           ) : (
-            <Text className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 text-zinc-300">
+            <Text className="rounded-xl border border-line bg-surface p-4 text-copy">
               {active.length === 0
                 ? 'Ajoutez ou activez une source avec le bouton +.'
                 : 'Aucun article disponible.'}
