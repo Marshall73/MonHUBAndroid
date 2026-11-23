@@ -1,33 +1,134 @@
 [
   {
-    "sport": "Foot",
-    "time": "20:45",
+    "sport": "Tennis",
+    "time": "16:00",
     "status": "Direct",
-    "date": "2026-11-23",
-    "startAt": "2026-11-23T20:45:00+01:00",
-    "title": "Monza – Fiorentina",
-    "competition": "Serie A",
-    "channel": "DAZN"
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T16:00:00+01:00",
+    "endAt": "2026-11-24T20:00:00+01:00",
+    "title": "République tchèque – Canada",
+    "competition": "Coupe Davis",
+    "channel": "beIN SPORTS 3"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:40",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T18:40:00+01:00",
+    "endAt": "2026-11-24T20:45:00+01:00",
+    "title": "Galatasaray – Aston Villa",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Foot"
+  },
+  {
+    "sport": "Foot",
+    "time": "18:45",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T18:45:00+01:00",
+    "endAt": "2026-11-24T20:50:00+01:00",
+    "title": "Bodø/Glimt – LASK Linz",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Sport"
+  },
+  {
+    "sport": "Tennis",
+    "time": "20:00",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T20:00:00+01:00",
+    "endAt": "2026-11-24T23:00:00+01:00",
+    "title": "République tchèque – Canada",
+    "competition": "Coupe Davis",
+    "channel": "beIN SPORTS 3"
   },
   {
     "sport": "Foot",
     "time": "20:55",
     "status": "Direct",
-    "date": "2026-11-23",
-    "startAt": "2026-11-23T20:55:00+01:00",
-    "endAt": "2026-11-23T23:00:00+01:00",
-    "title": "Brentford – Everton",
-    "competition": "Premier League",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T20:55:00+01:00",
+    "endAt": "2026-11-24T22:55:00+01:00",
+    "title": "Manchester City – Naples",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Live 2"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:55",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T20:55:00+01:00",
+    "endAt": "2026-11-24T22:55:00+01:00",
+    "title": "Arsenal – Borussia Dortmund",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Live 4"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:55",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T20:55:00+01:00",
+    "endAt": "2026-11-24T22:55:00+01:00",
+    "title": "Feyenoord Rotterdam – FC Porto",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Live 5"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:55",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T20:55:00+01:00",
+    "endAt": "2026-11-24T22:55:00+01:00",
+    "title": "Como – AEK Athènes",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Live 6"
+  },
+  {
+    "sport": "Foot",
+    "time": "20:55",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T20:55:00+01:00",
+    "endAt": "2026-11-24T22:55:00+01:00",
+    "title": "Slovan Bratislava – Betis Séville",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Live 7"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T21:00:00+01:00",
+    "endAt": "2026-11-24T23:02:00+01:00",
+    "title": "Multiplex",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Sport 360"
+  },
+  {
+    "sport": "Foot",
+    "time": "21:00",
+    "status": "Direct",
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T21:00:00+01:00",
+    "endAt": "2026-11-24T23:02:00+01:00",
+    "title": "Leipzig – Lens",
+    "competition": "Ligue des Champions",
     "channel": "Canal+ Foot"
   },
   {
     "sport": "Foot",
     "time": "21:00",
     "status": "Direct",
-    "date": "2026-11-23",
-    "startAt": "2026-11-23T21:00:00+01:00",
-    "title": "Levante – Elche",
-    "competition": "La Liga",
-    "channel": "DAZN"
+    "date": "2026-11-24",
+    "startAt": "2026-11-24T21:00:00+01:00",
+    "endAt": "2026-11-24T23:01:00+01:00",
+    "title": "Real Madrid – PSV Eindhoven",
+    "competition": "Ligue des Champions",
+    "channel": "Canal+ Sport"
   }
 ]
