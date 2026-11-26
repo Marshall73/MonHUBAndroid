@@ -2,7 +2,7 @@
   {
     "sport": "Tennis",
     "time": "10:00",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-26",
     "startAt": "2026-11-26T10:00:00+01:00",
     "endAt": "2026-11-26T13:00:00+01:00",
@@ -13,7 +13,7 @@
   {
     "sport": "Tennis",
     "time": "13:00",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-26",
     "startAt": "2026-11-26T13:00:00+01:00",
     "endAt": "2026-11-26T17:00:00+01:00",
@@ -24,10 +24,10 @@
   {
     "sport": "Foot",
     "time": "16:00",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-26",
     "startAt": "2026-11-26T16:00:00+01:00",
-    "endAt": "2026-11-26T18:10:00+01:00",
+    "endAt": "2026-11-26T18:11:00+01:00",
     "title": "Epreuve de Kontiolahti",
     "competition": "Coupe du monde",
     "channel": "Eurosport 1"
@@ -35,7 +35,7 @@
   {
     "sport": "Foot",
     "time": "16:10",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-26",
     "startAt": "2026-11-26T16:10:00+01:00",
     "endAt": "2026-11-26T17:50:00+01:00",
@@ -46,7 +46,7 @@
   {
     "sport": "Foot",
     "time": "16:25",
-    "status": "Direct",
+    "status": "Terminé",
     "date": "2026-11-26",
     "startAt": "2026-11-26T16:25:00+01:00",
     "endAt": "2026-11-26T18:25:00+01:00",
@@ -412,7 +412,7 @@
     "status": "Direct",
     "date": "2026-11-26",
     "startAt": "2026-11-26T21:00:00+01:00",
-    "endAt": "2026-11-26T22:56:00+01:00",
+    "endAt": "2026-11-26T22:58:00+01:00",
     "title": "Multiplex",
     "competition": "UEFA Europa Conference League",
     "channel": "Canal+ Sport 360"
