@@ -72,7 +72,7 @@
     "date": "2026-11-28",
     "startAt": "2026-11-28T12:00:00+01:00",
     "endAt": "2026-11-28T15:00:00+01:00",
-    "title": "Italie – République tchèque",
+    "title": "Grande-Bretagne – Espagne",
     "competition": "Coupe Davis",
     "channel": "beIN SPORTS 3"
   },
@@ -148,7 +148,7 @@
     "date": "2026-11-28",
     "startAt": "2026-11-28T15:00:00+01:00",
     "endAt": "2026-11-28T18:45:00+01:00",
-    "title": "Italie – République tchèque",
+    "title": "Grande-Bretagne – Espagne",
     "competition": "Coupe Davis",
     "channel": "beIN SPORTS 3"
   },
@@ -288,7 +288,7 @@
     "status": "Direct",
     "date": "2026-11-28",
     "startAt": "2026-11-28T16:27:00+01:00",
-    "endAt": "2026-11-28T18:30:00+01:00",
+    "endAt": "2026-11-28T18:33:00+01:00",
     "title": "Stade Français – Vannes",
     "competition": "TOP 14",
     "channel": "Canal+ Sport 360"
@@ -469,6 +469,17 @@
   },
   {
     "sport": "Foot",
+    "time": "20:40",
+    "status": "Direct",
+    "date": "2026-11-28",
+    "startAt": "2026-11-28T20:40:00+01:00",
+    "endAt": "2026-11-28T23:20:00+01:00",
+    "title": "Palmeiras – Estudiantes La Plata",
+    "competition": "Copa Libertadores",
+    "channel": "L'Equipe"
+  },
+  {
+    "sport": "Foot",
     "time": "20:45",
     "status": "Direct",
     "date": "2026-11-28",
@@ -476,17 +487,6 @@
     "title": "Inter Milan – Genoa",
     "competition": "Serie A",
     "channel": "DAZN"
-  },
-  {
-    "sport": "Foot",
-    "time": "20:50",
-    "status": "Direct",
-    "date": "2026-11-28",
-    "startAt": "2026-11-28T20:50:00+01:00",
-    "endAt": "2026-11-28T23:20:00+01:00",
-    "title": "Palmeiras – Estudiantes La Plata",
-    "competition": "Copa Libertadores",
-    "channel": "L'Equipe"
   },
   {
     "sport": "Rugby",
