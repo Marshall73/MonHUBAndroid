@@ -80,12 +80,12 @@ export function readFeedXml(xml: string, preserveNamespaces = false) {
   return record((preserveNamespaces ? namespacedParser : parser).parse(xml));
 }
 
-export async function fetchFeedDocument(url: string, signal: AbortSignal) {
+export async function fetchFeedDocument(url: string, signal: AbortSignal, timeoutMs = 12000) {
   const controller = new AbortController();
   const cancel = () => controller.abort();
   if (signal.aborted) cancel();
   signal.addEventListener('abort', cancel, { once: true });
-  const timeout = setTimeout(cancel, 12000);
+  const timeout = setTimeout(cancel, timeoutMs);
 
   try {
     const response = await fetch(url, { signal: controller.signal });

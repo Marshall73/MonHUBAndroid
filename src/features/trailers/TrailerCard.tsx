@@ -8,21 +8,24 @@ import palette from '../../theme.json';
 import { relativeDate } from '../feedXml';
 import type { Trailer } from './feeds';
 
-export function TrailerCard({ trailer, index, reduceMotion, active, onPlay, onClose }: {
+export function TrailerCard({ trailer, index, reduceMotion, active, seen, onToggleSeen, onPlay, onClose }: {
   trailer: Trailer;
   index: number;
   reduceMotion: boolean;
   active: boolean;
+  seen: boolean;
+  onToggleSeen?: () => void;
   onPlay: () => void;
   onClose: () => void;
 }) {
   const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
   const caption = (
-    <View className="gap-2 p-4">
-      <Text className="text-item-title font-semibold text-ink">{trailer.title}</Text>
+    <View className={`gap-2 py-4 pl-4 ${onToggleSeen ? 'pr-16' : 'pr-4'}`}>
+      <Text className={`text-item-title font-semibold ${seen ? 'text-copy' : 'text-ink'}`}>{trailer.title}</Text>
       <View className="flex-row flex-wrap items-center gap-x-3 gap-y-1">
         <Text className="text-sm font-medium text-copy">{trailer.channel}</Text>
         <Text className="text-xs text-muted">{relativeDate(trailer.timestamp)}</Text>
+        {seen && <Text className="text-xs font-medium text-success">Vue</Text>}
       </View>
     </View>
   );
@@ -49,7 +52,7 @@ export function TrailerCard({ trailer, index, reduceMotion, active, onPlay, onCl
                 onPlay();
                 return;
               }
-              openBrowserAsync(trailer.url).catch(() => {
+              openBrowserAsync(trailer.url).then(onPlay).catch(() => {
                 Alert.alert('Lecture indisponible', 'Impossible d’ouvrir cette vidéo.');
               });
             }}
@@ -64,6 +67,16 @@ export function TrailerCard({ trailer, index, reduceMotion, active, onPlay, onCl
               </View>
             </View>
             {caption}
+          </Pressable>
+        )}
+        {onToggleSeen && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Marquer « ${trailer.title} » comme ${seen ? 'non vue' : 'vue'}`}
+            onPress={onToggleSeen}
+            className="absolute bottom-2 right-2 h-11 w-11 items-center justify-center rounded-lg border border-transparent active:bg-pressed focus:border-ink web:focus-visible:border-ink"
+          >
+            <Ionicons name={seen ? 'checkmark-circle' : 'checkmark-circle-outline'} size={22} color={seen ? palette.success : palette.muted} />
           </Pressable>
         )}
       </View>

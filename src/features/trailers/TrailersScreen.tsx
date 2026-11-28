@@ -1,18 +1,25 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { FeedHistoryActions } from '../../shared/components/FeedHistoryActions';
+import { useFeedHistory } from '../../shared/hooks/useFeedHistory';
 import palette from '../../theme.json';
 
 import { SourceManager } from './SourceManager';
 import { TrailerCard } from './TrailerCard';
 import { categories, defaultSources, fetchTrailers, isSource, type Category, type Trailer, type TrailerSource } from './feeds';
+import { loadCachedTrailers, saveCachedTrailers } from './trailerCache';
 
 const storageKey = 'trailers/sources';
+
+function getTrailerKey(trailer: Trailer) {
+  return trailer.key;
+}
 
 export default function TrailersScreen() {
   const [sources, setSources] = useState<TrailerSource[] | null>(null);
@@ -56,14 +63,31 @@ export default function TrailersScreen() {
     if (sources === null) return;
     const controller = new AbortController();
 
-    Promise.allSettled(sources.map((source) => fetchTrailers(source, controller.signal))).then((results) => {
-      if (controller.signal.aborted) return;
-      setEntries((previous) => Object.fromEntries(sources.map((source, index) => {
-        const result = results[index];
-        return [source.url, result.status === 'fulfilled' ? result.value : previous[source.url] ?? []];
-      })));
-      setUnavailable(sources.filter((_, index) => results[index].status === 'rejected').map((source) => source.url));
-      setRefreshing(false);
+    void Promise.all(sources.map(async (source) => {
+      const cached = loadCachedTrailers(source).catch(() => null);
+      void cached.then((items) => {
+        if (controller.signal.aborted || items === null) return;
+        setEntries((previous) => previous[source.url] === undefined
+          ? { ...previous, [source.url]: items }
+          : previous);
+      });
+
+      try {
+        const items = await fetchTrailers(source, controller.signal);
+        if (controller.signal.aborted) return;
+        setEntries((previous) => ({ ...previous, [source.url]: items }));
+        setUnavailable((previous) => previous.filter((url) => url !== source.url));
+        void saveCachedTrailers(source, items).catch(() => undefined);
+      } catch {
+        await cached;
+        if (controller.signal.aborted) return;
+        setEntries((previous) => previous[source.url] === undefined
+          ? { ...previous, [source.url]: [] }
+          : previous);
+        setUnavailable((previous) => previous.includes(source.url) ? previous : [...previous, source.url]);
+      }
+    })).then(() => {
+      if (!controller.signal.aborted) setRefreshing(false);
     });
 
     return () => controller.abort();
@@ -92,18 +116,23 @@ export default function TrailersScreen() {
     setRequest((current) => current + 1);
   }
 
-  const visibleSources = (sources ?? []).filter((source) => filter === 'Tous' || source.category === filter);
+  const visibleSources = useMemo(() => (sources ?? []).filter(
+    (source) => filter === 'Tous' || source.category === filter,
+  ), [filter, sources]);
   const failed = visibleSources.filter((source) => unavailable.includes(source.url));
   const loading = sources === null || refreshing || visibleSources.some((source) => entries[source.url] === undefined);
-  const byUrl = new Map<string, Trailer>();
-  for (const source of visibleSources) {
-    for (const trailer of entries[source.url] ?? []) {
-      if (!byUrl.has(trailer.key)) byUrl.set(trailer.key, trailer);
+  const trailers = useMemo(() => {
+    const byUrl = new Map<string, Trailer>();
+    for (const source of visibleSources) {
+      for (const trailer of entries[source.url] ?? []) {
+        if (!byUrl.has(trailer.key)) byUrl.set(trailer.key, trailer);
+      }
     }
-  }
-  const trailers = [...byUrl.values()].sort((left, right) =>
-    (right.timestamp ?? Number.MIN_SAFE_INTEGER) - (left.timestamp ?? Number.MIN_SAFE_INTEGER));
-  const hasActiveTrailer = activeTrailerKey !== null && byUrl.has(activeTrailerKey);
+    return [...byUrl.values()].sort((left, right) =>
+      (right.timestamp ?? Number.MIN_SAFE_INTEGER) - (left.timestamp ?? Number.MIN_SAFE_INTEGER));
+  }, [entries, visibleSources]);
+  const history = useFeedHistory(trailers, getTrailerKey, 'trailers/watch-history');
+  const hasActiveTrailer = history.listProps.data.some((trailer) => trailer.key === activeTrailerKey);
 
   useEffect(() => {
     if (activeTrailerKey !== null && !hasActiveTrailer) setActiveTrailerKey(null);
@@ -112,7 +141,7 @@ export default function TrailersScreen() {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-canvas">
       <View className="mx-auto w-full max-w-xl flex-1 pt-6">
-        <View className="mb-4 gap-4 px-5">
+        <View className="mb-4 px-5">
           <View className="flex-row items-center justify-between gap-3">
             <Text accessibilityRole="header" className="flex-1 text-screen-title font-semibold text-ink">
               Trailers
@@ -130,11 +159,15 @@ export default function TrailersScreen() {
               <Ionicons name="add" size={26} color={palette.accent} />
             </Pressable>
           </View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="grow-0">
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4 grow-0">
             {(['Tous', ...categories] as const).map((option) => (
               <Pressable
                 key={option} accessibilityRole="button" accessibilityState={{ selected: option === filter }}
-                onPress={() => setFilter(option)}
+                onPress={() => {
+                  if (option === filter) return;
+                  history.hideArchived();
+                  setFilter(option);
+                }}
                 className={`focus:border-ink web:focus-visible:border-ink active:bg-pressed mr-2 min-h-11 justify-center rounded-lg border px-3 ${option === filter ? 'border-accent bg-selection' : 'border-line bg-chrome'}`}
               >
                 <Text className={`text-sm font-semibold ${option === filter ? 'text-accent' : 'text-copy'}`}>
@@ -143,19 +176,27 @@ export default function TrailersScreen() {
               </Pressable>
             ))}
           </ScrollView>
+          {!!sources?.length && (
+            <FeedHistoryActions history={history} clearLabel="Effacer les vues" reduceMotion={reduceMotion} />
+          )}
         </View>
 
         <FlatList
+          {...history.listProps}
           className="flex-1 px-5"
-          data={trailers}
-          keyExtractor={(trailer) => trailer.key}
+          keyExtractor={getTrailerKey}
           renderItem={({ item, index }) => (
             <TrailerCard
               trailer={item}
               index={index}
               reduceMotion={reduceMotion}
               active={item.key === activeTrailerKey}
-              onPlay={() => setActiveTrailerKey(item.key)}
+              seen={history.isSeen(item)}
+              onToggleSeen={history.canMark ? () => history.toggleSeen(item) : undefined}
+              onPlay={() => {
+                history.markSeen(item);
+                if (item.videoId) setActiveTrailerKey(item.key);
+              }}
               onClose={() => setActiveTrailerKey((current) => current === item.key ? null : current)}
             />
           )}
@@ -167,7 +208,7 @@ export default function TrailersScreen() {
           ListHeaderComponent={failed.length > 0 ? (
             <View className="mb-3 items-start rounded-xl border border-line bg-surface p-3">
               <Text accessibilityLiveRegion="polite" className="text-sm text-copy">
-                Sources indisponibles : {failed.map(({ name }) => name).join(', ')}
+                Actualisation impossible pour {failed.map(({ name }) => name).join(', ')}.
               </Text>
               <Pressable
                 accessibilityRole="button" disabled={refreshing} onPress={refresh}
@@ -199,9 +240,12 @@ export default function TrailersScreen() {
                 </View>
               ))}
             </View>
-          ) : (
+          ) : failed.length > 0 ? undefined : (
             <Text className="rounded-xl border border-line bg-surface p-4 text-copy">
-              {sources?.length === 0 ? 'Ajoutez une source avec le bouton +.' : 'Aucune vidéo disponible dans cette catégorie.'}
+              {sources?.length === 0
+                ? 'Ajoutez une source avec le bouton +.'
+                : history.hasArchived ? 'Toutes les bandes-annonces de cette catégorie ont été effacées.'
+                  : 'Aucune vidéo disponible dans cette catégorie.'}
             </Text>
           )}
         />

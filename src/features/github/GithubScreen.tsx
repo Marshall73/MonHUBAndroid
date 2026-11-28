@@ -2,14 +2,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { MotiView } from 'moti';
 import { useEffect, useState } from 'react';
 import {
-  Alert, FlatList, Linking, Pressable, RefreshControl, ScrollView, Text, View,
+  Alert, FlatList, Linking, Platform, Pressable, RefreshControl, ScrollView, Text, View,
 } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import palette from '../../theme.json';
 
-import { fetchRepositories, languages, periods, type Language, type Period, type Repository } from './githubApi';
+import { fetchRepositories, languages, periods, trendingUrl, type Language, type Period, type Repository } from './githubApi';
 
 const starCount = new Intl.NumberFormat('fr-FR');
 
@@ -32,14 +32,34 @@ function Filter<T extends string>({ value, selected, label, onSelect }: {
   );
 }
 
-function RepositoryCard({ repository, index, reduceMotion }: {
+function openGitHub(url: string) {
+  Linking.openURL(url).catch(() => {
+    Alert.alert('Ouverture impossible', 'Impossible d’ouvrir GitHub dans le navigateur.');
+  });
+}
+
+function TrendingLink({ period, language }: { period: Period; language: Language }) {
+  return (
+    <Pressable
+      accessibilityRole="link"
+      className="min-h-11 justify-center self-start rounded-lg border border-line px-4 active:bg-pressed"
+      onPress={() => openGitHub(trendingUrl(period.value, language))}
+    >
+      <Text className="font-semibold text-accent">Voir le classement sur GitHub</Text>
+    </Pressable>
+  );
+}
+
+function RepositoryCard({ repository, period, index, reduceMotion }: {
   repository: Repository;
+  period: Period;
   index: number;
   reduceMotion: boolean;
 }) {
   const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
   const language = repository.language;
-  const stars = starCount.format(repository.stargazers_count);
+  const totalStars = starCount.format(repository.totalStars);
+  const periodStars = starCount.format(repository.periodStars);
 
   return (
     <MotiView
@@ -51,17 +71,13 @@ function RepositoryCard({ repository, index, reduceMotion }: {
       <Pressable
         accessibilityRole="link"
         accessibilityHint="Ouvre le dépôt sur GitHub"
-        onPress={() => {
-          Linking.openURL(repository.html_url).catch(() => {
-            Alert.alert('Ouverture impossible', 'Impossible d’ouvrir ce dépôt dans le navigateur.');
-          });
-        }}
+        onPress={() => openGitHub(repository.url)}
         className="focus:border-ink web:focus-visible:border-ink mb-3 gap-3 rounded-xl border border-line bg-surface p-4 active:bg-raised"
       >
         <View className="flex-row items-start gap-3">
           <View className="flex-1">
             <Text className="text-item-title font-semibold text-ink">{repository.name}</Text>
-            <Text className="text-sm text-muted" numberOfLines={1}>{repository.owner.login}</Text>
+            <Text className="text-sm text-muted" numberOfLines={1}>{repository.owner}</Text>
           </View>
           <Ionicons name="open-outline" size={18} color={palette.muted} />
         </View>
@@ -72,10 +88,16 @@ function RepositoryCard({ repository, index, reduceMotion }: {
           <Text className="text-sm text-muted">{language || 'Non renseigné'}</Text>
           <View className="flex-row items-center gap-1.5">
             <Ionicons name="star" size={14} color={palette.muted} />
-            <Text accessibilityLabel={`${stars} étoiles`} className="text-sm font-semibold tabular-nums text-copy">
-              {stars}
+            <Text accessibilityLabel={`${totalStars} étoiles au total`} className="text-sm tabular-nums text-copy">
+              {totalStars}
             </Text>
           </View>
+          <Text
+            accessibilityLabel={`${periodStars} étoiles gagnées ${period.starsLabel}`}
+            className="text-sm font-semibold tabular-nums text-accent"
+          >
+            +{periodStars} {period.starsLabel}
+          </Text>
         </View>
       </Pressable>
     </MotiView>
@@ -97,7 +119,7 @@ function RepositoryList({ period, language }: { period: Period; language: Langua
       setRefreshing(false);
     }, 15000);
 
-    fetchRepositories(period, language, controller.signal)
+    fetchRepositories(period.value, language, controller.signal)
       .then((items) => {
         if (!controller.signal.aborted) setRepositories(items);
       })
@@ -129,9 +151,9 @@ function RepositoryList({ period, language }: { period: Period; language: Langua
     <FlatList
       className="mt-4 flex-1 px-5"
       data={repositories ?? undefined}
-      keyExtractor={(item) => String(item.id)}
+      keyExtractor={(item) => item.url}
       renderItem={({ item, index }) => (
-        <RepositoryCard repository={item} index={index} reduceMotion={reduceMotion} />
+        <RepositoryCard repository={item} period={period} index={index} reduceMotion={reduceMotion} />
       )}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => reload(true)} colors={[palette.cobalt]} />}
       ListHeaderComponent={error ? (
@@ -144,6 +166,7 @@ function RepositoryList({ period, language }: { period: Period; language: Langua
           >
             <Text className="font-semibold text-accent">Réessayer</Text>
           </Pressable>
+          <TrendingLink period={period} language={language} />
         </View>
       ) : undefined}
       ListEmptyComponent={error ? undefined : repositories === null ? (
@@ -167,8 +190,9 @@ function RepositoryList({ period, language }: { period: Period; language: Langua
 }
 
 export default function GithubScreen() {
-  const [period, setPeriod] = useState<Period>('week');
+  const [selectedPeriod, setSelectedPeriod] = useState<Period['value']>(periods[0].value);
   const [language, setLanguage] = useState<Language>('Tous');
+  const period = periods.find(({ value }) => value === selectedPeriod) ?? periods[0];
 
   return (
     <SafeAreaView edges={['left', 'right']} className="flex-1 bg-canvas">
@@ -177,11 +201,11 @@ export default function GithubScreen() {
           <Text accessibilityRole="header" className="text-screen-title font-semibold text-ink">
             GitHub Trends
           </Text>
-          <Text className="mb-5 mt-2 text-base text-muted">Nouveaux dépôts classés par étoiles.</Text>
+          <Text className="mb-5 mt-2 text-base text-muted">Classement officiel des dépôts tendance.</Text>
           <Text className="mb-1.5 text-xs font-semibold text-muted">Période</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-3 grow-0">
             {periods.map(({ value, label }) => (
-              <Filter key={value} value={value} label={label} selected={period} onSelect={setPeriod} />
+              <Filter key={value} value={value} label={label} selected={selectedPeriod} onSelect={setSelectedPeriod} />
             ))}
           </ScrollView>
           <Text className="mb-1.5 text-xs font-semibold text-muted">Langage</Text>
@@ -191,7 +215,13 @@ export default function GithubScreen() {
             ))}
           </ScrollView>
         </View>
-        <RepositoryList key={`${period}/${language}`} period={period} language={language} />
+        {Platform.OS === 'web' ? (
+          <View className="mt-4 px-5">
+            <TrendingLink period={period} language={language} />
+          </View>
+        ) : (
+          <RepositoryList key={`${selectedPeriod}/${language}`} period={period} language={language} />
+        )}
       </View>
     </SafeAreaView>
   );

@@ -1,5 +1,6 @@
 import { isYouTubeVideoId } from '../../shared/services/youtube';
 import { fetchFeedDocument, plainText, readFeedXml, record, text, values, webUrl } from '../feedXml';
+import { parseYouTubeChannel } from './youtubeChannel';
 
 export const categories = ['Films', 'Jeux Vidéo'] as const;
 export type Category = (typeof categories)[number];
@@ -32,18 +33,21 @@ function isYouTube(host: string) {
   return host === 'youtube.com' || host.endsWith('.youtube.com');
 }
 
+function youtubeChannelId(url: URL) {
+  if (!isYouTube(url.hostname)) return null;
+  const id = url.pathname === '/feeds/videos.xml'
+    ? url.searchParams.get('channel_id')
+    : url.pathname.match(/^\/channel\/(UC[\w-]{22})(?:\/|$)/)?.[1];
+  return id && channelIdPattern.test(id) ? id : null;
+}
+
 export function sourceUrl(value: string) {
   const address = webUrl(value);
   if (!address) return null;
   const url = new URL(address);
   url.hash = '';
-  if (isYouTube(url.hostname)) {
-    const id = url.pathname === '/feeds/videos.xml'
-      ? url.searchParams.get('channel_id')
-      : url.pathname.match(/^\/channel\/(UC[\w-]{22})(?:\/|$)/)?.[1];
-    if (id && channelIdPattern.test(id)) return channelFeed(id);
-  }
-  return url.href;
+  const id = youtubeChannelId(url);
+  return id ? channelFeed(id) : url.href;
 }
 
 export function isSource(value: unknown): value is TrailerSource {
@@ -142,6 +146,9 @@ export function parseTrailers(xml: string, source: TrailerSource, base = source.
 }
 
 export async function fetchTrailers(source: TrailerSource, signal: AbortSignal) {
+  const channelId = youtubeChannelId(new URL(source.url));
+  if (channelId) return fetchYouTubeTrailers(channelId, source, signal);
+
   const document = await fetchFeedDocument(source.url, signal);
   if (!/^\s*(?:<!doctype\s+html\b|<html\b)/i.test(document.body)) {
     return parseTrailers(document.body, source, document.url);
@@ -149,6 +156,21 @@ export async function fetchTrailers(source: TrailerSource, signal: AbortSignal) 
   const discovered = discoverFeed(document.body, document.url);
   if (!discovered || discovered === document.url) throw new Error('Aucun flux RSS ou Atom annoncé par ce site');
 
+  const discoveredChannel = youtubeChannelId(new URL(discovered));
+  if (discoveredChannel) return fetchYouTubeTrailers(discoveredChannel, source, signal);
+
   const feed = await fetchFeedDocument(discovered, signal);
   return parseTrailers(feed.body, source, feed.url);
+}
+
+async function fetchYouTubeTrailers(channelId: string, source: TrailerSource, signal: AbortSignal) {
+  try {
+    const feed = await fetchFeedDocument(channelFeed(channelId), signal, 5000);
+    return parseTrailers(feed.body, source, feed.url);
+  } catch (error) {
+    if (signal.aborted) throw error;
+  }
+
+  const page = await fetchFeedDocument(`https://www.youtube.com/channel/${channelId}/videos?hl=en`, signal);
+  return parseYouTubeChannel(page.body, source);
 }

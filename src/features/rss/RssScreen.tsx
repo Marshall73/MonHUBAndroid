@@ -1,10 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { MotiView } from 'moti';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { FeedHistoryActions } from '../../shared/components/FeedHistoryActions';
+import { useFeedHistory } from '../../shared/hooks/useFeedHistory';
 import palette from '../../theme.json';
 
 import { ArticleReaderModal } from './ArticleReaderModal';
@@ -12,11 +14,17 @@ import { FeedManager } from './FeedManager';
 import { loadFeedPreferences, saveFeedPreferences } from './feedPreferences';
 import { fetchArticles, relativeDate, type Article, type Feed } from './feeds';
 
-function ArticleCard({ article, index, reduceMotion, onOpen }: {
+function getArticleKey(article: Article) {
+  return article.url.split('#', 1)[0];
+}
+
+function ArticleCard({ article, index, read, reduceMotion, onOpen, onToggleRead }: {
   article: Article;
   index: number;
+  read: boolean;
   reduceMotion: boolean;
   onOpen: () => void;
+  onToggleRead?: () => void;
 }) {
   const timing = { type: 'timing' as const, duration: reduceMotion ? 0 : 160 };
 
@@ -27,23 +35,34 @@ function ArticleCard({ article, index, reduceMotion, onOpen }: {
       transition={{ opacity: timing }}
       delay={reduceMotion ? 0 : Math.min(index, 3) * 12}
     >
-      <Pressable
-        accessibilityRole="button"
-        accessibilityHint="Ouvre l’article dans le lecteur"
-        onPress={onOpen}
-        className="focus:border-ink web:focus-visible:border-ink mb-3 gap-2 rounded-xl border border-line bg-surface p-4 active:bg-raised"
-      >
-        <Text className="text-item-title font-semibold text-ink">{article.title}</Text>
-        <View className="flex-row flex-wrap items-center gap-x-3 gap-y-1">
-          <Text className="text-sm font-medium text-copy">
-            {article.feed.name}
-          </Text>
-          <Text className="text-xs text-muted">{relativeDate(article.timestamp)}</Text>
-        </View>
-        {article.summary !== '' && (
-          <Text className="text-sm leading-5 text-copy" numberOfLines={2}>{article.summary}</Text>
+      <View className="mb-3 flex-row items-start rounded-xl border border-line bg-surface pr-2">
+        <Pressable
+          accessibilityRole="button"
+          accessibilityHint="Ouvre l’article dans le lecteur"
+          onPress={onOpen}
+          className="focus:border-ink web:focus-visible:border-ink flex-1 gap-2 rounded-xl border border-transparent p-4 active:bg-raised"
+        >
+          <Text className={`text-item-title font-semibold ${read ? 'text-copy' : 'text-ink'}`}>{article.title}</Text>
+          <View className="flex-row flex-wrap items-center gap-x-3 gap-y-1">
+            <Text className="text-sm font-medium text-copy">{article.feed.name}</Text>
+            <Text className="text-xs text-muted">{relativeDate(article.timestamp)}</Text>
+            {read && <Text className="text-xs font-medium text-success">Lu</Text>}
+          </View>
+          {article.summary !== '' && (
+            <Text className="text-sm leading-5 text-copy" numberOfLines={2}>{article.summary}</Text>
+          )}
+        </Pressable>
+        {onToggleRead && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={read ? `Marquer « ${article.title} » comme non lu` : `Marquer « ${article.title} » comme lu`}
+            onPress={onToggleRead}
+            className="mt-2 h-11 w-11 items-center justify-center rounded-lg border border-transparent active:bg-pressed focus:border-ink web:focus-visible:border-ink"
+          >
+            <Ionicons name={read ? 'checkmark-circle' : 'checkmark-circle-outline'} size={22} color={read ? palette.success : palette.muted} />
+          </Pressable>
         )}
-      </Pressable>
+      </View>
     </MotiView>
   );
 }
@@ -116,9 +135,12 @@ export default function RssScreen() {
   const active = feeds?.filter((feed) => feed.active) ?? [];
   const visibleFeeds = active.filter((feed) => selected === null || feed.url === selected);
   const loading = feeds === null || refreshing || visibleFeeds.some((feed) => stored?.[feed.url] === undefined);
-  const articles = visibleFeeds
+  const articles = useMemo(() => (feeds ?? [])
+    .filter((feed) => feed.active && (selected === null || feed.url === selected))
     .flatMap((feed) => stored?.[feed.url] ?? [])
-    .sort((left, right) => (right.timestamp ?? Number.MIN_SAFE_INTEGER) - (left.timestamp ?? Number.MIN_SAFE_INTEGER));
+    .sort((left, right) => (right.timestamp ?? Number.MIN_SAFE_INTEGER) - (left.timestamp ?? Number.MIN_SAFE_INTEGER)),
+  [feeds, selected, stored]);
+  const history = useFeedHistory(articles, getArticleKey, 'rss/article-history');
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-canvas">
@@ -143,7 +165,11 @@ export default function RssScreen() {
                 return (
                   <Pressable
                     key={feed.url ?? 'all'} accessibilityRole="button" accessibilityState={{ selected: isSelected }}
-                    onPress={() => setSelected(feed.url)}
+                    onPress={() => {
+                      if (isSelected) return;
+                      history.hideArchived();
+                      setSelected(feed.url);
+                    }}
                     className={`focus:border-ink web:focus-visible:border-ink active:bg-pressed mr-2 min-h-11 justify-center rounded-lg border px-3 ${isSelected ? 'border-accent bg-selection' : 'border-line bg-chrome'}`}
                   >
                     <Text className={`text-sm font-semibold ${isSelected ? 'text-accent' : 'text-copy'}`}>
@@ -154,14 +180,24 @@ export default function RssScreen() {
               })}
             </ScrollView>
           )}
+          {active.length > 0 && (
+            <FeedHistoryActions history={history} clearLabel="Effacer les lus" reduceMotion={reduceMotion} />
+          )}
         </View>
 
         <FlatList
+          {...history.listProps}
           className="flex-1 px-5"
-          data={articles}
           keyExtractor={(article) => JSON.stringify([article.feed.url, article.url])}
           renderItem={({ item, index }) => (
-            <ArticleCard article={item} index={index} reduceMotion={reduceMotion} onOpen={() => setOpenArticle(item)} />
+            <ArticleCard
+              article={item} index={index} read={history.isSeen(item)} reduceMotion={reduceMotion}
+              onOpen={() => {
+                history.markSeen(item);
+                setOpenArticle(item);
+              }}
+              onToggleRead={history.canMark ? () => history.toggleSeen(item) : undefined}
+            />
           )}
           refreshControl={
             <RefreshControl
@@ -194,7 +230,7 @@ export default function RssScreen() {
             <Text className="rounded-xl border border-line bg-surface p-4 text-copy">
               {active.length === 0
                 ? 'Ajoutez ou activez une source avec le bouton +.'
-                : 'Aucun article disponible.'}
+                : history.hasArchived ? 'Tous les articles de ce fil ont été effacés.' : 'Aucun article disponible.'}
             </Text>
           )}
         />
